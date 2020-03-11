@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:36:40 by tamigore          #+#    #+#             */
-/*   Updated: 2020/03/02 20:40:17 by tamigore         ###   ########.fr       */
+/*   Updated: 2020/03/10 14:32:13 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,78 +22,95 @@ void		pars(char *txt, t_env **env)
 	{
 		if ((*env)->cam)
 		{
-			(*env)->cam->next = camera(txt);
+			if (!((*env)->cam->next = camera(txt)))
+				fast_exit("Error n: camera", FAILURE);
 			(*env)->cam->next->prev = (*env)->cam;
 			(*env)->cam = (*env)->cam->next;
 		}
-		(*env)->cam = camera(txt);
+		else
+			if (!((*env)->cam = camera(txt)))
+				fast_exit("Error n: camera", FAILURE);
 	}
 	else if (txt[0] == 'l' && txt[1] == ' ')
 	{
 		if ((*env)->lum)
 		{
-			(*env)->lum->next = lumiere(txt);
+			if (!((*env)->lum->next = lumiere(txt)))
+				fast_exit("Error n: lumiere", FAILURE);
 			(*env)->lum->next->prev = (*env)->lum;
 			(*env)->lum = (*env)->lum->next;
 		}
-		(*env)->lum = lumiere(txt);
+		else
+			if (!((*env)->lum = lumiere(txt)))
+				fast_exit("Error n: lumiere", FAILURE);
 	}
 	else if (txt[0] == 'c' && txt[1] == 'y' && txt[2] == ' ')
 	{
 		if ((*env)->cyl)
 		{
-			(*env)->cyl->next = cylindre(txt);
+			if (!((*env)->cyl->next = cylindre(txt)))
+				fast_exit("Error n: cylindre", FAILURE);
 			(*env)->cyl->next->prev = (*env)->cyl;
 			(*env)->cyl = (*env)->cyl->next;
 		}
-		(*env)->cyl = cylindre(txt);
+		else
+			if (!((*env)->cyl = cylindre(txt)))
+				fast_exit("Error n: cylindre", FAILURE);
 	}
 	else if (txt[0] == 't' && txt[1] == 'r' && txt[2] == ' ')
 	{
 		if ((*env)->tri)
 		{
-			(*env)->tri->next = triangle(txt);
+			if (!((*env)->tri->next = triangle(txt)))
+				fast_exit("Error n: triangle", FAILURE);
 			(*env)->tri->next->prev = (*env)->tri;
 			(*env)->tri = (*env)->tri->next;
 		}
-		(*env)->tri = triangle(txt);
+		else
+			if (!((*env)->tri = triangle(txt)))
+				fast_exit("Error n: triangle", FAILURE);
 	}
 	else if (txt[0] == 's' && txt[1] == 'q' && txt[2] == ' ')
 	{
 		if ((*env)->car)
 		{
-			(*env)->car->next = carre(txt);
+			if (!((*env)->car->next = carre(txt)))
+				fast_exit("Error n: carre", FAILURE);
 			(*env)->car->next->prev = (*env)->car;
 			(*env)->car = (*env)->car->next;
 		}
-		(*env)->car = carre(txt);
+		else
+			if (!((*env)->car = carre(txt)))
+				fast_exit("Error n: carre", FAILURE);
 	}
 	else if (txt[0] == 'p' && txt[1] == 'l' && txt[2] == ' ')
 	{
 		if ((*env)->pla)
 		{
-			(*env)->pla->next = plane(txt);
+			if (!((*env)->pla->next = plane(txt)))
+				fast_exit("Error n: plane", FAILURE);
 			(*env)->pla->next->prev = (*env)->pla;
 			(*env)->pla = (*env)->pla->next;
 		}
-		(*env)->pla = plane(txt);
+		else
+			if (!((*env)->pla = plane(txt)))
+				fast_exit("Error n: plane", FAILURE);
 	}
 	else if (txt[0] == 's' && txt[1] == 'p' && txt[2] == ' ')
 	{
 		if ((*env)->sph)
 		{
-			(*env)->sph->next = sphere(txt);
+			if (!((*env)->sph->next = sphere(txt)))
+				fast_exit("Error n: sphere", FAILURE);
 			(*env)->sph->next->prev = (*env)->sph;
 			(*env)->sph = (*env)->sph->next;
 		}
-		(*env)->sph = sphere(txt);
+		else
+			if (!((*env)->sph = sphere(txt)))
+				fast_exit("Error n: sphere", FAILURE);
 	}
 	else
-	{
-		printf("%s\n", txt);
-		perror("Error n: scenes");
-		exit(FAILURE);
-	}
+		fast_exit("Error n: scenes", FAILURE);
 }
 
 t_res		*resolution(char *txt)

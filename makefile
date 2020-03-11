@@ -6,7 +6,7 @@
 #    By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/19 16:16:11 by tamigore          #+#    #+#              #
-#    Updated: 2020/01/28 18:56:05 by tamigore         ###   ########.fr        #
+#    Updated: 2020/03/11 17:56:50 by tamigore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,11 @@ DIR_O = objs
 
 HEADER = includes
 
-SOURCES = miniRT.c \
-		  parsing.c \
-		  conv_nb.c
+SOURCES = miniRT.c	\
+		  parsing.c	\
+		  conv_nb.c	\
+		  mlx.c		\
+		  utils.c
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 

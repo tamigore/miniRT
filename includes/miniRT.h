@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:30:18 by tamigore          #+#    #+#             */
-/*   Updated: 2020/03/02 20:42:32 by tamigore         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:37:21 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@
 
 typedef struct		s_cam
 {
-	float			x;
-	float			y;
-	float			z;
+	double			x;
+	double			y;
+	double			z;
 	int				fov;
-	float			vx;
-	float			vy;
-	float			vz;
+	double			vx;
+	double			vy;
+	double			vz;
 	struct s_cam	*next;
 	struct s_cam	*prev;
 }					t_cam;
@@ -48,10 +48,10 @@ typedef struct		s_res
 
 typedef struct		s_lum
 {
-	float			x;
-	float			y;
-	float			z;
-	float			l;
+	double			x;
+	double			y;
+	double			z;
+	double			l;
 	int				R;
 	int				G;
 	int				B;
@@ -64,17 +64,17 @@ typedef struct		s_amb
 	int				R;
 	int				G;
 	int				B;
-	float			l;
+	double			l;
 }					t_amb;
 
 typedef struct		s_pla
 {
-	float			x;
-	float			y;
-	float			z;
-	float			vx;
-	float			vy;
-	float			vz;
+	double			x;
+	double			y;
+	double			z;
+	double			vx;
+	double			vy;
+	double			vz;
 	int				R;
 	int				G;
 	int				B;
@@ -84,13 +84,13 @@ typedef struct		s_pla
 
 typedef struct		s_car
 {
-	float			x;
-	float			y;
-	float			z;
-	float			h;
-	float			vx;
-	float			vy;
-	float			vz;
+	double			x;
+	double			y;
+	double			z;
+	double			h;
+	double			vx;
+	double			vy;
+	double			vz;
 	int				R;
 	int				G;
 	int				B;
@@ -100,14 +100,14 @@ typedef struct		s_car
 
 typedef struct		s_cyl
 {
-	float			x;
-	float			y;
-	float			z;
-	float			h;
-	float			d;
-	float			vx;
-	float			vy;
-	float			vz;
+	double			x;
+	double			y;
+	double			z;
+	double			h;
+	double			d;
+	double			vx;
+	double			vy;
+	double			vz;
 	int				R;
 	int				G;
 	int				B;
@@ -117,15 +117,15 @@ typedef struct		s_cyl
 
 typedef struct		s_tri
 {
-	float			x1;
-	float			y1;
-	float			z1;
-	float			x2;
-	float			y2;
-	float			z2;
-	float			x3;
-	float			y3;
-	float			z3;
+	double			x1;
+	double			y1;
+	double			z1;
+	double			x2;
+	double			y2;
+	double			z2;
+	double			x3;
+	double			y3;
+	double			z3;
 	int				R;
 	int				G;
 	int				B;
@@ -135,16 +135,31 @@ typedef struct		s_tri
 
 typedef struct		s_sph
 {
-	float			x;
-	float			y;
-	float			z;
-	float			d;
+	double			x;
+	double			y;
+	double			z;
+	double			d;
 	int				R;
 	int				G;
 	int				B;
 	struct s_sph	*next;
 	struct s_sph	*prev;
 }					t_sph;
+
+typedef struct		s_mlx
+{
+	void			*ptr;
+	void			*win;
+	void			*ima;
+	char			*adr;
+}					t_mlx;
+
+typedef struct		s_vect
+{
+	double	x;
+	double	y;
+	double	z;
+}					t_vect;
 
 typedef struct		s_env
 {
@@ -157,6 +172,7 @@ typedef struct		s_env
 	struct s_tri	*tri;
 	struct s_cyl	*cyl;
 	struct s_sph	*sph;
+	struct s_mlx	*mlx;
 }					t_env;
 
 /*
@@ -165,8 +181,8 @@ typedef struct		s_env
 
 t_env		*init_env(char *av);
 void		pars(char *txt, t_env **env);
+void 		reset_env(t_env **env);
 void		print_env(t_env *env);
-int			correct_line(char *txt);
 
 /*
 ** OBJ
@@ -189,5 +205,19 @@ t_sph		*sphere(char *txt);
 double		str_to_double(char *str, int *i);
 long long	str_to_long(char *str, int *i);
 unsigned	str_to_unsigned(char *str, int len);
+
+/*
+** mlx.c
+*/
+
+int			mlx_creat_all(t_env **env);
+
+/*
+** utils.c
+*/
+
+int			rgb2color(int R, int G, int B);
+int			correct_line(char *txt);
+void		fast_exit(char *str, int i);
 
 #endif
