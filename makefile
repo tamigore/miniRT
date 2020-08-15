@@ -10,52 +10,70 @@
 #                                                                              #
 # **************************************************************************** #
 
-C = clang
-
 NAME = miniRT
 
-FLAGS = -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit -L libft -lft -O3
+LIB = lib/
 
-LIBFT = libft
+LIBFT = $(LIB)libft
 
-DIR_S = srcs
+DIR_S = srcs/
 
-DIR_O = objs
+DIR_O = objs/
 
-HEADER = includes
+HEADER = includes/
 
 SOURCES = miniRT.c	\
-		  parsing.c	\
-		  conv_nb.c	\
-		  mlx.c		\
-		  utils.c
+		parsing.c	\
+		conv_nb.c	\
+		utils.c		\
+		mlx.c
 
-SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
+SRCS = $(addprefix $(DIR_S),$(SOURCES))
 
-OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
+OBJS = $(SRCS:.c=.o)
+
+CFLAGS = -Wall -Werror -Wextra -I $(HEADER) -D NUM_THREADS=$(NUM_THREADS)
+
+FLAGS = -L $(LIB)libft -lft
+
+MACOS_MACRO = -D MACOS
+
+LINUX_MACRO = -D LINUX
+
+MACOS_FLAGS = -L $(LIB)minilibx_opengl_20191021 -mlx -framework Appkit
+
+LINUX_FLAGS = -L $(LIB)minilibx-linux -lmlx -lm -lX11 -lXext -lpthread
+
+UNAME := $(shell uname)
+
+ifeq ($(UNAME),Darwin)
+	NUM_THREADS = $(shell sysctl -n hw.ncpu)
+	CFLAGS += $(MACOS_MACRO)
+	FLAGS += $(MACOS_FLAGS)
+endif
+ifeq ($(UNAME),Linux)
+	NUM_THREADS = $(shell nproc --all)
+        CFLAGS += $(LINUX_MACRO)
+        FLAGS += $(LINUX_FLAGS)
+endif
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(HEADER)
 	make -C $(LIBFT)
-	$(CC) $(FLAGS) -I $(HEADER) $(OBJS) -o $@
-
-$(DIR_O)/%.o: $(DIR_S)/%.c $(HEADER)/miniRT.h
-	mkdir -p objs
-	$(CC) $(FLAGS) -I $(HEADER) -o $@ -c $<
+	gcc -g $(CFLAGS) $(OBJS) $(FLAGS) -o $(NAME)
 
 norme:
-	norminette ./libft/
+	norminette ./$(LIB)
 	@echo
-	norminette ./$(HEADER)/
+	norminette ./$(HEADER)
 	@echo
-	norminette ./$(DIR_S)/
+	norminette ./$(DIR_S)
 
 bonus: all
 
 clean:
 	@rm -f $(OBJS)
-	@rm -rf $(DIR_O)
 	@make clean -C $(LIBFT)
 
 fclean: clean

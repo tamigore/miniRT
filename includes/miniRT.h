@@ -17,12 +17,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "mlx.h"
-#include "../libft/libft.h"
+#include "libft.h"
+#include "libgeo.h"
 #include <math.h>
 #include <stdio.h>
 
-#define DISPLAY_X 2560
-#define DISPLAY_Y 1440
+#define DISPLAY_X 1200	//2560
+#define DISPLAY_Y 800	//1440
 #define FAILURE -1
 #define SUCCESS 1
 #define END 0
@@ -154,12 +155,12 @@ typedef struct		s_mlx
 	char			*adr;
 }					t_mlx;
 
-typedef struct		s_vect
+typedef struct		s_vec
 {
 	double	x;
 	double	y;
 	double	z;
-}					t_vect;
+}			t_vec;
 
 typedef struct		s_env
 {
@@ -211,6 +212,8 @@ unsigned	str_to_unsigned(char *str, int len);
 */
 
 int			mlx_creat_all(t_env **env);
+int			win_pixel(t_env *env, int x, int y);
+int			color(t_env *env, int x, int y);
 
 /*
 ** utils.c

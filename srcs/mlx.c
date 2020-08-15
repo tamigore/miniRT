@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "miniRT.h"
 
 int		mlx_creat_all(t_env **env)
 {
@@ -32,5 +32,42 @@ int		mlx_creat_all(t_env **env)
 	if (!((*env)->mlx->adr = mlx_get_data_addr((*env)->mlx->ima,
 		&bpp, &size_line, &endian)))
 		return (FAILURE);
-	return (1);
+	return(win_pixel(*env, 0, 0));
+}
+
+int		win_pixel(t_env *env, int x, int y)
+{
+	while (y < env->res->y)
+	{
+		x = 0;
+		while (x < env->res->x)
+		{
+			if (!(mlx_pixel_put(env->mlx->ptr, env->mlx->win, x, y,
+				color(env, x, y))))
+				return (FAILURE);
+			x++;
+		}
+		y++;
+	}
+	return (SUCCESS);
+}
+
+int		color(t_env *env, int x, int y)
+{
+	float	NDCx;
+	float	NDCy;
+	float	Sx;
+	float	Sy;
+	float	ratio;
+	float	Camx;
+	float	Camy;
+
+	NDCx = (x + 0.5) / env->res->x;
+	NDCy = (y + 0.5) / env->res->y;
+	Sx = 2 * NDCx - 1;
+	Sy = 1 - 2 * NDCy;
+	ratio = env->res->x / env->res->y;
+	Camx = (2 * Sx - 1) * ratio;
+	Camy = 1 - 2 * Sy;
+	return (250);
 }

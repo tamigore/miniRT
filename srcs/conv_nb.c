@@ -15,7 +15,7 @@
 unsigned	str_to_unsigned(char *str, int len)
 {
 	unsigned	nb;
-	size_t		i;
+	int		i;
 
 	i = 0;
 	nb = 0;
