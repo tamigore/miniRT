@@ -18,8 +18,6 @@ LIBFT = $(LIB)libft
 
 DIR_S = srcs/
 
-DIR_O = objs/
-
 HEADER = includes/
 
 SOURCES = miniRT.c	\
