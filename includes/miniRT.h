@@ -155,13 +155,6 @@ typedef struct		s_mlx
 	char			*adr;
 }					t_mlx;
 
-typedef struct		s_vec
-{
-	double	x;
-	double	y;
-	double	z;
-}			t_vec;
-
 typedef struct		s_env
 {
 	struct s_cam	*cam;
@@ -211,16 +204,16 @@ unsigned	str_to_unsigned(char *str, int len);
 ** mlx.c
 */
 
-int			mlx_creat_all(t_env **env);
-int			win_pixel(t_env *env, int x, int y);
-int			color(t_env *env, int x, int y);
+int		mlx_creat_all(t_env **env);
+int		win_pixel(t_env *env, int x, int y);
+t_v3		cam_pixel(t_env *env, int x, int y);
 
 /*
 ** utils.c
 */
 
-int			rgb2color(int R, int G, int B);
-int			correct_line(char *txt);
+int		rgb2color(int R, int G, int B);
+int		correct_line(char *txt);
 void		fast_exit(char *str, int i);
 
 #endif

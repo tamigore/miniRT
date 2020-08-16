@@ -37,37 +37,42 @@ int		mlx_creat_all(t_env **env)
 
 int		win_pixel(t_env *env, int x, int y)
 {
+	t_v3	cam;
+	t_v3	cam2;
+
 	while (y < env->res->y)
 	{
 		x = 0;
 		while (x < env->res->x)
 		{
-			if (!(mlx_pixel_put(env->mlx->ptr, env->mlx->win, x, y,
-				color(env, x, y))))
-				return (FAILURE);
+		//	if (!(mlx_pixel_put(env->mlx->ptr, env->mlx->win, x, y,
+		//		color(env, x, y))))
+		//		return (FAILURE);
+			cam = cam_pixel(env, x, y);
 			x++;
 		}
 		y++;
 	}
+	cam2 = v_init(env->cam->vx, env->cam->vy, env->cam->vz);
+	printf("%f/%f/%f // %f/%f/%f\n", cam.x, cam.y, cam.z, cam2.x, cam2.y, cam2.z);
 	return (SUCCESS);
 }
 
-int		color(t_env *env, int x, int y)
+t_v3		cam_pixel(t_env *env, int x, int y)
 {
-	float	NDCx;
-	float	NDCy;
-	float	Sx;
-	float	Sy;
-	float	ratio;
-	float	Camx;
-	float	Camy;
+	t_v3	vec;
+	double	ratio;
+	double	Px;
+	double	Py;
 
-	NDCx = (x + 0.5) / env->res->x;
-	NDCy = (y + 0.5) / env->res->y;
-	Sx = 2 * NDCx - 1;
-	Sy = 1 - 2 * NDCy;
 	ratio = env->res->x / env->res->y;
-	Camx = (2 * Sx - 1) * ratio;
-	Camy = 1 - 2 * Sy;
-	return (250);
+	Px = (2 * ((x + 0.5) / env->res->x) - 1) * ratio *
+		sin(rad(env->cam->fov)/2) / cos(rad(env->cam->fov)/2);
+	Py = (1 - (2 * (y + 0.5) / env->res->y)) * sin(rad(env->cam->fov)/2) /
+		cos(rad(env->cam->fov)/2);
+	vec.x = Px;
+	vec.y = Py;
+	vec.z = -1;
+	return (vec);
 }
+

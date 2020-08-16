@@ -16,6 +16,8 @@ LIB = lib/
 
 LIBFT = $(LIB)libft
 
+LIBGEO = $(LIB)libgeo
+
 DIR_S = srcs/
 
 HEADER = includes/
@@ -32,7 +34,7 @@ OBJS = $(SRCS:.c=.o)
 
 CFLAGS = -Wall -Werror -Wextra -I $(HEADER) -D NUM_THREADS=$(NUM_THREADS)
 
-FLAGS = -L $(LIB)libft -lft
+FLAGS = -L $(LIBFT) -lft -L $(LIBGEO) -lgeo
 
 MACOS_MACRO = -D MACOS
 
@@ -59,6 +61,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADER)
 	make -C $(LIBFT)
+	make -C $(LIBGEO)
 	gcc -g $(CFLAGS) $(OBJS) $(FLAGS) -o $(NAME)
 
 norme:
@@ -73,9 +76,11 @@ bonus: all
 clean:
 	@rm -f $(OBJS)
 	@make clean -C $(LIBFT)
+	@make clean -C $(LIBGEO)
 
 fclean: clean
 	@rm -f $(NAME)
 	@make fclean -C $(LIBFT)
+	@make fclean -C $(LIBGEO)
 
 re: fclean all
