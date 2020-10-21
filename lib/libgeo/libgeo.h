@@ -36,5 +36,6 @@ t_v3	v_add(t_v3 a, t_v3 b);
 t_v3	v_sub(t_v3 a, t_v3 b);
 double	v_dot(t_v3 a, t_v3 b);
 t_v3	v_cross(t_v3 a, t_v3 b);
+t_v3	v_multi(double x, t_v3 a);
 
 #endif

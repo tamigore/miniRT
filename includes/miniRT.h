@@ -22,6 +22,7 @@
 #include <math.h>
 #include <stdio.h>
 
+#define MAX_DEPTH 100
 #define DISPLAY_X 1200	//2560
 #define DISPLAY_Y 800	//1440
 #define FAILURE -1

@@ -44,3 +44,13 @@ t_v3	v_cross(t_v3 a, t_v3 b)
 	vec.z = a.x * b.y - a.y * b.x;
 	return (vec);
 }
+
+t_v3	v_multi(double x, t_v3 a)
+{
+	t_v3	vec;
+
+	vec.x = a.x * x;
+	vec.y = a.y * x;
+	vec.z = a.z * x;
+	return (vec);
+}

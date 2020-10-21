@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 
-int		mlx_creat_all(t_env **env)
+int	mlx_creat_all(t_env **env)
 {
 	int	bpp;
 	int	size_line;
@@ -35,44 +35,57 @@ int		mlx_creat_all(t_env **env)
 	return(win_pixel(*env, 0, 0));
 }
 
-int		win_pixel(t_env *env, int x, int y)
+int	win_pixel(t_env *env, int x, int y)
 {
-	t_v3	cam;
-	t_v3	cam2;
+	t_v3	O;
+	t_v3	D;
+	int	x;
+	int	y;
+	int	color;
 
-	while (y < env->res->y)
+	x = 0;
+	y = 0;
+	O = v_init(env->cam->x,env->cam->y, env->cam->z);
+	while (x < env->res->x)
 	{
-		x = 0;
-		while (x < env->res->x)
+		while (y < env->res->y)
 		{
-		//	if (!(mlx_pixel_put(env->mlx->ptr, env->mlx->win, x, y,
-		//		color(env, x, y))))
-		//		return (FAILURE);
-			cam = cam_pixel(env, x, y);
-			x++;
+			D = canvas2view(x, y)
+			color = trace_ray(O, D)
+			mls_pixelput(env->mlx->ptr, env->mlx->win, x, y, color);
 		}
-		y++;
 	}
-	cam2 = v_init(env->cam->vx, env->cam->vy, env->cam->vz);
-	printf("%f/%f/%f // %f/%f/%f\n", cam.x, cam.y, cam.z, cam2.x, cam2.y, cam2.z);
-	return (SUCCESS);
 }
 
-t_v3		cam_pixel(t_env *env, int x, int y)
+t_v3	canvas2view(x, y)
+
+int	trace_ray(t_v3 O, t_v3 D)
 {
-	t_v3	vec;
-	double	ratio;
-	double	Px;
-	double	Py;
-
-	ratio = env->res->x / env->res->y;
-	Px = (2 * ((x + 0.5) / env->res->x) - 1) * ratio *
-		sin(rad(env->cam->fov)/2) / cos(rad(env->cam->fov)/2);
-	Py = (1 - (2 * (y + 0.5) / env->res->y)) * sin(rad(env->cam->fov)/2) /
-		cos(rad(env->cam->fov)/2);
-	vec.x = Px;
-	vec.y = Py;
-	vec.z = -1;
-	return (vec);
+	
 }
 
+int	color_sph(t_env *env, t_v3 O, t_v3 D)
+{
+	t_v3	C;
+	t_v3	OC;
+	double	a;
+	double	b;
+	double	c;
+	double	t1;
+	double	t2;
+	double	t;
+
+	C = v_init(env->sph->x, env->sph->y, env->sph->z);
+	OC = v_sub(D, O);
+	a = v_dot(D, D);
+	b = 2 * v_dot(OC, D);
+	c = v_dot(OC, OC) - (env->sph->d / 2) * (env->sph->d / 2);
+	t1 = (-b + sqrt(b*b - 4 * a * c)) / (2 * a);
+	t2 = (-b - sqrt(b*b - 4 * a * c)) / (2 * a);
+	if (t1 > 1 && t1 <= t2)
+		return (rgb2color(env->sph->R, env->sph->G, env->sph->B));
+	else if (t2 > 1 && t2 <= t1)
+		return (rgb2color(env->sph->R, env->sph->G, env->sph->B));
+	else
+		return (color(NULL))
+}
