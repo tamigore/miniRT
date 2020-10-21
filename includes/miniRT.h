@@ -207,7 +207,9 @@ unsigned	str_to_unsigned(char *str, int len);
 
 int		mlx_creat_all(t_env **env);
 int		win_pixel(t_env *env, int x, int y);
-t_v3		cam_pixel(t_env *env, int x, int y);
+t_v3		canvas2view(t_env *env, int x, int y);
+int		trace_ray(t_env *env, t_v3 O, t_v3 D);
+int		color_sph(t_env *env, t_v3 O, t_v3 D);
 
 /*
 ** utils.c
