@@ -16,8 +16,9 @@ FLAGS = -Wall -Wextra -Werror
 
 INC = libgeo.h
 
-SRC = rad.c	\
-      vector.c
+SRC =	vector.c	\
+		vector_2.c	\
+		angles.c
 
 OBJ = $(SRC:.c=.o)
 

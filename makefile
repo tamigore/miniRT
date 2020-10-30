@@ -22,11 +22,13 @@ DIR_S = srcs/
 
 HEADER = includes/
 
-SOURCES = miniRT.c	\
-		parsing.c	\
-		conv_nb.c	\
-		utils.c		\
-		mlx.c
+SOURCES =	miniRT.c	\
+			parsing.c	\
+			conv_nb.c	\
+			utils.c		\
+			mlx.c		\
+			matrix.c	\
+			intersect.c
 
 SRCS = $(addprefix $(DIR_S),$(SOURCES))
 

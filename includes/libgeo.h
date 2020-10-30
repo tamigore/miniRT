@@ -20,22 +20,29 @@
 
 typedef struct	s_v3
 {
-	double	x;
-	double	y;
-	double	z;
-}		t_v3;
-
-//RAD.C
-
-double		rad(int deg);
+	double		x;
+	double		y;
+	double		z;
+}				t_v3;
 
 //VECTOR.C
 
-t_v3	v_init(double x, double y, double z);
-t_v3	v_add(t_v3 a, t_v3 b);
-t_v3	v_sub(t_v3 a, t_v3 b);
-double	v_dot(t_v3 a, t_v3 b);
-t_v3	v_cross(t_v3 a, t_v3 b);
-t_v3	v_multi(double x, t_v3 a);
+t_v3			v_init(double x, double y, double z);
+t_v3			v_add(t_v3 a, t_v3 b);
+t_v3			v_sub(t_v3 a, t_v3 b);
+t_v3			v_cross(t_v3 a, t_v3 b);
+t_v3			v_multi(double x, t_v3 a);
+
+//VECTOR_2.C
+
+t_v3			v_prod(t_v3 a, t_v3 b);
+double			v_len(t_v3 v);
+t_v3			v_norm(t_v3 vec);
+double			v_dot(t_v3 a, t_v3 b);
+
+//ANGLES.C
+
+double			rad(int deg);
+double			tan(double x);
 
 #endif

@@ -21,13 +21,14 @@
 #include "libgeo.h"
 #include <math.h>
 #include <stdio.h>
+#include <stdarg.h>
 
-#define MAX_DEPTH 100
 #define DISPLAY_X 1200	//2560
 #define DISPLAY_Y 800	//1440
 #define FAILURE -1
 #define SUCCESS 1
 #define END 0
+#define MAX_DEPH 10000000000000000000000000000000000000
 
 typedef struct		s_cam
 {
@@ -38,6 +39,7 @@ typedef struct		s_cam
 	double			vx;
 	double			vy;
 	double			vz;
+	double			**mat;
 	struct s_cam	*next;
 	struct s_cam	*prev;
 }					t_cam;
@@ -57,6 +59,7 @@ typedef struct		s_lum
 	int				R;
 	int				G;
 	int				B;
+	int				color;
 	struct s_lum	*next;
 	struct s_lum	*prev;
 }					t_lum;
@@ -66,6 +69,7 @@ typedef struct		s_amb
 	int				R;
 	int				G;
 	int				B;
+	int				color;
 	double			l;
 }					t_amb;
 
@@ -80,6 +84,7 @@ typedef struct		s_pla
 	int				R;
 	int				G;
 	int				B;
+	int				color;
 	struct s_pla	*next;
 	struct s_pla	*prev;
 }					t_pla;
@@ -96,6 +101,7 @@ typedef struct		s_car
 	int				R;
 	int				G;
 	int				B;
+	int				color;
 	struct s_car	*next;
 	struct s_car	*prev;
 }					t_car;
@@ -113,6 +119,7 @@ typedef struct		s_cyl
 	int				R;
 	int				G;
 	int				B;
+	int				color;
 	struct s_cyl	*next;
 	struct s_cyl	*prev;
 }					t_cyl;
@@ -131,6 +138,7 @@ typedef struct		s_tri
 	int				R;
 	int				G;
 	int				B;
+	int				color;
 	struct s_tri	*next;
 	struct s_tri	*prev;
 }					t_tri;
@@ -141,9 +149,11 @@ typedef struct		s_sph
 	double			y;
 	double			z;
 	double			d;
+	double			r;
 	int				R;
 	int				G;
 	int				B;
+	int				color;
 	struct s_sph	*next;
 	struct s_sph	*prev;
 }					t_sph;
@@ -205,18 +215,35 @@ unsigned	str_to_unsigned(char *str, int len);
 ** mlx.c
 */
 
-int		mlx_creat_all(t_env **env);
-int		win_pixel(t_env *env, int x, int y);
+int			mlx_creat_all(t_env **env);
+int			win_pixel(t_env *env, int x, int y);
 t_v3		canvas2view(t_env *env, int x, int y);
-int		trace_ray(t_env *env, t_v3 O, t_v3 D);
-int		color_sph(t_env *env, t_v3 O, t_v3 D);
+t_v3		vector_direct(int fov, int resX, int resY, int x, int y);
+int			trace_ray(t_env *env, t_v3 O, t_v3 D);
+
+/*
+** intersect.c
+*/
+
+int			color_sph(t_env *env, t_v3 O, t_v3 D);
 
 /*
 ** utils.c
 */
 
-int		rgb2color(int R, int G, int B);
-int		correct_line(char *txt);
+int			rgb2color(int R, int G, int B);
+int			correct_line(char *txt);
 void		fast_exit(char *str, int i);
+double		MaxVal(int nb, ...);
+void		swap(double *x, double *y);
+
+/*
+** matrix.c
+*/
+
+double		**lookAt(double **cam2world, t_v3 to, t_v3 from, t_v3 pos);
+double		**matrix44_init();
+void		matrix_row(double a, double b, double c, double d, double *M);
+t_v3		vecXmat(t_v3 vec, double **M);
 
 #endif

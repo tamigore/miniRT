@@ -32,3 +32,35 @@ void	fast_exit(char *str, int i)
 	perror(str);
 	exit(i);
 }
+
+double	MaxVal(int nb, ...)
+{
+	double	i;
+	double	*x;
+	va_list	param;
+
+	i = 0;
+	if (!(x = (double *)malloc(sizeof(double) * nb)))
+		return (NAN);
+	va_start(param, nb);
+	while (i < nb)
+		x[(int)i++] = va_arg(param, double);
+	va_end(param);
+	i = *x;
+	while (nb-- > 0)
+	{
+		if (i < *x)
+			i = *x;
+		x;
+	}
+	return (i);
+}
+
+void	swap(double *x, double *y)
+{
+	double	tmp;
+
+	tmp = *x;
+	*x = *y;
+	*y = tmp;
+}

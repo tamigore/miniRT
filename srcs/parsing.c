@@ -148,6 +148,7 @@ t_amb		*ambiance(char *txt)
 	amb->R = str_to_long(txt, &i);
 	amb->G = str_to_long(txt, &i);
 	amb->B = str_to_long(txt, &i);
+	amb->color = rgb2color(amb->R, amb->G, amb->B);
 	if (amb->R > 255 || amb->G > 255 || amb->B > 255 || amb->l > 1 ||
 		amb->R < 0 || amb->G < 0 || amb->B < 0 || amb->l < 0)
 	{
@@ -173,10 +174,11 @@ t_cam		*camera(char *txt)
 	cam->vy = str_to_double(txt, &i);
 	cam->vz = str_to_double(txt, &i);
 	cam->fov = str_to_long(txt, &i);
+	cam->mat = matrix44_init();
 	cam->next = NULL;
 	cam->prev = NULL;
 	if (cam->vx > 1 || cam->vy > 1 || cam->vz > 1 || cam->fov > 180 ||
-		cam->vx < -1 || cam->vy < -1 || cam->vz < -1 || cam->fov < 0)
+		cam->vx < -1 || cam->vy < -1 || cam->vz < -1 || cam->fov < 0 || !cam->mat)
 	{
 		free(cam);
 		perror("Error n: camera");
@@ -200,6 +202,7 @@ t_lum		*lumiere(char *txt)
 	lum->R = str_to_long(txt, &i);
 	lum->G = str_to_long(txt, &i);
 	lum->B = str_to_long(txt, &i);
+	lum->color = rgb2color(lum->R, lum->G, lum->B);
 	lum->next = NULL;
 	lum->prev = NULL;
 	if (lum->R > 255 || lum->G > 255 || lum->B > 255 || lum->l > 1 ||
@@ -229,6 +232,7 @@ t_cyl		*cylindre(char *txt)
 	cyl->R = str_to_long(txt, &i);
 	cyl->G = str_to_long(txt, &i);
 	cyl->B = str_to_long(txt, &i);
+	cyl->color = rgb2color(cyl->R, cyl->G, cyl->B);
 	cyl->h = str_to_double(txt, &i);
 	cyl->d = str_to_double(txt, &i);
 	cyl->next = NULL;
@@ -264,6 +268,7 @@ t_tri		*triangle(char *txt)
 	tri->R = str_to_long(txt, &i);
 	tri->G = str_to_long(txt, &i);
 	tri->B = str_to_long(txt, &i);
+	tri->color = rgb2color(tri->R, tri->G, tri->B);
 	tri->next = NULL;
 	tri->prev = NULL;
 	if (tri->R > 255 || tri->R < 0 || tri->G > 255 ||
@@ -294,6 +299,7 @@ t_car		*carre(char *txt)
 	car->R = str_to_long(txt, &i);
 	car->G = str_to_long(txt, &i);
 	car->B = str_to_long(txt, &i);
+	car->color = rgb2color(car->R, car->G, car->B);
 	car->next = NULL;
 	car->prev = NULL;
 	if (car->vx > 1 || car->vy > 1 || car->vz > 1 || car->R > 255 ||
@@ -324,6 +330,7 @@ t_pla		*plane(char *txt)
 	pla->R = str_to_long(txt, &i);
 	pla->G = str_to_long(txt, &i);
 	pla->B = str_to_long(txt, &i);
+	pla->color = rgb2color(pla->R, pla->G, pla->B);
 	pla->next = NULL;
 	pla->prev = NULL;
 	if (pla->vx > 1 || pla->vy > 1 || pla->vz > 1 || pla->R > 255 ||
@@ -349,9 +356,11 @@ t_sph		*sphere(char *txt)
 	sph->y = str_to_double(txt, &i);
 	sph->z = str_to_double(txt, &i);
 	sph->d = str_to_double(txt, &i);
+	sph->r = sph->d / 2;
 	sph->R = str_to_long(txt, &i);
 	sph->G = str_to_long(txt, &i);
 	sph->B = str_to_long(txt, &i);
+	sph->color = rgb2color(sph->R, sph->G, sph->B);
 	sph->next = NULL;
 	sph->prev = NULL;
 	if (sph->R > 255 || sph->R < 0 || sph->G > 255 || sph->B > 255 ||
