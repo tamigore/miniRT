@@ -91,27 +91,23 @@ t_v3		vector_direct(int fov, int resX, int resY, int x, int y)
 
 int			trace_ray(t_env *env, t_v3 orig, t_v3 dir)
 {
-	int		hitColor;
-	t_env	*hitObject;
-	double	dist;
+	double	color;
 	t_v3	Phit;
 	t_v3	Nhit;
-	double	tex[2];
 	double	pattern;
-	double	scale;
 
-	hitColor = 0;
-	hitObject = NULL;
-	if (trace(env, orig, dir, &dist, hitObject))
+	color = 0;
+	if (trace(env, orig, dir))
 	{
-		Phit = v_add(orig, v_multi(dist, dir));
-        Nhit = v_sub(Phit, v_init(env->sph->x, env->sph->y, env->sph->z));
-        Nhit = v_norm(Nhit);
-		tex[0] = (1 + atan2(Nhit.z, Nhit.x) / M_PI) * 0.5;
-		tex[1] = acos(Nhit.y) / M_PI;
-		pattern = ((tex[0] * 4 > 0.5) ^ (tex[1] * 4 > 0.5));
-		if ((hitColor = MaxVal(4 ,0, v_dot(Nhit, v_sub(v_init(0, 0, 0), dir)) *				hitObject->color, hitObject->color * 0.8, pattern)) == NAN)
+		Phit = v_add(orig, v_multi(env->obj->dist, dir));
+        Nhit = v_norm(v_sub(Phit, v_init(env->sph->x, env->sph->y, env->sph->z)));
+		pattern = ((((1 + atan2(Nhit.z, Nhit.x) / M_PI) * 0.5) * SCALE > 0.5) ^
+					((acos(Nhit.y) / M_PI) * SCALE > 0.5));
+		if ((color = MaxVal(4 ,0, v_dot(Nhit, v_sub(v_init(0, 0, 0), dir))
+			* env->obj->color, env->obj->color * 0.8, pattern)) == NAN)
 			return (0);
 	}
-	return hitColor;
+	color = (color < 0) ? -color : color;
+	printf("dist : %.2f // color : %d // final : %.2f\n", env->obj->dist, env->obj->color, color);
+	return ((int)color);
 }

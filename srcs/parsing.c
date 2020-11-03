@@ -372,3 +372,20 @@ t_sph		*sphere(char *txt)
 	}
 	return (sph);
 }
+
+t_obj		*object()
+{
+	t_obj	*obj;
+
+	if (!(obj = malloc(sizeof(t_obj))))
+		return (NULL);
+	obj->nb = 0;
+	obj->dist = 0;
+	obj->color = 0;
+	obj->car = NULL;
+	obj->pla = NULL;
+	obj->tri = NULL;
+	obj->cyl = NULL;
+	obj->sph = NULL;
+	return (obj);
+}

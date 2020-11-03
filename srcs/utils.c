@@ -51,7 +51,7 @@ double	MaxVal(int nb, ...)
 	{
 		if (i < *x)
 			i = *x;
-		x;
+		x++;
 	}
 	return (i);
 }

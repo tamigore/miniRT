@@ -28,7 +28,8 @@
 #define FAILURE -1
 #define SUCCESS 1
 #define END 0
-#define MAX_DEPH 10000000000000000000000000000000000000
+#define MAX_DEPH 100000000000000
+#define SCALE 4
 
 typedef struct		s_cam
 {
@@ -166,6 +167,18 @@ typedef struct		s_mlx
 	char			*adr;
 }					t_mlx;
 
+typedef struct		s_obj
+{
+	int				nb;
+	double			dist;
+	int				color;
+	struct s_car	*car;
+	struct s_pla	*pla;
+	struct s_tri	*tri;
+	struct s_cyl	*cyl;
+	struct s_sph	*sph;
+}					t_obj;
+
 typedef struct		s_env
 {
 	struct s_cam	*cam;
@@ -178,6 +191,7 @@ typedef struct		s_env
 	struct s_cyl	*cyl;
 	struct s_sph	*sph;
 	struct s_mlx	*mlx;
+	struct s_obj	*obj;
 }					t_env;
 
 /*
@@ -202,6 +216,7 @@ t_tri		*triangle(char *txt);
 t_car		*carre(char *txt);
 t_pla		*plane(char *txt);
 t_sph		*sphere(char *txt);
+t_obj		*object();
 
 /*
 ** Conv_nb.c
@@ -222,10 +237,19 @@ t_v3		vector_direct(int fov, int resX, int resY, int x, int y);
 int			trace_ray(t_env *env, t_v3 O, t_v3 D);
 
 /*
+** tarce.c
+*/
+
+int			trace(t_env *env, t_v3 orig, t_v3 dir);
+int			trace_sph(t_sph *sph, t_obj *obj, double *t, t_v3 orig, t_v3 dir);
+
+/*
 ** intersect.c
 */
 
-int			color_sph(t_env *env, t_v3 O, t_v3 D);
+int			count_obj(t_env *env);
+int			SolveQuadratic(float a, float b, float c, float *x0, float *x1);
+int			sphere_intersect(t_sph *sph, t_v3 dir, t_v3 ori, double *t);
 
 /*
 ** utils.c
@@ -245,5 +269,13 @@ double		**lookAt(double **cam2world, t_v3 to, t_v3 from, t_v3 pos);
 double		**matrix44_init();
 void		matrix_row(double a, double b, double c, double d, double *M);
 t_v3		vecXmat(t_v3 vec, double **M);
+
+/*
+** get.c
+*/
+
+void		*get_obj(t_env *env, char *txt);
+void		get_color(t_obj *obj);
+void		reset_obj(t_obj *obj);
 
 #endif

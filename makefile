@@ -28,7 +28,9 @@ SOURCES =	miniRT.c	\
 			utils.c		\
 			mlx.c		\
 			matrix.c	\
-			intersect.c
+			intersect.c \
+			get.c		\
+			trace.c
 
 SRCS = $(addprefix $(DIR_S),$(SOURCES))
 

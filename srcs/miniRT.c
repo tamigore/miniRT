@@ -67,6 +67,8 @@ t_env	*init_env(char *av)
 	}
 	if (!(env->mlx = malloc(sizeof(t_mlx *))))
 		return (NULL);
+	if (!(env->obj = object()))
+		return (NULL);
 	reset_env(&env);
 	close(fd);
 	return (env);
@@ -167,4 +169,6 @@ void	print_env(t_env *env)
 		else
 			break;
 	}
+	printf("obj :%d.nb/%.2f.dist/%d.color\n", env->obj->nb, env->obj->dist, env->obj->color);
+
 }
