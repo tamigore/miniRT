@@ -39,6 +39,8 @@ void	zero_env(t_env **env)
 	(*env)->cyl = NULL;
 	(*env)->sph = NULL;
 	(*env)->mlx = NULL;
+	(*env)->obj = NULL;
+	(*env)->ray = NULL;
 }
 
 t_env	*init_env(char *av)
@@ -67,7 +69,9 @@ t_env	*init_env(char *av)
 	}
 	if (!(env->mlx = malloc(sizeof(t_mlx *))))
 		return (NULL);
-	if (!(env->obj = object()))
+	if (!(env->ray = init_ray(env->cam->ori, env->cam->dir, 0)))
+		return (NULL);
+	if (!(env->obj = object(env)))
 		return (NULL);
 	reset_env(&env);
 	close(fd);
@@ -96,79 +100,12 @@ void 	reset_env(t_env **env)
 			(*env)->pla = (*env)->pla->prev;
 	if ((*env)->sph)
 		while ((*env)->sph->prev)
-		(*env)->sph = (*env)->sph->prev;
+			(*env)->sph = (*env)->sph->prev;
 }
 
-void	print_env(t_env *env)
+void	reset_sph(t_sph **sph)
 {
-	if (env->res)
-		printf("res :%d.x/%d.y\n", env->res->x, env->res->y);
-	if (env->amb)
-		printf("amb :%d.R/%d.G/%d.B // %.2f.l\n", env->amb->R, env->amb->G,
-		env->amb->B, env->amb->l);
-	while (env->cam)
-	{
-			printf("cam :%.2f.x/%.2f.y/%.2f.z // %.2f.vx/%.2f.vy/%.2f.vz //%d.fov\n", env->cam->x, env->cam->y,
-			env->cam->z, env->cam->vx, env->cam->vy, env->cam->vz, env->cam->fov);
-			if (env->cam->next)
-				env->cam = env->cam->next;
-			else
-				break;
-	}
-	while (env->lum)
-	{
-		printf("lum :%.2f.x/%.2f.y/%.2f.z // %f.l // %d.R/%d.G/%d.B\n", env->lum->x, env->lum->y,
-		env->lum->z, env->lum->l, env->lum->R, env->lum->G, env->lum->B);
-		if (env->lum->next)
-			env->lum = env->lum->next;
-		else
-			break;
-	}
-	while (env->cyl)
-	{
-		printf("cyl :%.2f.x/%.2f.y/%.2f.z // %.2f.vx/%.2f.vy/%.2f.vz // %d.R/%d.G/%d.B // %.2f.h/%.2f.d\n", env->cyl->x, env->cyl->y,
-		env->cyl->z, env->cyl->vx, env->cyl->vy, env->cyl->vz, env->cyl->R, env->cyl->G, env->cyl->B, env->cyl->h, env->cyl->d);
-		if (env->cyl->next)
-			env->cyl = env->cyl->next;
-		else
-			break;
-	}
-	while (env->car)
-	{
-		printf("car :%.2f.x/%.2f.y/%.2f.z // %.2f.vx/%.2f.vy/%.2f.vz // %d.R/%d.G/%d.B // %.2f.h\n", env->car->x, env->car->y,
-		env->car->z, env->car->vx, env->car->vy, env->car->vz, env->car->R, env->car->G, env->car->B, env->car->h);
-		if (env->car->next)
-			env->car = env->car->next;
-		else
-			break;
-	}
-	while (env->tri)
-	{
-		printf("tri :%.2f.x1/%.2f.y1/%.2f.z1 // %.2f.x2/%.2f.y2/%.2f.z2 // %.2f.x3/%.2f.y3/%.2f.z3 // %d.R/%d.G/%d.B\n", env->tri->x1, env->tri->y1, env->tri->z1,
-		env->tri->x2, env->tri->y2, env->tri->z2, env->tri->x3, env->tri->y3, env->tri->z3, env->tri->R, env->tri->G, env->tri->B);
-		if (env->tri->next)
-			env->tri = env->tri->next;
-		else
-			break;
-	}
-	while (env->pla && env->pla->next)
-	{
-		printf("pla :%.2f.x/%.2f.y/%.2f.z // %.2f.vx/%.2f.vy/%.2f.vz // %d.R/%d.G/%d.B\n", env->pla->x, env->pla->y,
-		env->pla->z, env->pla->vx, env->pla->vy, env->pla->vz, env->pla->R, env->pla->G, env->pla->B);
-		if (env->pla->next)
-			env->pla = env->pla->next;
-		else
-			break;
-	}
-	while (env->sph && env->sph->next)
-	{
-		printf("sph :%.2f.x/%.2f.y/%.2f.z // %.2f.d // %d.R/%d.G/%d.B\n", env->sph->x, env->sph->y,
-		env->sph->z, env->sph->d, env->sph->R, env->sph->G, env->sph->B);
-		if (env->sph->next)
-			env->sph = env->sph->next;
-		else
-			break;
-	}
-	printf("obj :%d.nb/%.2f.dist/%d.color\n", env->obj->nb, env->obj->dist, env->obj->color);
-
+	if (*sph)
+		while ((*sph)->prev)
+			(*sph) = (*sph)->prev;
 }

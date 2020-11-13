@@ -32,28 +32,32 @@ int			mlx_creat_all(t_env **env)
 	if (!((*env)->mlx->adr = mlx_get_data_addr((*env)->mlx->ima,
 		&bpp, &size_line, &endian)))
 		return (FAILURE);
-	return(win_pixel(*env, 0, 0));
+	return(win_pixel(*env));
 }
 
-int			win_pixel(t_env *env, int x, int y)
+int			win_pixel(t_env *env)
 {
-	t_v3	O;
-	t_v3	D;
 	int		color;
+	double	x;
+	double	y;
+	t_v3	D;
 
-	O = v_init(env->cam->x,env->cam->y, env->cam->z);
+	x = 0;
+	y = 0;
+	env->ray->ori = v_init(env->cam->ori.x,env->cam->ori.y, env->cam->ori.z);
+	printf("begin!\n");
 	while (y < env->res->y)
 	{
 		x = 0;
 		while (x < env->res->x)
 		{
 			D = canvas2view(env, x, y);
-			color = trace_ray(env, O, D);
+			ft_ray(env->ray, env->ray->ori, D, 0);
+			color = trace_ray(env, env->ray);
 			mlx_pixel_put(env->mlx->ptr, env->mlx->win, x++, y, color);
 		}
 		y++;
 	}
-	printf("Victory !\n");
 	return (1);
 }
 
@@ -64,10 +68,10 @@ t_v3		canvas2view(t_env *env, int x, int y)
 	t_v3	pos;
 
 	vec = vector_direct(env->cam->fov, env->res->x, env->res->y, x, y);
-	pos = v_init(env->cam->x, env->cam->y, env->cam->z);
-	cam = v_init(env->cam->vx, env->cam->vy, env->cam->vz);
+	pos = v_init(env->cam->ori.x, env->cam->ori.y, env->cam->ori.z);
+	cam = v_init(env->cam->dir.x, env->cam->dir.y, env->cam->dir.z);
 	env->cam->mat = lookAt(env->cam->mat, cam, vec, pos);
-	vec = vecXmat(vec, env->cam->mat);
+	vec = vec3Xmat4(vec, env->cam->mat);
 	vec = v_norm(vec);
 	return (vec);
 }
@@ -87,27 +91,4 @@ t_v3		vector_direct(int fov, int resX, int resY, int x, int y)
 	Px = (2 * ((x + 0.5) / resX) - 1) * (1 / ratio) * tang;
 	Py = (1 - 2 * ((y + 0.5) / resY)) * tang;
 	return (v_init(Px, Py, -1));
-}
-
-int			trace_ray(t_env *env, t_v3 orig, t_v3 dir)
-{
-	double	color;
-	t_v3	Phit;
-	t_v3	Nhit;
-	double	pattern;
-
-	color = 0;
-	if (trace(env, orig, dir))
-	{
-		Phit = v_add(orig, v_multi(env->obj->dist, dir));
-        Nhit = v_norm(v_sub(Phit, v_init(env->sph->x, env->sph->y, env->sph->z)));
-		pattern = ((((1 + atan2(Nhit.z, Nhit.x) / M_PI) * 0.5) * SCALE > 0.5) ^
-					((acos(Nhit.y) / M_PI) * SCALE > 0.5));
-		if ((color = MaxVal(4 ,0, v_dot(Nhit, v_sub(v_init(0, 0, 0), dir))
-			* env->obj->color, env->obj->color * 0.8, pattern)) == NAN)
-			return (0);
-	}
-	color = (color < 0) ? -color : color;
-	printf("dist : %.2f // color : %d // final : %.2f\n", env->obj->dist, env->obj->color, color);
-	return ((int)color);
 }

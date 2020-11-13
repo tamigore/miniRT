@@ -28,18 +28,13 @@
 #define FAILURE -1
 #define SUCCESS 1
 #define END 0
-#define MAX_DEPH 100000000000000
-#define SCALE 4
+#define MAX_DEPH 1000000000
 
 typedef struct		s_cam
 {
-	double			x;
-	double			y;
-	double			z;
+	t_v3			ori;
 	int				fov;
-	double			vx;
-	double			vy;
-	double			vz;
+	t_v3			dir;
 	double			**mat;
 	struct s_cam	*next;
 	struct s_cam	*prev;
@@ -53,9 +48,7 @@ typedef struct		s_res
 
 typedef struct		s_lum
 {
-	double			x;
-	double			y;
-	double			z;
+	t_v3			ori;
 	double			l;
 	int				R;
 	int				G;
@@ -76,12 +69,8 @@ typedef struct		s_amb
 
 typedef struct		s_pla
 {
-	double			x;
-	double			y;
-	double			z;
-	double			vx;
-	double			vy;
-	double			vz;
+	t_v3			ori;
+	t_v3			dir;
 	int				R;
 	int				G;
 	int				B;
@@ -92,13 +81,9 @@ typedef struct		s_pla
 
 typedef struct		s_car
 {
-	double			x;
-	double			y;
-	double			z;
+	t_v3			ori;
 	double			h;
-	double			vx;
-	double			vy;
-	double			vz;
+	t_v3			dir;
 	int				R;
 	int				G;
 	int				B;
@@ -109,14 +94,10 @@ typedef struct		s_car
 
 typedef struct		s_cyl
 {
-	double			x;
-	double			y;
-	double			z;
+	t_v3			ori;
 	double			h;
 	double			d;
-	double			vx;
-	double			vy;
-	double			vz;
+	t_v3			dir;
 	int				R;
 	int				G;
 	int				B;
@@ -127,15 +108,9 @@ typedef struct		s_cyl
 
 typedef struct		s_tri
 {
-	double			x1;
-	double			y1;
-	double			z1;
-	double			x2;
-	double			y2;
-	double			z2;
-	double			x3;
-	double			y3;
-	double			z3;
+	t_v3			p1;
+	t_v3			p2;
+	t_v3			p3;
 	int				R;
 	int				G;
 	int				B;
@@ -146,9 +121,7 @@ typedef struct		s_tri
 
 typedef struct		s_sph
 {
-	double			x;
-	double			y;
-	double			z;
+	t_v3			ori;
 	double			d;
 	double			r;
 	int				R;
@@ -179,6 +152,13 @@ typedef struct		s_obj
 	struct s_sph	*sph;
 }					t_obj;
 
+typedef struct		s_ray
+{
+	t_v3			ori;
+	t_v3			dir;
+	double			t;
+}					t_ray;
+
 typedef struct		s_env
 {
 	struct s_cam	*cam;
@@ -192,16 +172,32 @@ typedef struct		s_env
 	struct s_sph	*sph;
 	struct s_mlx	*mlx;
 	struct s_obj	*obj;
+	struct s_ray	*ray;
 }					t_env;
 
 /*
-**	miniRT.c
+** miniRT.c
 */
 
 t_env		*init_env(char *av);
 void		pars(char *txt, t_env **env);
 void 		reset_env(t_env **env);
+void		reset_sph(t_sph **sph);
+
+/*
+** print.c
+*/
+
 void		print_env(t_env *env);
+void		print_cam(t_cam *cam);
+void		print_lum(t_lum *lum);
+void		print_cyl(t_cyl *cyl);
+void		print_car(t_car *car);
+void		print_tri(t_tri *tri);
+void		print_pla(t_pla *pla);
+void		print_sph(t_sph *sph);
+void		print_ray(t_ray *ray);
+void		print_obj(t_obj *obj);
 
 /*
 ** OBJ
@@ -216,7 +212,6 @@ t_tri		*triangle(char *txt);
 t_car		*carre(char *txt);
 t_pla		*plane(char *txt);
 t_sph		*sphere(char *txt);
-t_obj		*object();
 
 /*
 ** Conv_nb.c
@@ -231,17 +226,17 @@ unsigned	str_to_unsigned(char *str, int len);
 */
 
 int			mlx_creat_all(t_env **env);
-int			win_pixel(t_env *env, int x, int y);
+int			win_pixel(t_env *env);
 t_v3		canvas2view(t_env *env, int x, int y);
 t_v3		vector_direct(int fov, int resX, int resY, int x, int y);
-int			trace_ray(t_env *env, t_v3 O, t_v3 D);
 
 /*
 ** tarce.c
 */
 
-int			trace(t_env *env, t_v3 orig, t_v3 dir);
-int			trace_sph(t_sph *sph, t_obj *obj, double *t, t_v3 orig, t_v3 dir);
+int			trace(t_env *env);
+int			trace_sph(t_env *env);
+int			trace_ray(t_env *env, t_ray *ray);
 
 /*
 ** intersect.c
@@ -249,7 +244,7 @@ int			trace_sph(t_sph *sph, t_obj *obj, double *t, t_v3 orig, t_v3 dir);
 
 int			count_obj(t_env *env);
 int			SolveQuadratic(float a, float b, float c, float *x0, float *x1);
-int			sphere_intersect(t_sph *sph, t_v3 dir, t_v3 ori, double *t);
+int			sphere_intersect(t_sph *sph, t_ray *ray);
 
 /*
 ** utils.c
@@ -268,14 +263,23 @@ void		swap(double *x, double *y);
 double		**lookAt(double **cam2world, t_v3 to, t_v3 from, t_v3 pos);
 double		**matrix44_init();
 void		matrix_row(double a, double b, double c, double d, double *M);
-t_v3		vecXmat(t_v3 vec, double **M);
+t_v3		vec3Xmat4(t_v3 vec, double **M);
 
 /*
-** get.c
+** ray.c
 */
 
-void		*get_obj(t_env *env, char *txt);
+t_ray		*init_ray();
+void		ft_ray(t_ray *ray, t_v3 ori, t_v3 dir, double t);
+
+/*
+** obj.c
+*/
+
+t_obj		*object();
+int			count_obj(t_env *env);
 void		get_color(t_obj *obj);
 void		reset_obj(t_obj *obj);
+void		obj_sph(t_env *env, t_obj *obj);
 
 #endif

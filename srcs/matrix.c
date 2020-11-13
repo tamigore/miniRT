@@ -10,16 +10,10 @@ double	**lookAt(double **cam2world, t_v3 to, t_v3 from, t_v3 pos)
 	X = v_cross(v_norm(v_init(0, 1, 0)), Z);
 	Y = v_cross(Z, X);
 
-	matrix_row(X.x, X.y, X.z, 0, cam2world[0]);
-	matrix_row(Y.x, Y.y, Y.z, 0, cam2world[1]);
-	matrix_row(Z.x, Z.y, Z.z, 0, cam2world[2]);
-	matrix_row(pos.x, pos.y, pos.z, 1, cam2world[3]);
-/*
 	matrix_row(X.x, Y.x, Z.x, pos.x, cam2world[0]);
 	matrix_row(X.y, Y.y, Z.y, pos.y, cam2world[1]);
 	matrix_row(X.z, Y.z, Z.z, pos.z, cam2world[2]);
 	matrix_row(0, 0, 0, 1, cam2world[3]);
-*/
 	return (cam2world);
 }
 
@@ -50,7 +44,7 @@ void	matrix_row(double a, double b, double c, double d, double *M)
 	M[3] = d;
 }
 
-t_v3	vecXmat(t_v3 vec, double **M)
+t_v3	vec3Xmat4(t_v3 vec, double **M)
 {
 	t_v3	res;
 
