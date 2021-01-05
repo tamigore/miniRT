@@ -6,31 +6,38 @@
 #    By: tamigore <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/15 15:04:29 by tamigore          #+#    #+#              #
-#    Updated: 2020/08/15 18:55:56 by tamigore         ###   ########.fr        #
+#    Updated: 2021/01/05 14:41:38 by tamigore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror
+INC = libmath.h
 
-INC = libgeo.h
+DIR_I = includes
+
+DIR_S = srcs
 
 SRC =	vector.c	\
 		vector_2.c	\
 		angles.c
 
+SRCS = $(addprefix $(DIR_S)/,$(SRC))
+
 OBJ = $(SRC:.c=.o)
 
-NAME = libgeo.a
+FLAGS = -Wall -Werror -Wextra -I $(DIR_I)
+
+NAME = libmath.a
 
 all : $(NAME)
 
 $(NAME) : $(OBJ)
 	ar rc $(NAME) $(OBJ)
+	ranlib $(NAME)
 
-$(OBJ) : $(SRC)
-	$(CC) $(FLAGS) -c $(SRC)
+$(OBJ) : $(SRCS) $(DIR_I)/$(INC)
+	$(CC) $(FLAGS) -c $(SRCS)
 
 clean :
 	rm -rf $(OBJ)

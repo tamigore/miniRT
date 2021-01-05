@@ -33,7 +33,7 @@ int		sphere_intersect(t_sph *sph, t_ray *ray)
 	double	c;
 	t_v3	L;
 
-	L = v_sub(ray->ori, v_init(sph->ori.x, sph->ori.y, sph->ori.z));
+	L = v_sub(ray->pos, sph->pos);
 	a = v_dot(ray->dir, ray->dir);
 	b = 2 * v_dot(ray->dir, L);
 	c = v_dot(L, L) - (sph->r * sph->r);
@@ -48,5 +48,30 @@ int		sphere_intersect(t_sph *sph, t_ray *ray)
 			return (0);
 	}
 	ray->t = t0;
+	return (1);
+}
+
+int		plane_intersect(t_env *env, t_ray *ray)
+{
+	double	t;
+	double	d;
+	t_v3	dir;
+	t_v3	ori;
+	t_v3	nor;
+	t_v3	bas;
+
+	if (v_dot(ray->dir, env->pla->dir) == 0)
+		return (0);
+	dir = ray->dir;
+	ori = ray->pos;
+	nor = env->pla->dir;
+	bas = env->pla->pos;
+	d = -nor.x * bas.x - nor.y + bas.y - nor.z * bas.z;
+	t = (nor.x * ori.x + nor.y * ori.y + nor.z * ori.z + d) /
+		(-nor.x * dir.x - nor.y * dir.y - nor.z * dir.z);
+//	t = v_dot(v_sub(env->pla->ori, env->ray->ori), env->pla->dir) / v_dot(env->ray->dir, env->pla->dir);
+	if (t < 0)
+		return (0);
+	ray->t = t;
 	return (1);
 }

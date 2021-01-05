@@ -1,4 +1,4 @@
-#include "libgeo.h"
+#include "libmath.h"
 
 t_v3	v_prod(t_v3 a, t_v3 b)
 {
@@ -8,6 +8,14 @@ t_v3	v_prod(t_v3 a, t_v3 b)
 	vec.y = a.y * b.y;
 	vec.z = a.z * b.z;
 	return (vec);
+}
+
+int		v_comp(t_v3 u, t_v3 v)
+{
+	if (u.x == v.x && u.y == v.y && u.z == v.z)
+		return (1);
+	else
+		return (0);
 }
 
 double	v_len(t_v3 v)

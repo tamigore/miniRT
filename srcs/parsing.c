@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:36:40 by tamigore          #+#    #+#             */
-/*   Updated: 2020/03/10 14:32:13 by tamigore         ###   ########.fr       */
+/*   Updated: 2021/01/05 16:47:11 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,94 +23,94 @@ void		pars(char *txt, t_env **env)
 		if ((*env)->cam)
 		{
 			if (!((*env)->cam->next = camera(txt)))
-				fast_exit("Error n: camera", FAILURE);
+				fast_exit("Error n: camera", FAIL);
 			(*env)->cam->next->prev = (*env)->cam;
 			(*env)->cam = (*env)->cam->next;
 		}
 		else
 			if (!((*env)->cam = camera(txt)))
-				fast_exit("Error n: camera", FAILURE);
+				fast_exit("Error n: camera", FAIL);
 	}
 	else if (txt[0] == 'l' && txt[1] == ' ')
 	{
 		if ((*env)->lum)
 		{
 			if (!((*env)->lum->next = lumiere(txt)))
-				fast_exit("Error n: lumiere", FAILURE);
+				fast_exit("Error n: lumiere", FAIL);
 			(*env)->lum->next->prev = (*env)->lum;
 			(*env)->lum = (*env)->lum->next;
 		}
 		else
 			if (!((*env)->lum = lumiere(txt)))
-				fast_exit("Error n: lumiere", FAILURE);
+				fast_exit("Error n: lumiere", FAIL);
 	}
 	else if (txt[0] == 'c' && txt[1] == 'y' && txt[2] == ' ')
 	{
 		if ((*env)->cyl)
 		{
 			if (!((*env)->cyl->next = cylindre(txt)))
-				fast_exit("Error n: cylindre", FAILURE);
+				fast_exit("Error n: cylindre", FAIL);
 			(*env)->cyl->next->prev = (*env)->cyl;
 			(*env)->cyl = (*env)->cyl->next;
 		}
 		else
 			if (!((*env)->cyl = cylindre(txt)))
-				fast_exit("Error n: cylindre", FAILURE);
+				fast_exit("Error n: cylindre", FAIL);
 	}
 	else if (txt[0] == 't' && txt[1] == 'r' && txt[2] == ' ')
 	{
 		if ((*env)->tri)
 		{
 			if (!((*env)->tri->next = triangle(txt)))
-				fast_exit("Error n: triangle", FAILURE);
+				fast_exit("Error n: triangle", FAIL);
 			(*env)->tri->next->prev = (*env)->tri;
 			(*env)->tri = (*env)->tri->next;
 		}
 		else
 			if (!((*env)->tri = triangle(txt)))
-				fast_exit("Error n: triangle", FAILURE);
+				fast_exit("Error n: triangle", FAIL);
 	}
 	else if (txt[0] == 's' && txt[1] == 'q' && txt[2] == ' ')
 	{
 		if ((*env)->car)
 		{
 			if (!((*env)->car->next = carre(txt)))
-				fast_exit("Error n: carre", FAILURE);
+				fast_exit("Error n: carre", FAIL);
 			(*env)->car->next->prev = (*env)->car;
 			(*env)->car = (*env)->car->next;
 		}
 		else
 			if (!((*env)->car = carre(txt)))
-				fast_exit("Error n: carre", FAILURE);
+				fast_exit("Error n: carre", FAIL);
 	}
 	else if (txt[0] == 'p' && txt[1] == 'l' && txt[2] == ' ')
 	{
 		if ((*env)->pla)
 		{
 			if (!((*env)->pla->next = plane(txt)))
-				fast_exit("Error n: plane", FAILURE);
+				fast_exit("Error n: plane", FAIL);
 			(*env)->pla->next->prev = (*env)->pla;
 			(*env)->pla = (*env)->pla->next;
 		}
 		else
 			if (!((*env)->pla = plane(txt)))
-				fast_exit("Error n: plane", FAILURE);
+				fast_exit("Error n: plane", FAIL);
 	}
 	else if (txt[0] == 's' && txt[1] == 'p' && txt[2] == ' ')
 	{
 		if ((*env)->sph)
 		{
 			if (!((*env)->sph->next = sphere(txt)))
-				fast_exit("Error n: sphere", FAILURE);
+				fast_exit("Error n: sphere", FAIL);
 			(*env)->sph->next->prev = (*env)->sph;
 			(*env)->sph = (*env)->sph->next;
 		}
 		else
 			if (!((*env)->sph = sphere(txt)))
-				fast_exit("Error n: sphere", FAILURE);
+				fast_exit("Error n: sphere", FAIL);
 	}
 	else
-		fast_exit("Error n: scenes", FAILURE);
+		fast_exit("Error n: scenes", FAIL);
 }
 
 t_res		*resolution(char *txt)
@@ -131,7 +131,7 @@ t_res		*resolution(char *txt)
 	{
 		free(res);
 		perror("Error n: resolution");
-		exit(FAILURE);
+		exit(FAIL);
 	}
 	return (res);
 }
@@ -154,7 +154,7 @@ t_amb		*ambiance(char *txt)
 	{
 		free(amb);
 		perror("Error n: ambiance");
-		exit(FAILURE);
+		exit(FAIL);
 	}
 	return (amb);
 }
@@ -167,9 +167,9 @@ t_cam		*camera(char *txt)
 	if (!(cam = malloc(sizeof(t_cam))))
 		return (NULL);
 	i = 0;
-	cam->ori.x = str_to_double(txt, &i);
-	cam->ori.y = str_to_double(txt, &i);
-	cam->ori.z = str_to_double(txt, &i);
+	cam->pos.x = str_to_double(txt, &i);
+	cam->pos.y = str_to_double(txt, &i);
+	cam->pos.z = str_to_double(txt, &i);
 	cam->dir.x = str_to_double(txt, &i);
 	cam->dir.y = str_to_double(txt, &i);
 	cam->dir.z = str_to_double(txt, &i);
@@ -183,7 +183,7 @@ t_cam		*camera(char *txt)
 	{
 		free(cam);
 		perror("Error n: camera");
-		exit(FAILURE);
+		exit(FAIL);
 	}
 	return (cam);
 }
@@ -196,9 +196,9 @@ t_lum		*lumiere(char *txt)
 	if (!(lum = malloc(sizeof(t_lum))))
 		return (NULL);
 	i = 0;
-	lum->ori.x = str_to_double(txt, &i);
-	lum->ori.y = str_to_double(txt, &i);
-	lum->ori.z = str_to_double(txt, &i);
+	lum->pos.x = str_to_double(txt, &i);
+	lum->pos.y = str_to_double(txt, &i);
+	lum->pos.z = str_to_double(txt, &i);
 	lum->l = str_to_double(txt, &i);
 	lum->R = str_to_long(txt, &i);
 	lum->G = str_to_long(txt, &i);
@@ -211,7 +211,7 @@ t_lum		*lumiere(char *txt)
 	{
 		free(lum);
 		perror("Error n: lumiere");
-		exit(FAILURE);
+		exit(FAIL);
 	}
 	return (lum);
 }
@@ -224,9 +224,9 @@ t_cyl		*cylindre(char *txt)
 	if (!(cyl = malloc(sizeof(t_cyl))))
 		return (NULL);
 	i = 0;
-	cyl->ori.x = str_to_double(txt, &i);
-	cyl->ori.y = str_to_double(txt, &i);
-	cyl->ori.z = str_to_double(txt, &i);
+	cyl->pos.x = str_to_double(txt, &i);
+	cyl->pos.y = str_to_double(txt, &i);
+	cyl->pos.z = str_to_double(txt, &i);
 	cyl->dir.x = str_to_double(txt, &i);
 	cyl->dir.y = str_to_double(txt, &i);
 	cyl->dir.z = str_to_double(txt, &i);
@@ -245,7 +245,7 @@ t_cyl		*cylindre(char *txt)
 	{
 		free(cyl);
 		perror("Error n: cylindre");
-		exit(FAILURE);
+		exit(FAIL);
 	}
 	return (cyl);
 }
@@ -278,7 +278,7 @@ t_tri		*triangle(char *txt)
 	{
 		free(tri);
 		perror("Error n: triangle");
-		exit(FAILURE);
+		exit(FAIL);
 	}
 	return (tri);
 }
@@ -291,9 +291,9 @@ t_car		*carre(char *txt)
 	if (!(car = malloc(sizeof(t_car))))
 		return (NULL);
 	i = 0;
-	car->ori.x = str_to_double(txt, &i);
-	car->ori.y = str_to_double(txt, &i);
-	car->ori.z = str_to_double(txt, &i);
+	car->pos.x = str_to_double(txt, &i);
+	car->pos.y = str_to_double(txt, &i);
+	car->pos.z = str_to_double(txt, &i);
 	car->dir.x = str_to_double(txt, &i);
 	car->dir.y = str_to_double(txt, &i);
 	car->dir.z = str_to_double(txt, &i);
@@ -311,7 +311,7 @@ t_car		*carre(char *txt)
 	{
 		free(car);
 		perror("Error n: carre");
-		exit(FAILURE);
+		exit(FAIL);
 	}
 	return (car);
 }
@@ -324,9 +324,9 @@ t_pla		*plane(char *txt)
 	if (!(pla = malloc(sizeof(t_pla))))
 		return (NULL);
 	i = 0;
-	pla->ori.x = str_to_double(txt, &i);
-	pla->ori.y = str_to_double(txt, &i);
-	pla->ori.z = str_to_double(txt, &i);
+	pla->pos.x = str_to_double(txt, &i);
+	pla->pos.y = str_to_double(txt, &i);
+	pla->pos.z = str_to_double(txt, &i);
 	pla->dir.x = str_to_double(txt, &i);
 	pla->dir.y = str_to_double(txt, &i);
 	pla->dir.z = str_to_double(txt, &i);
@@ -343,7 +343,7 @@ t_pla		*plane(char *txt)
 	{
 		free(pla);
 		perror("Error n: plane");
-		exit(FAILURE);
+		exit(FAIL);
 	}
 	return (pla);
 }
@@ -356,9 +356,9 @@ t_sph		*sphere(char *txt)
 	if (!(sph = malloc(sizeof(t_sph))))
 		return (NULL);
 	i = 0;
-	sph->ori.x = str_to_double(txt, &i);
-	sph->ori.y = str_to_double(txt, &i);
-	sph->ori.z = str_to_double(txt, &i);
+	sph->pos.x = str_to_double(txt, &i);
+	sph->pos.y = str_to_double(txt, &i);
+	sph->pos.z = str_to_double(txt, &i);
 	sph->d = str_to_double(txt, &i);
 	sph->r = sph->d / 2;
 	sph->R = str_to_long(txt, &i);
@@ -372,7 +372,7 @@ t_sph		*sphere(char *txt)
 	{
 		free(sph);
 		perror("Error n: sphere");
-		exit(FAILURE);
+		exit(FAIL);
 	}
 	return (sph);
 }

@@ -6,13 +6,11 @@
 #    By: tamigore <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/08 15:04:29 by tamigore          #+#    #+#              #
-#    Updated: 2019/11/19 13:55:56 by tamigore         ###   ########.fr        #
+#    Updated: 2021/01/05 14:36:43 by tamigore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-
-FLAGS = -Wall -Wextra -Werror
 
 SRC/M = ft_memset.c		\
 		ft_memcpy.c 	\
@@ -98,17 +96,30 @@ SRC/L = ft_lstnew.c			\
 		ft_lstsize.c
 
 INC = libft.h
+
+DIR_I = includes
+
+DIR_S = srcs
+
 SRC = $(SRC/P) $(SRC/O) $(SRC/I) $(SRC/S) $(SRC/M) $(SRC/L)
+
+SRCS = $(addprefix $(DIR_S)/,$(SRC))
+
 OBJ = $(SRC:.c=.o)
+
+FLAGS = -Wall -Werror -Wextra -I $(DIR_I)
+
 NAME = libft.a
 
 all : $(NAME)
 
 $(NAME) : $(OBJ)
 	ar rc $(NAME) $(OBJ)
+	ranlib $(NAME)
 
-$(OBJ) : $(SRC)
-	$(CC) $(FLAGS) -c $(SRC)
+$(OBJ) : $(SRCS) $(DIR_I)/$(INC)
+	mkdir -p objs
+	$(CC) $(FLAGS) -c $(SRCS)
 
 clean :
 	rm -rf $(OBJ)

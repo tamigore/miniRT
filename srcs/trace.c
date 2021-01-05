@@ -1,67 +1,110 @@
 #include "miniRT.h"
 
-int			trace_ray(t_env *env, t_ray *ray)
+int			trace_ray(t_env *env)
 {
-	double	color;
-	t_v3	Phit;
-	t_v3	Nhit;
-	double	pattern;
+	int		color;
+//	int		shadow;
+//	t_v3	P;
+//	t_v3	N;
+//	t_v3	R;
+//	t_ray	*Lray;
 
 	color = 0;
-	if (trace(env))
+	if (trace(env, env->ray))
 	{
-		Phit = v_add(ray->ori, v_multi(ray->t, ray->dir));
-        Nhit = v_norm(v_sub(Phit, v_init(env->sph->ori.x, env->sph->ori.y, env->sph->ori.z)));
-		pattern = ((((1 + atan2(Nhit.z, Nhit.x) / M_PI) * 0.5) *  env->sph->r > 0.5) ^
-					((acos(Nhit.y) / M_PI) * env->sph->r > 0.5));
-		if ((color = MaxVal(4, 0, v_dot(Nhit, v_sub(ray->ori, ray->dir))
-			* env->obj->color, env->obj->color * 0.8, pattern)) == NAN)
-			return (0);
-	}
-	return ((int)color);
+//		P = v_add(env->ray->ori, v_multi(env->ray->t, env->ray->dir));
+//		N = v_norm(v_sub(P, v_init(env->obj->sph->ori.x, env->obj->sph->ori.y, env->obj->sph->ori.z)));
+		color = env->obj->color;// * env->amb->color * env->amb->l;
+/*		if (!(Lray = malloc(sizeof(t_ray))))
+			return (-1);
+		while (env->lum)
+		{
+//			shadow = 0;
+			Lray->dir = v_sub(env->lum->ori, P);
+			Lray->ori = P;
+			Lray->t = 0;
+			R = v_sub(v_multi(2 * v_dot(N, Lray->dir), N), Lray->dir);
+			if (trace(env, Lray))
+			{
+				if (env->ray->t < v_len(env->ray->dir))
+					shadow = 1;
+			}
+//			color += env->lum->l * v_dot(Lray->dir, N) * env->obj->color + env->lum->l * v_dot(R, v_multi(-1, env->ray->dir)) * env->obj->color;
+			if (env->lum->next)
+				env->lum = env->lum->next;
+			else
+				break ;
+		}
+		free(Lray);
+*/	}
+	env->obj->dist = MAX_DEPH;
+	return (color);
 }
 
-int			trace(t_env *env)
+int			trace(t_env *env, t_ray *ray)
 {
 	int		hit;
 
 	hit = 0;
-	if (trace_sph(env))
-	{
-//		reset_sph(&(env->sph));
+	if (trace_sph(env, ray))
 		hit = 1;
-	}
 /*	while (tmp->tri)
 		tmp->cyl = tmp->cyl->next;
 	while (tmp->cyl)
 		tmp->cyl = tmp->cyl->next;
 	while (tmp->car)
 		tmp->car = tmp->car->next;
-	while (tmp->pla)
-		tmp->pla = tmp->pla->next;
-*/	get_color(env->obj);
+*/
+	if (trace_pla(env, ray))
+		hit = 1;
 	reset_env(&env);
 	return (hit);
 }
 
-int			trace_sph(t_env *env)
+int			trace_sph(t_env *env, t_ray *ray)
 {
 	int		hit;
 
 	hit = 0;
 	while (env->sph)
 	{
-		if ((env->ray->t = sphere_intersect(env->sph, env->ray)) > 0)
+		if ((sphere_intersect(env->sph, ray)))
 		{
-			if (env->ray->t < env->obj->dist)
+			if (ray->t < env->obj->dist)
 			{
-				obj_sph(env, env->obj);
-				env->obj->dist = env->ray->t;
+				env->obj->sph = env->sph;
+				env->obj->color = env->sph->color;
+				env->obj->dist = ray->t;
 			}
 			hit = 1;
 		}
 		if (env->sph->next)
 			env->sph = env->sph->next;
+		else
+			break ;
+	}
+	return (hit);
+}
+
+int			trace_pla(t_env *env, t_ray *ray)
+{
+	int		hit;
+
+	hit = 0;
+	while (env->pla)
+	{
+		if ((plane_intersect(env, ray)))
+		{
+			if (ray->t < env->obj->dist)
+			{
+				env->obj->pla = env->pla;
+				env->obj->color = env->pla->color;
+				env->obj->dist = ray->t;
+			}
+			hit = 1;
+		}
+		if (env->pla->next)
+			env->pla = env->pla->next;
 		else
 			break ;
 	}

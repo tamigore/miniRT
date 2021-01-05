@@ -1,8 +1,8 @@
-#include "libgeo.h"
+#include "libmath.h"
 
 t_v3	v_init(double x, double y, double z)
 {
-	t_v3 vec;
+	t_v3	vec;
 
 	vec.x = x;
 	vec.y = y;
