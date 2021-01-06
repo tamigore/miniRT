@@ -6,7 +6,7 @@
 #    By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/19 16:16:11 by tamigore          #+#    #+#              #
-#    Updated: 2020/03/11 17:56:50 by tamigore         ###   ########.fr        #
+#    Updated: 2021/01/06 11:49:22 by tamigore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIB = lib/
 
 LIBFT = $(LIB)libft
 
-LIBGEO = $(LIB)libgeo
+LIBMATH = $(LIB)libmath
 
 DIR_S = srcs/
 
@@ -32,7 +32,8 @@ SOURCES =	miniRT.c	\
 			obj.c		\
 			trace.c		\
 			ray.c		\
-			print.c
+			print.c		\
+			count.c
 
 SRCS = $(addprefix $(DIR_S),$(SOURCES))
 
@@ -40,13 +41,13 @@ OBJS = $(SRCS:.c=.o)
 
 CFLAGS = -Wall -Werror -Wextra -I $(HEADER) -D NUM_THREADS=$(NUM_THREADS)
 
-FLAGS = -L $(LIBFT) -lft -L $(LIBGEO) -lgeo
+FLAGS = -L $(LIBFT) -lft -L $(LIBMATH) -lmath
 
 MACOS_MACRO = -D MACOS
 
 LINUX_MACRO = -D LINUX
 
-MACOS_FLAGS = -L $(LIB)minilibx_opengl_20191021 -mlx -framework Appkit
+MACOS_FLAGS = -L $(LIB)minilibx_opengl_20191021 -lmlx -framework Appkit
 
 LINUX_FLAGS = -L $(LIB)minilibx-linux -lmlx -lm -lX11 -lXext -lpthread
 
@@ -59,15 +60,15 @@ ifeq ($(UNAME),Darwin)
 endif
 ifeq ($(UNAME),Linux)
 	NUM_THREADS = $(shell nproc --all)
-        CFLAGS += $(LINUX_MACRO)
-        FLAGS += $(LINUX_FLAGS)
+	CFLAGS += $(LINUX_MACRO)
+	FLAGS += $(LINUX_FLAGS)
 endif
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADER)
 	make -C $(LIBFT)
-	make -C $(LIBGEO)
+	make -C $(LIBMATH)
 	gcc -g $(CFLAGS) $(OBJS) $(FLAGS) -o $(NAME)
 
 norme:
@@ -82,11 +83,11 @@ bonus: all
 clean:
 	@rm -f $(OBJS)
 	@make clean -C $(LIBFT)
-	@make clean -C $(LIBGEO)
+	@make clean -C $(LIBMATH)
 
 fclean: clean
 	@rm -f $(NAME)
 	@make fclean -C $(LIBFT)
-	@make fclean -C $(LIBGEO)
+	@make fclean -C $(LIBMATH)
 
 re: fclean all
