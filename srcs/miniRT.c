@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:28:29 by tamigore          #+#    #+#             */
-/*   Updated: 2021/01/05 16:44:58 by tamigore         ###   ########.fr       */
+/*   Updated: 2021/01/08 11:14:26 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int		main(int ac, char **av)
 	print_env(env);
 	if (!(mlx_creat_all(env)))
 		return (FAIL);
-	mlx_loop(env->mlx->ptr);
 	return (WIN);
 }
 

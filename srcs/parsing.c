@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:36:40 by tamigore          #+#    #+#             */
-/*   Updated: 2021/01/05 16:47:11 by tamigore         ###   ########.fr       */
+/*   Updated: 2021/01/07 14:24:10 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ t_cam		*camera(char *txt)
 	cam->dir.y = str_to_double(txt, &i);
 	cam->dir.z = str_to_double(txt, &i);
 	cam->fov = str_to_long(txt, &i);
-	cam->mat = matrix44_init();
+	cam->mat = mat_init();
 	cam->next = NULL;
 	cam->prev = NULL;
 	if ((cam->dir.x > 1 || cam->dir.y > 1 || cam->dir.z > 1 || cam->fov > 180 ||

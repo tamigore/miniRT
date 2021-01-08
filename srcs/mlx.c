@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:33:11 by tamigore          #+#    #+#             */
-/*   Updated: 2021/01/05 16:49:05 by tamigore         ###   ########.fr       */
+/*   Updated: 2021/01/07 18:45:49 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_v3		canvas2view(t_env *env, int x, int y)
 	vec = vector_direct(env->cam->fov, env->res->x, env->res->y, x, y);
 	if (!(env->cam->mat = lookAt(env->cam->mat, env->cam->dir, env->cam->pos)))
 	return (v_init(0, 0, 0));
-	vec = vec3Xmat4(vec, env->cam->mat);
+	vec = vec3_x_mat4(vec, env->cam->mat);
 	vec = v_norm(vec);
 	return (vec);
 /*

@@ -6,7 +6,7 @@
 #    By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/19 16:16:11 by tamigore          #+#    #+#              #
-#    Updated: 2021/01/06 11:49:22 by tamigore         ###   ########.fr        #
+#    Updated: 2021/01/07 16:46:17 by tamigore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ MACOS_MACRO = -D MACOS
 
 LINUX_MACRO = -D LINUX
 
-MACOS_FLAGS = -L $(LIB)minilibx_opengl_20191021 -lmlx -framework Appkit
+MACOS_FLAGS = -L $(LIB)minilibx_opengl_20191021 -lmlx -framework Appkit -framework OpenGL
 
 LINUX_FLAGS = -L $(LIB)minilibx-linux -lmlx -lm -lX11 -lXext -lpthread
 

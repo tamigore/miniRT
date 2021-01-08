@@ -6,12 +6,14 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:20:38 by tamigore          #+#    #+#             */
-/*   Updated: 2021/01/05 16:41:33 by tamigore         ###   ########.fr       */
+/*   Updated: 2021/01/07 16:45:28 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _MINIRT_STRUCT_H_
 # define _MINIRT_STRUCT_H_
+
+# include "libmath.h"
 
 /*
 ** structure pour les cameras

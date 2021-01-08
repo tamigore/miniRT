@@ -6,7 +6,7 @@
 /*   By: tamigore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 18:31:48 by tamigore          #+#    #+#             */
-/*   Updated: 2021/01/06 18:13:09 by tamigore         ###   ########.fr       */
+/*   Updated: 2021/01/07 16:38:35 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 ** v3 = {a, b, c};
 */
 
-typedef struct	s_vec3
+typedef struct	s_v3
 {
 	double		x;
 	double		y;
@@ -49,17 +49,8 @@ typedef struct	s_vec3
 ** d 0 0 0 0
 */
 
-typedef struct	s_m4
-{
-	double		m[4][4];
-	double		w[4];
-	double		x[4];
-	double		y[4];
-	double		z[4];
-}				t_m4;
-
 /*
-** VECTOR.C
+** VECTOR.C vector basics
 */
 
 t_v3			v_init(double x, double y, double z);
@@ -69,7 +60,7 @@ t_v3			v_cross(t_v3 a, t_v3 b);
 t_v3			v_multi(double x, t_v3 a);
 
 /*
-** VECTOR_2.C
+** VECTOR_2.C vector operation
 */
 
 t_v3			v_prod(t_v3 a, t_v3 b);
@@ -79,29 +70,28 @@ double			v_dot(t_v3 a, t_v3 b);
 int				v_comp(t_v3 u, t_v3 v);
 
 /*
-** ANGLES.C
+** ANGLES.C trigo basics
 */
 
 double			rad(int deg);
 double			tan(double x);
 
 /*
-** MATRIX.C
+** MATRIX.C matrix init and fill
 */
 
-t_m4			*mat_init(void);
-void			mat_free(t_m4 *mat);
-void			mat_fill(double *a, double *b, double *c, double *d, t_m4 *mat);
-void			get_column(double *col, double mat[4][4], int i);
-void			get_line(double *lin, double mat[4]);
+double			**mat_init(void);
+void			mat_free(double **mat);
+double			*mat_fil(double a, double b, double c, double d);
+double			*mat_get_column(double **mat, int i);
+double			tab4_x_tab4(double *a, double *b);
 
 /*
-** MATRIX.C
+** MATRIX_OP.C operation matrix
 */
 
-void			mat4Xmat4(t_m4 *a, t_m4 *b, t_m4 *mat);
-double			tab4Xtab4(double a[4], double b[4]);
-t_v3			vec3Xmat4(t_v3 vec, double M[4][4]);
-int				mat_invers(double m[4][4], t_m4 *invert);
+void			mat4_x_mat4(double **a, double **b, double **mat);
+t_v3			vec3_x_mat4(t_v3 vec, double **m);
+int				mat_invers(double **m, double **invert);
 
 #endif

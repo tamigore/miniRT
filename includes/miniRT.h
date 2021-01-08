@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:30:18 by tamigore          #+#    #+#             */
-/*   Updated: 2021/01/05 16:43:17 by tamigore         ###   ########.fr       */
+/*   Updated: 2021/01/07 16:46:49 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,6 @@ void		swap(double *x, double *y);
 */
 
 double		**lookAt(double **cam2world, t_v3 dir, t_v3 pos);
-double		**matrix44_init();
-void		matrix_row(double a, double b, double c, double d, double *M);
-t_v3		vec3Xmat4(t_v3 vec, double **M);
-double		**mat4Xmat4(double **m, double **z);
-int			inv_matrix(double **m, double **invert);
 
 /*
 ** ray.c
