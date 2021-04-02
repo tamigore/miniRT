@@ -1,24 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tamigore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/12 15:26:22 by tamigore          #+#    #+#             */
+/*   Updated: 2021/02/01 17:57:11 by tamigore         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 
-t_ray		*init_ray()
+void		reset_ray(t_ray *ray)
 {
-	t_ray	*ray;
-
-	if (!(ray = malloc(sizeof(t_ray))))
-		return (NULL);
-	ray->pos = v_init(0, 0, 0);
-	ray->dir = v_init(0, 0, 0);
-	ray->t = 0;
-	ray->next = NULL;
-	ray->prev = NULL;
-	return (ray);
+	ray->t = INFINITY;
+	ray->color = v_init(0, 0, 0);
+	ray->hit = v_init(0, 0, 0);
+	ray->normal = v_init(0, 0, 0);
 }
 
-void		ft_ray(t_ray *ray, t_v3 ori, t_v3 dir, double t)
+void		set_ray(t_ray *ray, t_v3 pos, t_v3 dir, double t)
 {
-	ray->pos = ori;
+	ray->pos = pos;
 	ray->dir = dir;
 	ray->t = t;
-	ray->next = NULL;
-	ray->prev = NULL;
+}
+
+void		init_ray(t_ray *ray)
+{
+	set_ray(ray, v_init(0, 0, 0), v_init(0, 0, 0), 0);
+	reset_ray(ray);
 }

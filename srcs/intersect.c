@@ -1,77 +1,90 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   intersect.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/08 18:37:55 by tamigore          #+#    #+#             */
+/*   Updated: 2021/02/11 17:44:40 by tamigore         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 
-int			solveQuadratic(float a, float b, float c, double *x0, double *x1)
-{
-	double	delta;
-	double	q;
-
-	delta = b * b - 4 * a * c;
-	if (delta < 0)
-		return 0;
-	else if (delta == 0)
-	{
-		*x0 = - 0.5 * b / a;
-		*x1 = - 0.5 * b / a;
-	}
-	else
-	{
-		q = (b > 0) ? -0.5 * (b + sqrt(delta)) : -0.5 * (b - sqrt(delta));
-		*x0 = q / a;
-		*x1 = c / q;
-	}
-	if (*x0 > *x1)
-		swap(x0, x1);
-	return (1);
-}
-
-int		sphere_intersect(t_sph *sph, t_ray *ray)
+int			sphere_intersect(t_sph *sph, t_ray *ray, double *t)
 {
 	double	t0;
 	double	t1;
-	double	a;
-	double	b;
-	double	c;
+	t_v3	coef;
 	t_v3	L;
 
 	L = v_sub(ray->pos, sph->pos);
-	a = v_dot(ray->dir, ray->dir);
-	b = 2 * v_dot(ray->dir, L);
-	c = v_dot(L, L) - (sph->r * sph->r);
-	if (!solveQuadratic(a, b, c, &t0, &t1))
+	coef.x = v_dot(ray->dir, ray->dir);
+	coef.y = 2 * v_dot(ray->dir, L);
+	coef.z = v_dot(L, L) - (sph->r * sph->r);
+	if (!solve_quadratic(coef, &t0, &t1))
 		return (0);
-	if (t0 > t1)
+	if (t0 > t1 && t1 > EPSILON)
 		swap(&t0, &t1);
-	if (t0 < 0)
-	{
-		t0 = t1;
-		if (t0 < 0)
-			return (0);
-	}
-	ray->t = t0;
+	if (t0 > INFINITY || t0 < EPSILON)
+		return (0);
+	*t = t0;
 	return (1);
 }
 
-int		plane_intersect(t_env *env, t_ray *ray)
+int			cylinder_intersect(t_cyl *cyl, t_ray *ray, double *t)
 {
-	double	t;
-	double	d;
+	t_v3	coef;
+	t_v3	oc;
 	t_v3	dir;
-	t_v3	ori;
-	t_v3	nor;
-	t_v3	bas;
+	t_v3	ocdir;
 
-	if (v_dot(ray->dir, env->pla->dir) == 0)
-		return (0);
-	dir = ray->dir;
-	ori = ray->pos;
-	nor = env->pla->dir;
-	bas = env->pla->pos;
-	d = -nor.x * bas.x - nor.y + bas.y - nor.z * bas.z;
-	t = (nor.x * ori.x + nor.y * ori.y + nor.z * ori.z + d) /
-		(-nor.x * dir.x - nor.y * dir.y - nor.z * dir.z);
-//	t = v_dot(v_sub(env->pla->ori, env->ray->ori), env->pla->dir) / v_dot(env->ray->dir, env->pla->dir);
-	if (t < 0)
-		return (0);
-	ray->t = t;
-	return (1);
+	oc = v_sub(ray->pos, cyl->pos);
+	dir = v_sub(ray->dir, v_multi(v_dot(ray->dir, cyl->dir), cyl->dir));
+	ocdir = v_sub(oc, v_multi(v_dot(oc, cyl->dir), cyl->dir));
+	coef.x = v_dot(dir, dir);
+	coef.y = 2 * v_dot(dir, v_sub(dir, ocdir));
+	coef.z = v_dot(v_sub(dir, ocdir), v_sub(dir, ocdir)) - (cyl->d * cyl->d);
+	return (solve_cylinder(cyl, ray, coef, t));
+}
+
+int			plane_intersect(t_pla *pla, t_ray *ray, double *t)
+{
+	return (hit_plane(pla->pos, pla->dir, ray, t));
+}
+
+int			square_intersect(t_sqr *sqr, t_ray *ray, double *t)
+{
+	t_v3	hit;
+	t_v3	dist;
+	double	border;
+
+	if (hit_plane(sqr->pos, sqr->dir, ray, t))
+	{
+		hit = v_add(ray->pos, v_multi(*t, ray->dir));
+		dist = v_sub(hit, sqr->pos);
+		border = sqr->side * 0.5;
+		return (
+			(fabs(dist.x) <= border)
+			&& (fabs(dist.y) <= border)
+			&& (fabs(dist.z) <= border));
+	}
+	return (0);
+}
+
+int			triangle_intersect(t_tri *tri, t_ray *ray, double *t)
+{
+	t_v3	hit;
+	t_v3	normal;
+
+	normal = get_tri_normal(tri);
+	if (hit_plane(tri->p1, normal, ray, t))
+	{
+		hit = v_add(ray->pos, v_multi(*t, ray->dir));
+		return (check_edge(tri->p2, tri->p1, hit, normal))
+		&& (check_edge(tri->p3, tri->p2, hit, normal))
+		&& (check_edge(tri->p1, tri->p3, hit, normal));
+	}
+	return (0);
 }

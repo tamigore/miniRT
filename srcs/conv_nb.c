@@ -6,77 +6,67 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 10:45:25 by tamigore          #+#    #+#             */
-/*   Updated: 2020/03/02 17:19:55 by tamigore         ###   ########.fr       */
+/*   Updated: 2021/01/13 17:01:24 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-unsigned	str_to_unsigned(char *str, int len)
+unsigned			str_to_unsigned(t_env *env)
 {
-	unsigned	nb;
-	int		i;
+	unsigned long	nb;
 
-	i = 0;
 	nb = 0;
-	while (str[i] && str[i] >= '0' && str[i] <= '9' && i < len)
+	while (*(env->sceen) && (*(env->sceen) < '0' || *(env->sceen) > '9'))
+		(env->sceen)++;
+	while (*(env->sceen) && *(env->sceen) >= '0' && *(env->sceen) <= '9')
 	{
 		nb *= 10;
-		nb += str[i++] - '0';
+		nb += *(env->sceen) - '0';
+		(env->sceen)++;
 	}
+	if (*(env->sceen) == ',')
+		(env->sceen)++;
 	return (nb);
 }
 
-long long	str_to_long(char *str, int *i)
+long long			str_to_long(t_env *env)
 {
-	int			j;
-	int			minus;
-	long long	nb;
+	int				minus;
+	long int		nb;
 
 	minus = 1;
-	while (str[*i] && (str[*i] < '0' || str[*i] > '9'))
+	while (*(env->sceen) && (*(env->sceen) < '0' || *(env->sceen) > '9'))
 	{
-		if (str[*i] == '-')
+		if (*(env->sceen) == '-')
 			minus = -1;
-		(*i)++;
+		(env->sceen)++;
 	}
-	j = *i;
-	while (str[*i] && str[*i] >= '0' && str[*i] <= '9')
-		(*i)++;
-	nb = str_to_unsigned(&str[j], *i - j);
+	nb = str_to_unsigned(env);
 	return (nb * minus);
 }
 
-double		str_to_double(char *str, int *i)
+double				str_to_double(t_env *env)
 {
-	int			j;
-	int			minus;
-	double		nb;
-	long long	inte;
+	int				minus;
+	double			nb;
+	long int		inte;
 
 	nb = 0;
 	minus = 1;
-	while (str[*i] && (str[*i] < '0' || str[*i] > '9'))
+	while (*(env->sceen) && (*(env->sceen) < '0' || *(env->sceen) > '9'))
 	{
-		if (str[*i] == '-')
+		if (*(env->sceen) == '-')
 			minus = -1;
-		(*i)++;
+		(env->sceen)++;
 	}
-	j = *i;
-	while (str[*i] && str[*i] >= '0' && str[*i] <= '9')
-		(*i)++;
-	inte = str_to_unsigned(&str[j], *i - j);
-	if (str[*i] == '.')
+	inte = str_to_unsigned(env);
+	if (*(env->sceen) == '.')
 	{
-		j = ++(*i);
-		while (str[*i] && str[*i] >= '0' && str[*i] <= '9')
-			(*i)++;
-		nb = (double)str_to_unsigned(&str[j], *i - j);
-		while (*i > j)
-		{
+		(env->sceen)++;
+		nb = (double)str_to_unsigned(env);
+		while (nb >= 1)
 			nb /= 10;
-			j++;
-		}
 	}
 	nb += (double)inte;
 	return (nb * minus);

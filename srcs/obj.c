@@ -1,46 +1,72 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   obj.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tamigore <taigore@student.42.fr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/12 15:32:20 by tamigore          #+#    #+#             */
+/*   Updated: 2021/02/03 15:15:20 by tamigore         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 
-t_obj		*object(t_env *env)
+t_obj		*init_object(t_env *env)
 {
 	t_obj	*obj;
 
-	if (!(obj = malloc(sizeof(t_obj))))
-		return (NULL);
-	obj->nb = count_obj(env);
-	obj->dist = MAX_DEPH;
-	obj->color = 0;
-	obj->car = NULL;
-	obj->pla = NULL;
-	obj->tri = NULL;
-	obj->cyl = NULL;
-	obj->sph = NULL;
+	obj = (t_obj *)malloc(sizeof(t_obj));
+	if (!obj)
+		exit_error(env, ERRNO_TO_STR);
+	obj->data = NULL;
+	obj->next = NULL;
 	return (obj);
 }
 
-int			count_obj(t_env *env)
+void		append_obj(t_obj **objs, t_obj *new_obj)
 {
-	int		i;
+	t_obj	*tmp;
 
-	i = 0;
-	i += count_sph(env->sph);
-	i += count_car(env->car);
-	i += count_pla(env->pla);
-	i += count_cyl(env->cyl);
-	i += count_tri(env->tri);
-	reset_env(&env);
-	return (i);
+	if (!objs || !new_obj)
+		return ;
+	tmp = *objs;
+	if (*objs)
+	{
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new_obj;
+	}
+	else
+		*objs = new_obj;
 }
 
-void		get_color(t_obj *obj)
+void	get_obj_color(t_obj *obj, t_ray *ray)
 {
-	if (obj->sph)
-		obj->color = rgb2color(obj->sph->R, obj->sph->G, obj->sph->B);
-	else if (obj->car)
-		obj->color = rgb2color(obj->car->R, obj->car->G, obj->car->B);
-	else if (obj->cyl)
-		obj->color = rgb2color(obj->cyl->R, obj->cyl->G, obj->cyl->B);
-	else if (obj->tri)
-		obj->color = rgb2color(obj->tri->R, obj->tri->G, obj->tri->B);
-	else if (obj->pla)
-		obj->color = rgb2color(obj->pla->R, obj->pla->G, obj->pla->B);
+	if (obj->id == SPHERE)
+		ray->color = ((t_sph *)(obj->data))->color;
+	else if (obj->id == PLANE)
+		ray->color = ((t_pla *)(obj->data))->color;
+	else if (obj->id == SQUARE)
+		ray->color = ((t_sqr *)(obj->data))->color;
+	else if (obj->id == CYLINDER)
+		ray->color = ((t_cyl *)(obj->data))->color;
+	else if (obj->id == TRIANGLE)
+		ray->color = ((t_tri *)(obj->data))->color;
+}
+
+void	get_obj_normal(t_obj *obj, t_ray *ray)
+{
+	if (obj->id == SPHERE)
+		ray->normal = get_sph_normal((t_sph *)(obj->data), ray);
+	else if (obj->id == PLANE)
+		ray->normal = ((t_pla *)(obj->data))->dir;
+	else if (obj->id == SQUARE)
+		ray->normal = ((t_sqr *)(obj->data))->dir;
+	else if (obj->id == CYLINDER)
+		ray->normal = get_cyl_normal((t_cyl *)(obj->data), ray);
+	else if (obj->id == TRIANGLE)
+		ray->normal = get_tri_normal((t_tri *)(obj->data));
+	if (v_dot(ray->dir, ray->normal) > 0)
+		v_multi(-1, ray->normal);
 }

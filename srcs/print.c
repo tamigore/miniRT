@@ -1,167 +1,132 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/01 18:17:14 by tamigore          #+#    #+#             */
+/*   Updated: 2021/02/01 18:24:34 by tamigore         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 
 void	print_env(t_env *env)
 {
-	if (env->res)
-		printf("res :%d.x/%d.y\n", env->res->x, env->res->y);
-	if (env->amb)
-		printf("amb :%d.R/%d.G/%d.B // %.2f.l\n", env->amb->R, env->amb->G,
-		env->amb->B, env->amb->l);
+	printf("res :%d.x/%d.y\n", env->res.x, env->res.y);
+	printf("amb :%.0f.R/%.0f.G/%.0f.B // %.2f.ratio\n", env->amb.color.x,
+			env->amb.color.y, env->amb.color.z, env->amb.ratio);
 	print_cam(env->cam);
-	print_lum(env->lum);
-	print_cyl(env->cyl);
-	print_car(env->car);
-	print_tri(env->tri);
-	print_pla(env->pla);
-	print_sph(env->sph);
-	print_ray(env->ray);
+	print_lgt(env->lgt);
+	print_obj(env->obj);
 }
 
-void	print_cam(t_cam *cam)
+void		print_cam(t_cam *cam)
 {
-//	if (cam)
-//	{
-		while (cam)
+	t_cam	*tmp;
+
+	if (cam)
+	{
+		tmp = cam;
+		while (tmp)
 		{
-			printf("cam :%.2f.x/%.2f.y/%.2f.z // %.2f.vx/%.2f.vy/%.2f.vz //%d.fov\n", cam->pos.x, cam->pos.y,
-			cam->pos.z, cam->dir.x, cam->dir.y, cam->dir.z, cam->fov);
-			if (cam->next)
-				cam = cam->next;
-			else
-				break;
+			printf("cam :%.2f.x/%.2f.y/%.2f.z // %.2f.vx/%.2f.vy/%.2f.vz //%d.fov\n", tmp->pos.x, tmp->pos.y,
+			tmp->pos.z, tmp->dir.x, tmp->dir.y, tmp->dir.z, tmp->fov);
+			tmp = tmp->next;
 		}
-//	}
-//	else
-//		printf("cam :NULL\n");
+	}
+	else
+		printf("cam :NULL\n");
 }
 
-void	print_lum(t_lum *lum)
+void		print_lgt(t_lgt *lgt)
 {
-//	if (lum)
-//	{
-		while (lum)
+	t_lgt	*tmp;
+
+	if (lgt)
+	{
+		tmp = lgt;
+		while (tmp)
 		{
-			printf("lum :%.2f.x/%.2f.y/%.2f.z // %f.l // %d.R/%d.G/%d.B\n", lum->pos.x, lum->pos.y,
-			lum->pos.z, lum->l, lum->R, lum->G, lum->B);
-			if (lum->next)
-				lum = lum->next;
-			else
-				break;
+			printf("lgt :%.2f.x/%.2f.y/%.2f.z // %f.ratio // %.0f.R/%.0f.G/%.0f.B\n", tmp->pos.x, tmp->pos.y,
+			tmp->pos.z, tmp->ratio, tmp->color.x, tmp->color.y, tmp->color.z);
+			tmp = tmp->next;
 		}
-//	}
-//	else
-//		printf("lum :NULL\n");
+	}
+	else
+		printf("lgt :NULL\n");
 }
 
-void	print_cyl(t_cyl *cyl)
+void		print_cyl(t_cyl *cyl)
 {
-//	if (cyl)
-//	{
-		while (cyl)
-		{
-			printf("cyl :%.2f.x/%.2f.y/%.2f.z // %.2f.vx/%.2f.vy/%.2f.vz // %d.R/%d.G/%d.B // %.2f.h/%.2f.d\n", cyl->pos.x, cyl->pos.y,
-			cyl->pos.z, cyl->dir.x, cyl->dir.y, cyl->dir.z, cyl->R, cyl->G, cyl->B, cyl->h, cyl->d);
-			if (cyl->next)
-				cyl = cyl->next;
-			else
-				break;
-		}
-//	}
-//	else
-//		printf("cyl :NULL\n");
+	printf("cyl :%.2f.x/%.2f.y/%.2f.z // %.2f.vx/%.2f.vy/%.2f.vz // %.0f.R/%.0f.G/%.0f.B // %.2f.h/%.2f.d\n", cyl->pos.x, cyl->pos.y,
+			cyl->pos.z, cyl->dir.x, cyl->dir.y, cyl->dir.z, cyl->color.x,
+			cyl->color.y, cyl->color.z, cyl->h, cyl->d);
 }
 
-void	print_car(t_car *car)
+void		print_sqr(t_sqr *sqr)
 {
-//	if (car)
-//	{
-		while (car)
-		{
-			printf("car :%.2f.x/%.2f.y/%.2f.z // %.2f.vx/%.2f.vy/%.2f.vz // %d.R/%d.G/%d.B // %.2f.h\n", car->pos.x, car->pos.y,
-			car->pos.z, car->dir.x, car->dir.y, car->dir.z, car->R, car->G, car->B, car->h);
-			if (car->next)
-				car = car->next;
-			else
-				break;
-		}
-//	}
-//	else
-//		printf("car :NULL\n");
+	printf("sqr :%.2f.x/%.2f.y/%.2f.z // %.2f.vx/%.2f.vy/%.2f.vz // %.0f.R/%.0f.G/%.0f.B // %.2f.h\n", sqr->pos.x, sqr->pos.y,
+			sqr->pos.z, sqr->dir.x, sqr->dir.y, sqr->dir.z, sqr->color.x,
+			sqr->color.y, sqr->color.z, sqr->side);
 }
 
-void	print_tri(t_tri *tri)
+void		print_tri(t_tri *tri)
 {
-//	if (tri)
-//	{
-		while (tri)
-		{
-			printf("tri :%.2f.x1/%.2f.y1/%.2f.z1 // %.2f.x2/%.2f.y2/%.2f.z2 // %.2f.x3/%.2f.y3/%.2f.z3 // %d.R/%d.G/%d.B\n", tri->p1.x, tri->p1.y, tri->p1.z,
-			tri->p2.x, tri->p2.y, tri->p2.z, tri->p3.z, tri->p3.y, tri->p3.z, tri->R, tri->G, tri->B);
-			if (tri->next)
-				tri = tri->next;
-			else
-				break;
-		}
-//	}
-//	else
-//		printf("tri :NULL\n");
+	printf("tri :%.2f.x1/%.2f.y1/%.2f.z1 // %.2f.x2/%.2f.y2/%.2f.z2 // %.2f.x3/%.2f.y3/%.2f.z3 // %.0f.R/%.0f.G/%.0f.B\n", tri->p1.x,
+			tri->p1.y, tri->p1.z, tri->p2.x, tri->p2.y, tri->p2.z, tri->p3.z,
+			tri->p3.y, tri->p3.z, tri->color.x, tri->color.y, tri->color.z);
 }
 
-void	print_pla(t_pla *pla)
+void		print_pla(t_pla *pla)
 {
-//	if (pla)
-//	{
-		while (pla)
-		{
-			printf("pla :%.2f.x/%.2f.y/%.2f.z // %.2f.vx/%.2f.vy/%.2f.vz // %d.R/%d.G/%d.B\n", pla->pos.x, pla->pos.y,
-			pla->pos.z, pla->dir.x, pla->dir.y, pla->dir.z, pla->R, pla->G, pla->B);
-			if (pla->next)
-				pla = pla->next;
-			else
-				break;
-		}
-//	}
-//	else
-//		printf("pla :NULL\n");
+	printf("pla :%.2f.x/%.2f.y/%.2f.z // %.2f.vx/%.2f.vy/%.2f.vz // %.0f.R/%.0f.G/%.0f.B\n", pla->pos.x, pla->pos.y, pla->pos.z,
+			pla->dir.x, pla->dir.y, pla->dir.z, pla->color.x, pla->color.y,
+			pla->color.z);
 }
 
-void	print_sph(t_sph *sph)
+void		print_sph(t_sph *sph)
 {
-//	if (sph)
-//	{
-		while (sph)
-		{
-			printf("sph :%.2f.x/%.2f.y/%.2f.z // %.2f.d // %d.R/%d.G/%d.B\n", sph->pos.x, sph->pos.y,
-			sph->pos.z, sph->d, sph->R, sph->G, sph->B);
-			if (sph->next)
-				sph = sph->next;
-			else
-				break;
-		}
-//	}
-//	else
-//		printf("sph :NULL\n");
+	printf("sph :%.2f.x/%.2f.y/%.2f.z // %.2f.d // %.0f.R/%.0f.G/%.0f.B\n",
+			sph->pos.x, sph->pos.y, sph->pos.z, sph->r, sph->color.x,
+			sph->color.y, sph->color.z);
 }
 
-void	print_ray(t_ray *ray)
+void		print_ray(t_ray *ray)
 {
 	if (ray)
+	{
 		printf("ray :%.2f.x/%.2f.y/%.2f.z//%.2f.vx/%.2f.vy/%.2f.vz//t=%f\n",
 		ray->pos.x, ray->pos.y, ray->pos.z, ray->dir.x,
 		ray->dir.y, ray->dir.z, ray->t);
+	}
+	else
+		printf("ray :NULL\n");
 }
 
-void	print_obj(t_obj *obj)
+void		print_obj(t_obj *obj)
 {
+	t_obj	*tmp;
+
 	if (obj)
 	{
-		printf("obj :%d.nb/%.2f.dist/%d.color\n", obj->nb, obj->dist, obj->color);
-		print_cyl(obj->cyl);
-		print_car(obj->car);
-		print_tri(obj->tri);
-		print_pla(obj->pla);
-		print_sph(obj->sph);
+		tmp = obj;
+		while (tmp)
+		{
+			if (tmp->id == SQUARE)
+				print_sqr(tmp->data);
+			else if (tmp->id == SPHERE)
+				print_sph(tmp->data);
+			else if (tmp->id == CYLINDER)
+				print_cyl(tmp->data);
+			else if (tmp->id == TRIANGLE)
+				print_tri(tmp->data);
+			else if (tmp->id == PLANE)
+				print_pla(tmp->data);
+			tmp = tmp->next;
+		}
 	}
-//	else
-//		printf("obj :NULL\n");
+	else
+		printf("obj :NULL\n");
 }

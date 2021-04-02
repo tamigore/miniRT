@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:30:18 by tamigore          #+#    #+#             */
-/*   Updated: 2021/01/05 16:43:17 by tamigore         ###   ########.fr       */
+/*   Updated: 2021/03/17 17:55:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "libmath.h"
 #include "miniRT_struct.h"
 #include "miniRT_define.h"
+#include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -30,9 +31,22 @@
 */
 
 t_env		*init_env(char *av, int save);
-void		pars(char *txt, t_env **env);
-void 		reset_env(t_env **env);
-void		reset_sph(t_sph **sph);
+
+/*
+** parsing.c
+*/
+
+void		pars_sceen(char *file_path, t_env *env);
+
+/*
+** env.c
+*/
+
+t_env		*init_env(char *file_path, int save);
+t_cam		*init_camera(t_env *env);
+void		append_cam(t_cam **cams, t_cam *new_cam);
+t_lgt		*init_light(t_env *env);
+void		append_lgt(t_lgt **lgts, t_lgt *new_lgt);
 
 /*
 ** print.c
@@ -40,9 +54,9 @@ void		reset_sph(t_sph **sph);
 
 void		print_env(t_env *env);
 void		print_cam(t_cam *cam);
-void		print_lum(t_lum *lum);
+void		print_lgt(t_lgt *lum);
 void		print_cyl(t_cyl *cyl);
-void		print_car(t_car *car);
+void		print_sqr(t_sqr *car);
 void		print_tri(t_tri *tri);
 void		print_pla(t_pla *pla);
 void		print_sph(t_sph *sph);
@@ -53,68 +67,90 @@ void		print_obj(t_obj *obj);
 ** obj.c
 */
 
-t_res		*resolution(char *txt);
-t_amb		*ambiance(char *txt);
-t_cam		*camera(char *txt);
-t_lum		*lumiere(char *txt);
-t_cyl		*cylindre(char *txt);
-t_tri		*triangle(char *txt);
-t_car		*carre(char *txt);
-t_pla		*plane(char *txt);
-t_sph		*sphere(char *txt);
+t_obj		*init_object(t_env *env);
+void		append_obj(t_obj **objs, t_obj *new_obj);
+void		get_obj_color(t_obj *obj, t_ray *ray);
+void		get_obj_normal(t_obj *obj, t_ray *ray);
 
 /*
 ** Conv_nb.c
 */
 
-double		str_to_double(char *str, int *i);
-long long	str_to_long(char *str, int *i);
-unsigned	str_to_unsigned(char *str, int len);
+double		str_to_double(t_env *env);
+long long	str_to_long(t_env *env);
+unsigned	str_to_unsigned(t_env *env);
 
 /*
-** Count.c
-*/
-
-int			count_pla(t_pla *pla);
-int			count_sph(t_sph *sph);
-int			count_tri(t_tri *tri);
-int			count_cyl(t_cyl *cyl);
-int			count_car(t_car *car);
-
-/*
-** mlx.c
+** mlx_img.c
 */
 
 int			mlx_creat_all(t_env *env);
-int			win_pixel(t_env *env);
-t_v3		canvas2view(t_env *env, int x, int y);
-t_v3		vector_direct(int fov, int resX, int resY, int x, int y);
+t_img		*init_img(t_env *env);
+void		append_image(t_img **imgs, t_img *new);
+void		delete_images(t_img **imgs, void *mlx_ptr);
+void		circle_img_list(t_img *imgs, t_img *head);
+
+/*
+** render.c
+*/
+
+int			render(t_env *env, int save);
 
 /*
 ** tarce.c
 */
 
-int			trace(t_env *env, t_ray *ray);
-int			trace_sph(t_env *env, t_ray *ray);
-int			trace_pla(t_env *env, t_ray *ray);
-int			trace_ray(t_env *env);
+void		trace_ray(t_env *env, t_cam *cam);
+
+/*
+** trace_lgt.c
+*/
+
+t_v3		trace_ray_to_light(t_env *env, t_ray *ray);
+
+/*
+** trace_obj.c
+*/
+
+int			trace_sph(t_sph *sph, t_ray *ray);
+int			trace_pla(t_pla *pla, t_ray *ray);
+int			trace_sqr(t_sqr *sqr, t_ray *ray);
+int			trace_cyl(t_cyl *cyl, t_ray *ray);
+int			trace_tri(t_tri *tri, t_ray *ray);
+
+/*
+** hit.c
+*/
+
+t_obj		*trace_objs(t_obj *obj, t_ray *ray);
+int			hit_obj(t_obj *obj, t_ray *ray, double *t);
 
 /*
 ** intersect.c
 */
 
-int			count_obj(t_env *env);
-int			SolveQuadratic(float a, float b, float c, float *x0, float *x1);
-int			sphere_intersect(t_sph *sph, t_ray *ray);
-int			plane_intersect(t_env *env, t_ray *ray);
+int			sphere_intersect(t_sph *sph, t_ray *ray, double *t);
+int			cylinder_intersect(t_cyl *cyl, t_ray *ray, double *t);
+int			plane_intersect(t_pla *pla, t_ray *ray, double *t);
+int			square_intersect(t_sqr *sqr, t_ray *ray, double *t);
+int			triangle_intersect(t_tri *tri, t_ray *ray, double *t);
+
+/*
+** inter_util.c
+*/
+
+int			solve_quadratic(t_v3 coef, double *x0, double *x1);
+int			hit_plane(t_v3 pos, t_v3 dir, t_ray *ray, double *t);
+int			check_edge(t_v3 to, t_v3 from, t_v3 hit, t_v3 normal);
+int			solve_cylinder(t_cyl *cyl, t_ray *ray, t_v3 corf, double *t);
 
 /*
 ** utils.c
 */
 
+t_v3		rescale_vec(t_v3 vec, int min, int max);
+char		*ft_strjoindelone(char *s1, char *s2);
 int			rgb2color(int R, int G, int B);
-int			correct_line(char *txt);
-void		fast_exit(char *str, int i);
 double		MaxVal(int nb, ...);
 void		swap(double *x, double *y);
 
@@ -123,28 +159,70 @@ void		swap(double *x, double *y);
 */
 
 double		**lookAt(double **cam2world, t_v3 dir, t_v3 pos);
-double		**matrix44_init();
-void		matrix_row(double a, double b, double c, double d, double *M);
-t_v3		vec3Xmat4(t_v3 vec, double **M);
-double		**mat4Xmat4(double **m, double **z);
-int			inv_matrix(double **m, double **invert);
 
 /*
 ** ray.c
 */
 
-t_ray		*init_ray();
-void		ft_ray(t_ray *ray, t_v3 ori, t_v3 dir, double t);
+void		reset_ray(t_ray *ray);
+void		set_ray(t_ray *ray, t_v3 pos, t_v3 dir, double t);
+void		init_ray(t_ray *ray);
 
 /*
-** obj.c
+** get_color.c
 */
 
-t_obj		*object();
-int			count_obj(t_env *env);
-void		get_color(t_obj *obj);
-void		reset_obj(t_obj *obj);
-void		obj_sph(t_env *env);
-void		obj_pla(t_env *env, t_obj *obj);
+unsigned int		create_color(int trans, int red, int green, int blue);
+unsigned int		get_trans(int color);
+unsigned int		get_red(int color);
+unsigned int		get_green(int color);
+unsigned int		get_blue(int color);
+
+/*
+** get_scene.c
+*/
+
+void		get_camera(t_env *env);
+void		get_light(t_env *env);
+void		get_resolution(t_env *env);
+void		get_ambient(t_env *env);
+
+/*
+** get_obj.c
+*/
+
+void		get_sphere(t_env *env);
+void		get_plane(t_env *env);
+void		get_square(t_env *env);
+void		get_cylinder(t_env *env);
+void		get_triangle(t_env *env);
+
+/*
+** get_normal.c
+*/
+
+t_v3		get_sph_normal(t_sph *sph, t_ray *ray);
+t_v3		get_cyl_normal(t_cyl *cyl, t_ray *ray);
+t_v3		get_tri_normal(t_tri *tri);
+
+
+/*
+** free.c
+*/
+
+void		free_env(t_env *env);
+
+/*
+** exit.c
+*/
+
+void		exit_error(t_env *env, t_errid id);
+int			exit_sucess(t_env *env);
+
+/*
+** save.c
+*/
+
+void		set_save(t_env *env, const char *file);
 
 #endif

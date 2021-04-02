@@ -6,7 +6,7 @@
 #    By: tamigore <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/15 15:04:29 by tamigore          #+#    #+#              #
-#    Updated: 2021/01/05 14:41:38 by tamigore         ###   ########.fr        #
+#    Updated: 2021/01/06 16:45:08 by tamigore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,9 @@ DIR_S = srcs
 
 SRC =	vector.c	\
 		vector_2.c	\
-		angles.c
+		angles.c	\
+		matrix.c	\
+		matrix_op.c
 
 SRCS = $(addprefix $(DIR_S)/,$(SRC))
 
