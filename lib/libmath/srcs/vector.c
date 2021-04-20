@@ -6,7 +6,7 @@
 /*   By: tamigore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 12:14:26 by tamigore          #+#    #+#             */
-/*   Updated: 2021/01/06 14:29:29 by tamigore         ###   ########.fr       */
+/*   Updated: 2021/04/19 12:19:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_v3	v_cross(t_v3 a, t_v3 b)
 	t_v3	vec;
 
 	vec.x = a.y * b.z - a.z * b.y;
-	vec.y = a.z * b.x - a.x * b.y;
+	vec.y = a.z * b.x - a.x * b.z;
 	vec.z = a.x * b.y - a.y * b.x;
 	return (vec);
 }

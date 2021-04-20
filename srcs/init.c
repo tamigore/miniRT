@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:22:50 by tamigore          #+#    #+#             */
-/*   Updated: 2021/02/09 16:10:38 by tamigore         ###   ########.fr       */
+/*   Updated: 2021/04/20 12:45:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_env		*init_env(char *path, int save)
+t_env		*init_env(int ac, char **av)
 {
 	t_env	*env;
 
@@ -22,7 +22,9 @@ t_env		*init_env(char *path, int save)
 	env->sceen = NULL;
 	env->mlx = mlx_init();
 	env->win = NULL;
-	env->save = save;
+	env->save = 0;
+	if ((ac == 3 && ft_strcmp(av[2], "--save")))
+		env->save = 1;
 	env->cam = NULL;
 	env->nb_cam = 0;
 	env->lgt = NULL;
@@ -30,7 +32,6 @@ t_env		*init_env(char *path, int save)
 	env->obj = NULL;
 	env->nb_obj = 0;
 	env->img = NULL;
-	pars_sceen(path, env);
 	return (env);
 }
 
@@ -42,7 +43,6 @@ t_cam		*init_camera(t_env *env)
 	if (!cam)
 		exit_error(env, ERRNO_TO_STR);
 	cam->fov = 0;
-	cam->cam2world = mat_init();
 	cam->next = NULL;
 	return (cam);
 }
@@ -62,6 +62,7 @@ void		append_cam(t_cam **cams, t_cam *new_cam)
 	}
 	else
 		*cams = new_cam;
+
 }
 
 t_lgt		*init_light(t_env *env)

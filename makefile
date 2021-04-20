@@ -6,7 +6,7 @@
 #    By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/19 16:16:11 by tamigore          #+#    #+#              #
-#    Updated: 2021/02/17 16:04:31 by tamigore         ###   ########.fr        #
+#    Updated: 2021/04/20 11:50:09 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,6 @@ DIR_S = srcs/
 HEADER = includes/
 
 SOURCES =	conv_nb.c	\
-			env.c		\
 			exit.c		\
 			free.c		\
 			get_color.c	\
@@ -31,9 +30,11 @@ SOURCES =	conv_nb.c	\
 			get_obj.c	\
 			get_scene.c	\
 			hit.c		\
+			init.c		\
 			inter_util.c\
 			intersect.c \
 			lookAt.c	\
+			loop.c		\
 			miniRT.c	\
 			mlx_img.c	\
 			obj.c		\
@@ -79,7 +80,7 @@ endif
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(HEADER)
+$(NAME): $(OBJS) $(HEADER) $(LIBFT) $(LIBMATH)
 	make -C $(LIBFT)
 	make -C $(LIBMATH)
 	gcc -g $(CFLAGS) $(OBJS) $(FLAGS) -o $(NAME)

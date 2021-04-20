@@ -6,12 +6,13 @@
 /*   By: tamigore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 13:56:45 by tamigore          #+#    #+#             */
-/*   Updated: 2021/02/09 16:11:14 by tamigore         ###   ########.fr       */
+/*   Updated: 2021/04/19 12:47:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 #include "../../../includes/libft.h"
+#include <stdio.h>
 
 void			mat4_x_mat4(double **a, double **b, double **mat)
 {
@@ -129,6 +130,5 @@ int				mat_invers(double **m, double **invert)
 		}
 		i++;
 	}
-	mat_free(inv);
 	return (1);
 }

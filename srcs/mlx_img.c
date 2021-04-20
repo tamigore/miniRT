@@ -6,20 +6,11 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:33:11 by tamigore          #+#    #+#             */
-/*   Updated: 2021/03/17 11:29:51 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/20 12:04:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-int			mlx_creat_all(t_env *env)
-{
-	if (!(env->win = mlx_new_window(env->mlx,
-		env->res.x, env->res.y, "MiniRT")))
-		exit_error(env, ERRNO_TO_STR);
-	env->img = NULL;
-	return (1);
-}
 
 t_img		*init_img(t_env *env)
 {

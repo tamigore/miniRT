@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:20:38 by tamigore          #+#    #+#             */
-/*   Updated: 2021/03/06 19:43:13 by tamigore         ###   ########.fr       */
+/*   Updated: 2021/04/20 12:29:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct		s_cam
 	t_v3			pos;
 	t_v3			dir;
 	int				fov;
-	double			**cam2world;
+//	double			**cam2world;
 	struct s_cam	*next;
 }					t_cam;
 
@@ -305,7 +305,7 @@ typedef enum	e_errid
 	RES_LOW,
 	SCENE_FMT,
 	SPHERE_FMT,
-	SQUARE_FMT
+	SQUARE_FMT,
 }				t_errid;
 
 /*

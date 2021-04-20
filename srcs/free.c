@@ -6,7 +6,7 @@
 /*   By: tamigore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:10:05 by tamigore          #+#    #+#             */
-/*   Updated: 2021/01/12 16:01:06 by tamigore         ###   ########.fr       */
+/*   Updated: 2021/04/20 12:32:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static void	free_cam(t_cam *cam)
 		{
 			tmp = cam;
 			cam = cam->next;
-			mat_free(tmp->cam2world);
 			free(tmp);
 			if (cam == head)
 				cam = NULL;

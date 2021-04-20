@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:30:18 by tamigore          #+#    #+#             */
-/*   Updated: 2021/03/17 17:55:58 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/20 12:31:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,24 @@
 #include <stdarg.h>
 
 /*
-** miniRT.c
+** loop.c
 */
 
-t_env		*init_env(char *av, int save);
+int			close_program(void *param);
+int			next_cam(int keycode, t_env *env);
+void		graphic_loop(t_env *env);
 
 /*
 ** parsing.c
 */
 
-void		pars_sceen(char *file_path, t_env *env);
+void		pars_sceen(char **av, t_env *env);
 
 /*
-** env.c
+** init.c
 */
 
-t_env		*init_env(char *file_path, int save);
+t_env		*init_env(int ac, char **av);
 t_cam		*init_camera(t_env *env);
 void		append_cam(t_cam **cams, t_cam *new_cam);
 t_lgt		*init_light(t_env *env);
@@ -84,7 +86,6 @@ unsigned	str_to_unsigned(t_env *env);
 ** mlx_img.c
 */
 
-int			mlx_creat_all(t_env *env);
 t_img		*init_img(t_env *env);
 void		append_image(t_img **imgs, t_img *new);
 void		delete_images(t_img **imgs, void *mlx_ptr);
@@ -94,7 +95,7 @@ void		circle_img_list(t_img *imgs, t_img *head);
 ** render.c
 */
 
-int			render(t_env *env, int save);
+void		render(t_env *env);
 
 /*
 ** tarce.c
@@ -155,10 +156,11 @@ double		MaxVal(int nb, ...);
 void		swap(double *x, double *y);
 
 /*
-** matrix.c
+** look_at.c
 */
 
-double		**lookAt(double **cam2world, t_v3 dir, t_v3 pos);
+t_v3			canvas2view(t_env *env, t_cam *cam, int x, int y);
+//double		**lookAt(double **cam2world, t_v3 dir, t_v3 pos);
 
 /*
 ** ray.c

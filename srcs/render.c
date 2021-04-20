@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:11:21 by tamigore          #+#    #+#             */
-/*   Updated: 2021/03/17 17:47:25 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/20 12:06:07 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,12 @@ static void	render_n_img(t_env *env, int nb)
 	circle_img_list(env->img, head);
 }
 
-int			render(t_env *env, int save)
+void		render(t_env *env)
 {
-	if (save)
+	if (env->save)
 	{
 		render_n_img(env, 1);
 		set_save(env, BMP_FILE);
 	}
 	render_n_img(env, env->nb_cam);
-	return (1);
 }

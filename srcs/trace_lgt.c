@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:20:47 by tamigore          #+#    #+#             */
-/*   Updated: 2021/03/17 18:02:03 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/19 11:33:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,8 @@ static void		compute_lgt(t_obj *obj, t_lgt *lgt, t_ray *ray, t_v3 *color)
 	if (!is_in_shadow(obj, ray, lgt_dir) && pov > 0.0)
 	{
 		lum = lgt->ratio * v_cos(ray->normal, lgt_dir);
-		printf("lum : %f\n", lum);
 		*color = v_multi(lum, lgt->color);
 		spec_lum = get_specular(ray, lgt, lgt_dir, pov);
-		printf("spec lum : %f\n", spec_lum);
 		*color = v_add(*color, v_multi(spec_lum, lgt->color));
 	}
 }
@@ -81,5 +79,9 @@ t_v3			trace_ray_to_light(t_env *env, t_ray *ray)
 		compute_lgt(env->obj, tmp, ray, &color);
 		tmp = tmp->next;
 	}
-	return (rescale_vec(v_prod(ray->color, color), 0, MAX_RGB));
+	ray->color.x = ray->color.x / MAX_RGB;
+	ray->color.y = ray->color.y / MAX_RGB;
+	ray->color.z = ray->color.z / MAX_RGB;
+	color = rescale_vec(v_prod(ray->color, color), 0, MAX_RGB);
+	return (color);
 }

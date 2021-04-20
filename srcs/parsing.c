@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:36:40 by tamigore          #+#    #+#             */
-/*   Updated: 2021/02/01 16:07:20 by tamigore         ###   ########.fr       */
+/*   Updated: 2021/04/20 12:01:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,11 @@ static char		*read_sceen(t_env *env, char *file_path)
 ** This fonction pars the scene to the structures and check for errors
 */
 
-void			pars_sceen(char *file_path, t_env *env)
+void			pars_sceen(char **av, t_env *env)
 {
 	char		*head;
 
-	env->sceen = read_sceen(env, file_path);
+	env->sceen = read_sceen(env, av[env->save + 1]);
 	if (!env->sceen)
 		exit_error(env, ERRNO_TO_STR);
 	head = env->sceen;
