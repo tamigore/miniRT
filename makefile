@@ -6,7 +6,7 @@
 #    By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/19 16:16:11 by tamigore          #+#    #+#              #
-#    Updated: 2021/04/20 11:50:09 by user42           ###   ########.fr        #
+#    Updated: 2021/05/04 14:44:34 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ endif
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(HEADER) $(LIBFT) $(LIBMATH)
+$(NAME): $(OBJS) $(HEADER) $(LIBFT)
 	make -C $(LIBFT)
 	make -C $(LIBMATH)
 	gcc -g $(CFLAGS) $(OBJS) $(FLAGS) -o $(NAME)
