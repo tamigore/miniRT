@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_normal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 16:11:33 by tamigore          #+#    #+#             */
-/*   Updated: 2021/02/03 15:14:29 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/03/05 16:36:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_v3		get_sph_normal(t_sph *sph, t_ray *ray)
 {
-	return (v_norm(v_sub(ray->hit, sph->pos)));
+	return (v_norm(v_sub(v_norm(ray->hit), sph->pos)));
 }
 
 t_v3		get_cyl_normal(t_cyl *cyl, t_ray *ray)

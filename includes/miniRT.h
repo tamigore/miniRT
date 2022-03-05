@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:30:18 by tamigore          #+#    #+#             */
-/*   Updated: 2021/04/20 12:31:24 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/05 16:22:45 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,21 @@
 ** loop.c
 */
 
-int			close_program(void *param);
-int			next_cam(int keycode, t_env *env);
+int			close_program(t_env *env);
+int			key_handler(int keycode, t_env *env);
 void		graphic_loop(t_env *env);
 
 /*
 ** parsing.c
 */
 
-void		pars_sceen(char **av, t_env *env);
+void		pars_sceen(char *av, t_env *env);
 
 /*
 ** init.c
 */
 
-t_env		*init_env(int ac, char **av);
+t_env		*init_env(void);
 t_cam		*init_camera(t_env *env);
 void		append_cam(t_cam **cams, t_cam *new_cam);
 t_lgt		*init_light(t_env *env);
@@ -219,12 +219,6 @@ void		free_env(t_env *env);
 */
 
 void		exit_error(t_env *env, t_errid id);
-int			exit_sucess(t_env *env);
-
-/*
-** save.c
-*/
-
-void		set_save(t_env *env, const char *file);
+void		exit_sucess(t_env *env);
 
 #endif

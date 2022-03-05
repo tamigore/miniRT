@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lookAt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamigore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:41:56 by tamigore          #+#    #+#             */
-/*   Updated: 2021/04/20 12:38:38 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/05 16:06:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,34 @@ static t_v3		look_at(t_v3 dir, t_v3 cam_dir)
 **		camera space.
 */
 
+// static t_v3		vector_direct(int fov, int resX, int resY, int x, int y)
+// {
+// 	double		Px;
+// 	double		Py;
+// 	double		ratio;
+// 	double		tang;
+
+// 	tang = tan((fov * M_PI / 180) / 2);
+// 	ratio = (double)resX / (double)resY;
+// 	Px = -(2 * ((x + 0.5) / resX) - 1) * ratio * tang;
+// 	Py = (1 - 2 * ((y + 0.5) / resY)) * tang;
+// 	return (v_init(Px, Py, 1));
+// }
+
 static t_v3		vector_direct(int fov, int resX, int resY, int x, int y)
 {
 	double		Px;
 	double		Py;
+	double		Pz;
 	double		ratio;
 	double		tang;
 
 	tang = tan((fov * M_PI / 180) / 2);
 	ratio = (double)resX / (double)resY;
-	Px = -(2 * ((x + 0.5) / resX) - 1) * ratio * tang;
-	Py = (1 - 2 * ((y + 0.5) / resY)) * tang;
-	return (v_init(Px, Py, 1));
+	Px = ((x + 0.5) - (resX / 2)) * ratio;
+	Py = - ((y + 0.5) - (resY / 2));
+	Pz = (resY / (2 * tang));
+	return (v_init(Px, Py, Pz));
 }
 
 /*
@@ -59,6 +75,7 @@ t_v3			canvas2view(t_env *env, t_cam *cam, int x, int y)
 	t_v3		vec;
 
 	vec = vector_direct(cam->fov, env->res.x, env->res.y, x, y);
+	vec = v_norm(vec);
 	vec = look_at(vec, cam->dir);
 	vec = v_norm(vec);
 	return (vec);

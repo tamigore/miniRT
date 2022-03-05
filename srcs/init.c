@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:22:50 by tamigore          #+#    #+#             */
-/*   Updated: 2021/04/20 12:45:01 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/04 16:17:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_env		*init_env(int ac, char **av)
+t_env		*init_env(void)
 {
 	t_env	*env;
 
@@ -22,9 +22,6 @@ t_env		*init_env(int ac, char **av)
 	env->sceen = NULL;
 	env->mlx = mlx_init();
 	env->win = NULL;
-	env->save = 0;
-	if ((ac == 3 && ft_strcmp(av[2], "--save")))
-		env->save = 1;
 	env->cam = NULL;
 	env->nb_cam = 0;
 	env->lgt = NULL;

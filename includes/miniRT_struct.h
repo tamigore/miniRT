@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT_struct.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:20:38 by tamigore          #+#    #+#             */
-/*   Updated: 2021/04/20 12:29:19 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/04 16:14:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,7 +246,6 @@ typedef struct		s_img
 ** sceen = contain the data from the sceen file
 ** mlx = mlx pointer returned by mlx_init()
 ** win = mlx pointer to the window screne
-** save = bool to get the save option
 ** res = resolution (width and height) of the window
 ** amb = ambient light parameters
 ** nb_cam = number of cameras in the scene
@@ -264,7 +263,6 @@ typedef struct		s_env
 	char			*sceen;
 	void			*mlx;
 	void			*win;
-	int				save;
 	struct s_res	res;
 	struct s_amb	amb;
 	int				nb_cam;
@@ -338,67 +336,5 @@ typedef struct	s_pars
 	int			id_len;
 	t_pars_func	func;
 }				t_pars;
-
-/*
-** t_bmfh = Bitmap file header
-**
-** type = must always be set to 'BM' to declare that this is a .bmp-file
-**	(2 bytes)
-** size = specifies the size of the file in bytes (4 bytes)
-** reserved1 = must be set to 0 (2 bytes)
-** reserved2 = must be set to 0 (2 bytes)
-** offset = specifies the offset from the beginning of the file to the Bitmap
-**	data (4 bytes)
-*/
-
-typedef struct	s_bmfh
-{
-	u_int8_t	type[2];
-	int			size;
-	int16_t		reserved1;
-	int16_t		reserved2;
-	u_int32_t	offset;
-}				t_bmfh;
-
-/*
-** t_bmih = Bitmap information header
-**
-** size = specifies the size of the bmih structure in bytes
-**	- Must be at least 40 (4 bytes)
-** width = specifies the width of the image, in pixels (4 bytes)
-** height = specifies the height of the image, in pixels (4 bytes)
-** planes = specifies the number of planes of the target device
-**	- must be set to zero (2 bytes)
-** bit_count = specifies the number of bits per pixel
-**	- 1, 4, 8, 16, 24, or 32 (2 bytes)
-** compr = specifies the type of compression, usually set to zero
-**   0=RGB(No Compression), 1=RLE8, 2=RLE4, 3=BITFIELDS (4 bytes)
-** img_size = specifies the size of the image data, in bytes
-**	if there is no compression, it is valid to set this member to zero (4 bytes)
-** ppm_x = specifies the the horizontal pixels per meter on the designated
-**	targer device, usually set to zero (4 bytes)
-** ppm_y = specifies the the vertical pixels per meter on the designated targer
-**	device, usually set to zero. (4 bytes)
-** clr_used = specifies the number of colors used in the bitmap, if set to zero
-**	the number of colors is calculated using the biBitCount member (4 bytes)
-** clr_important =  specifies the number of color that are 'important' for the
-**	bitmap, if set to zero, all colors are important (4 bytes)
-*/
-
-typedef struct	s_bmih
-{
-	u_int32_t	size;
-	u_int32_t	width;
-	u_int32_t	height;
-	int16_t		planes;
-	int16_t		bit_count;
-	u_int32_t	compression;
-	u_int32_t	img_size;
-	u_int32_t	ppm_x;
-	u_int32_t	ppm_y;
-	u_int32_t	clr_used;
-	u_int32_t	clr_important;
-}				t_bmih;
-
 
 #endif

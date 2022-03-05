@@ -3,32 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:28:29 by tamigore          #+#    #+#             */
-/*   Updated: 2021/04/20 12:06:35 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/04 17:32:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static void	usage(void)
+/*
+** usage : secure file
+** ATTENTION |.rt|
+*/
+static int	usage(char *str)
 {
-	ft_putstr("Usage: minirt (--save) <scene.rt>\n");
-	exit(EXIT_FAILURE);
+	int	i;
+
+	i = 0;
+	while (str && str[i])
+	{
+		if (str[i] == '.')
+		{
+			if (!ft_strcmp(".rt", &str[i]))
+				return (1);
+		}
+		i++;
+	}
+	return (0);
 }
 
+/*
+** main : check | pars & initialize | compute ray | graphic interface
+*/
 int			main(int ac, char **av)
 {
 	t_env	*env;
 
-	if (ac < 2 || ac > 3 || (ac == 3 && ft_strcmp(av[2], "--save")))
-		usage();
+	if (ac != 2 || !av || !usage(av[1])) // first check
+		ft_putstr_fd("Error: Usage: minirt: ./miniRT <scene.rt>\n", 2);
 	printf("arg : %s\n", av[1]);
-	env = init_env(ac, av);
-	pars_sceen(av, env);
+	env = init_env(); // second check && init
+	pars_sceen(av[1], env); // parsing
 	print_env(env);
-	render(env);
-	graphic_loop(env);
-	return (WIN);
+	render(env); // compute
+	graphic_loop(env); // graphic
+	return (END);
 }

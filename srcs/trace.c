@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:30:03 by tamigore          #+#    #+#             */
-/*   Updated: 2021/04/20 12:30:27 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/05 16:12:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ void				trace_ray(t_env *env, t_cam *cam)
 //	cam->cam2world = lookAt(cam->cam2world, cam->dir, cam->pos);
 //	if (!cam->cam2world)
 //		exit_error(env, ERRNO_TO_STR);
-	ray.pos = env->cam->pos;
-	while (y < (unsigned int)env->res.y)
+	ray.pos = cam->pos;
+	while (y < (unsigned int)env->res.y -1)
 	{
 		x = 0;
-		while (x < (unsigned int)env->res.x)
+		while (x < (unsigned int)env->res.x - 1)
 		{
 			reset_ray(&ray);
 			ray.dir = canvas2view(env, cam, x, y);

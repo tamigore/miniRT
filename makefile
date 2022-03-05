@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+         #
+#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/19 16:16:11 by tamigore          #+#    #+#              #
-#    Updated: 2021/05/04 14:44:34 by user42           ###   ########.fr        #
+#    Updated: 2022/03/04 16:12:21 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,6 @@ SOURCES =	conv_nb.c	\
 			ray.c		\
 			render.c	\
 			rescale.c	\
-			save.c		\
 			trace.c		\
 			trace_lgt.c	\
 			trace_obj.c	\
@@ -53,7 +52,7 @@ SRCS = $(addprefix $(DIR_S),$(SOURCES))
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -Wall -Werror -Wextra -I $(HEADER) -D NUM_THREADS=$(NUM_THREADS)
+CFLAGS = -Wall -Werror -Wextra -I $(HEADER)
 
 FLAGS = -L $(LIBFT) -lft -L $(LIBMATH) -lmath
 

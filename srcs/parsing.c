@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:36:40 by tamigore          #+#    #+#             */
-/*   Updated: 2021/04/20 12:01:53 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/04 17:57:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,11 @@ static char		*read_sceen(t_env *env, char *file_path)
 ** This fonction pars the scene to the structures and check for errors
 */
 
-void			pars_sceen(char **av, t_env *env)
+void			pars_sceen(char *av, t_env *env)
 {
 	char		*head;
 
-	env->sceen = read_sceen(env, av[env->save + 1]);
+	env->sceen = read_sceen(env, av);
 	if (!env->sceen)
 		exit_error(env, ERRNO_TO_STR);
 	head = env->sceen;
