@@ -3,36 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   intersect.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:37:55 by tamigore          #+#    #+#             */
-/*   Updated: 2021/02/11 17:44:40 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/03/16 11:12:48 by dasanter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
+// int			sphere_intersect(t_sph *sph, t_ray *ray, double *t)
+// {
+// 	double	t0;
+// 	double	t1;
+// 	t_v3	coef;
+// 	t_v3	L;
+
+// 	L = v_sub(ray->pos, sph->pos);
+// 	coef.x = v_dot(ray->dir, ray->dir);
+// 	coef.y = 2 * v_dot(ray->dir, L);
+// 	coef.z = v_dot(L, L) - (sph->r * sph->r);
+// 	if (!solve_quadratic(coef, &t0, &t1))
+// 		return (0);
+// 	if (t0 > t1 && t1 > EPSILON)
+// 		swap(&t0, &t1);
+// 	if (t0 > INFINITY || t0 < EPSILON)
+// 		return (0);
+// 	*t = t0;
+// 	return (1);
+// }
+
 int			sphere_intersect(t_sph *sph, t_ray *ray, double *t)
 {
-	double	t0;
-	double	t1;
-	t_v3	coef;
-	t_v3	L;
+	double	t0 = 0.0;
+	double	t1 = 0.0;
+	double delta;
+	delta = (pow(v_dot(ray->dir, v_sub(ray->pos, sph->pos)), 2)) - (pow(v_len(v_sub(ray->pos, sph->pos)), 2) - (sph->r * sph->r));
+	//printf("DELTA = %f\n", delta);
+	t0 = - (v_dot(ray->dir, v_sub(ray->pos, sph->pos))) + sqrt(delta);
+	t1 = - (v_dot(ray->dir, v_sub(ray->pos, sph->pos))) - sqrt(delta);
 
-	L = v_sub(ray->pos, sph->pos);
-	coef.x = v_dot(ray->dir, ray->dir);
-	coef.y = 2 * v_dot(ray->dir, L);
-	coef.z = v_dot(L, L) - (sph->r * sph->r);
-	if (!solve_quadratic(coef, &t0, &t1))
+	if (delta < 0)
 		return (0);
-	if (t0 > t1 && t1 > EPSILON)
-		swap(&t0, &t1);
-	if (t0 > INFINITY || t0 < EPSILON)
-		return (0);
-	*t = t0;
-	return (1);
+	else if (delta == 0)
+	{
+		if (t0 < t1 && t0 > 0)
+			*t = t0;
+		else if (t1 < t0 && t1 > 0)
+			*t = t1;
+		return (1);
+	}
+	else if (delta > 0)
+	{
+		if (t1 > 0 || t0 > 0)
+		{
+			if (t1 <= t0)
+				*t = t1;
+			else
+				*t = t0;
+			return (1);
+		}
+	}
+	return (0);
 }
-
 int			cylinder_intersect(t_cyl *cyl, t_ray *ray, double *t)
 {
 	t_v3	coef;

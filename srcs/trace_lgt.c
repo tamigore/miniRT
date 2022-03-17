@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_lgt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:20:47 by tamigore          #+#    #+#             */
-/*   Updated: 2021/04/19 11:33:12 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/16 17:26:56 by dasanter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ static void		compute_lgt(t_obj *obj, t_lgt *lgt, t_ray *ray, t_v3 *color)
 	double		spec_lum;
 
 	lgt_dir = v_norm(v_sub(lgt->pos, ray->hit));
-	pov = v_dot(ray->normal, v_norm(lgt_dir));
+	pov = v_dot(ray->normal, lgt_dir);
 	lum = 0;
 	spec_lum = 0;
 	if (!is_in_shadow(obj, ray, lgt_dir) && pov > 0.0)
 	{
-		lum = lgt->ratio * v_cos(ray->normal, lgt_dir);
-		*color = v_multi(lum, lgt->color);
+		//lum = lgt->ratio * v_cos(ray->normal, lgt_dir);
+		//*color = v_multi(lum, lgt->color);
 		spec_lum = get_specular(ray, lgt, lgt_dir, pov);
 		*color = v_add(*color, v_multi(spec_lum, lgt->color));
 	}

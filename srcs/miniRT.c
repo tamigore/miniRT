@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:28:29 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/04 17:32:17 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/08 19:07:46 by dasanter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ int			main(int ac, char **av)
 	t_env	*env;
 
 	if (ac != 2 || !av || !usage(av[1])) // first check
-		ft_putstr_fd("Error: Usage: minirt: ./miniRT <scene.rt>\n", 2);
+	{
+			ft_putstr_fd("Error: Usage: minirt: ./miniRT <scene.rt>\n", 2);
+			exit(0);
+	}
 	printf("arg : %s\n", av[1]);
 	env = init_env(); // second check && init
 	pars_sceen(av[1], env); // parsing
