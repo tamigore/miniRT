@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:30:18 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/05 16:22:45 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/31 15:24:01 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,7 @@ unsigned	str_to_unsigned(t_env *env);
 ** mlx_img.c
 */
 
-t_img		*init_img(t_env *env);
-void		append_image(t_img **imgs, t_img *new);
-void		delete_images(t_img **imgs, void *mlx_ptr);
-void		circle_img_list(t_img *imgs, t_img *head);
+t_img		init_img(t_env *env);
 
 /*
 ** render.c
@@ -101,7 +98,7 @@ void		render(t_env *env);
 ** tarce.c
 */
 
-void		trace_ray(t_env *env, t_cam *cam);
+void		trace_ray(t_env *env);
 
 /*
 ** trace_lgt.c

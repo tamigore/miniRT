@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:22:50 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/04 16:17:17 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/31 15:26:06 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_env		*init_env(void)
 	env->nb_lgt = 0;
 	env->obj = NULL;
 	env->nb_obj = 0;
-	env->img = NULL;
+	// env->img = NULL;
 	return (env);
 }
 
@@ -59,7 +59,6 @@ void		append_cam(t_cam **cams, t_cam *new_cam)
 	}
 	else
 		*cams = new_cam;
-
 }
 
 t_lgt		*init_light(t_env *env)

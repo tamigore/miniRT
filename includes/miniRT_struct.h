@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT_struct.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:20:38 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/25 14:25:11 by dasanter         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:23:05 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,32 @@ typedef struct		s_res
 }					t_res;
 
 /*
+** Image
+**
+** size_x = width of the image
+** size_y = height of the image
+** img_ptr = pointer returned by the mlx_new_image() function
+** pixels = pointer to image data returned by the mlx_get_data_addr() function
+** The 3 following values are obtained using mlx_get_data_addr()
+** bpp = bits per pixels
+** size_line = the size (char) of a line
+** endian = endian type (big : 1 / small : 0)
+** next = pointer to next image
+*/
+
+typedef struct		s_img
+{
+	int				size_x;
+	int				size_y;
+	void			*ptr;
+	char			*pixels;
+	int				bpp;
+	int				size_line;
+	int				endian;
+}					t_img;
+
+
+/*
 ** t_cam = struct for camera
 **
 ** pos = coordinates of the light point for {x, y, z} axis
@@ -61,6 +87,7 @@ typedef struct		s_cam
 	t_v3			dir;
 	int				fov;
 //	double			**cam2world;
+	struct s_img	img;
 	struct s_cam	*next;
 }					t_cam;
 
@@ -215,32 +242,6 @@ typedef struct		s_ray
 }					t_ray;
 
 /*
-** Image
-**
-** size_x = width of the image
-** size_y = height of the image
-** img_ptr = pointer returned by the mlx_new_image() function
-** pixels = pointer to image data returned by the mlx_get_data_addr() function
-** The 3 following values are obtained using mlx_get_data_addr()
-** bpp = bits per pixels
-** size_line = the size (char) of a line
-** endian = endian type (big : 1 / small : 0)
-** next = pointer to next image
-*/
-
-typedef struct		s_img
-{
-	int				size_x;
-	int				size_y;
-	void			*ptr;
-	char			*pixels;
-	int				bpp;
-	int				size_line;
-	int				endian;
-	struct s_img	*next;
-}					t_img;
-
-/*
 ** t_env = main struct
 **
 ** sceen = contain the data from the sceen file
@@ -271,7 +272,6 @@ typedef struct		s_env
 	struct s_lgt	*lgt;
 	int				nb_obj;
 	struct s_obj	*obj;
-	struct s_img	*img;
 }					t_env;
 
 /*

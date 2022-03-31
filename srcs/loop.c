@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 11:29:06 by user42            #+#    #+#             */
-/*   Updated: 2022/03/29 14:28:41 by dasanter         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:25:21 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ int			key_handler(int keycode, t_env *env)
 	printf("key code = %d\n", keycode);
 	if (keycode == ESC_KEY)
 		exit_sucess(env);
-	/*if (keycode == SP_KEY)
+	if (keycode == SP_KEY)
 	{
 		printf("next image\n");
-		printf("old img addr : %p\n", &env->img);
-		env->img = env->img->next;
-		printf("new img addr : %p\n", &env->img);
-		mlx_put_image_to_window(env->mlx, env->win, env->img->ptr, 0, 0);
+		printf("old img addr : %p\n", &(env->cam->img));
+		env->cam = env->cam->next;
+		printf("new img addr : %p\n", &(env->cam->img));
+		mlx_put_image_to_window(env->mlx, env->win, env->cam->img.ptr, 0, 0);
 		return (0);
-	}*/
+	}
 	if (keycode == W_KEY)
 	{
 		env->cam->pos.z += 10;
@@ -92,16 +92,16 @@ int			key_handler(int keycode, t_env *env)
 		env->lgt->pos.y -= 3;
 		printf("E\n");
 	}
-	render(env);
-	mlx_put_image_to_window(env->mlx, env->win, env->img->ptr, 0, 0);
+	// render(env);
+	trace_ray(env);
+	mlx_put_image_to_window(env->mlx, env->win, env->cam->img.ptr, 0, 0);
 	return (0);
 }
 void		graphic_loop(t_env *env)
 {
 	env->win = mlx_new_window(env->mlx, env->res.x, env->res.y, "miniRT");
-	mlx_put_image_to_window(env->mlx, env->win, env->img->ptr, 0, 0);
+	mlx_put_image_to_window(env->mlx, env->win, env->cam->img.ptr, 0, 0);
 	mlx_hook(env->win, 0, DESTROYNOTIFY, close_program, env);
-	// mlx_hook(env->win, DESTROYNOTIFY, STRUCTURENOTIFYMASK, close_program, env);
 	mlx_hook(env->win, KEYPRESS, KEYPRESSMASK, key_handler, env);
 	mlx_loop(env->mlx);
 }

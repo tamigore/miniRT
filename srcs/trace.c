@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:30:03 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/31 13:57:43 by dasanter         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:23:36 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,42 +146,40 @@ static void			shade(t_env *env, t_ray *ray)
 **		according to the mlx librairy.
 */
 
-static void			put_pixel_to_image(t_env *env, t_v3 color, int x, int y)
+static void			put_pixel_to_image(t_img img, t_v3 color, int x, int y)
 {
-	int				i;
+	int		i;
 
-	i = (x * PIXEL_LEN + env->img->size_line * y);
+	i = (x * PIXEL_LEN + img.size_line * y);
 	color = rescale_vec(color, 0, MAX_RGB);
-	env->img->pixels[i + TRANS] = (unsigned int)0;
-	env->img->pixels[i + RED] = (unsigned int)color.x;
-	env->img->pixels[i + GREEN] = (unsigned int)color.y;
-	env->img->pixels[i + BLUE] = (unsigned int)color.z;
+	img.pixels[i + TRANS] = (unsigned int)0;
+	img.pixels[i + RED] = (unsigned int)color.x;
+	img.pixels[i + GREEN] = (unsigned int)color.y;
+	img.pixels[i + BLUE] = (unsigned int)color.z;
 }
 
 /*
 **	trace_ray : Does all the raytracing.
 */
 
-void				trace_ray(t_env *env, t_cam *cam)
+void				trace_ray(t_env *env)
 {
 	unsigned int	x;
 	unsigned int	y;
 	t_ray			ray;
 
 	y = 0;
-//	cam->cam2world = lookAt(cam->cam2world, cam->dir, cam->pos);
-//	if (!cam->cam2world)
-//		exit_error(env, ERRNO_TO_STR);
-	ray.pos = cam->pos;
+	printf("env->img = %p\n", &(env->cam->img));
+	ray.pos = env->cam->pos;
 	while (y < (unsigned int)env->res.y -1)
 	{
 		x = 0;
 		while (x < (unsigned int)env->res.x - 1)
 		{
 			reset_ray(&ray);
-			ray.dir = canvas2view(env, cam, x, y);
+			ray.dir = canvas2view(env, env->cam, x, y);
 			shade(env, &ray);
-			put_pixel_to_image(env, ray.color, x, y);
+			put_pixel_to_image(env->cam->img, ray.color, x, y);
 			x++;
 		}
 		y++;
