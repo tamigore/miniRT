@@ -6,7 +6,7 @@
 /*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:37:55 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/16 11:12:48 by dasanter         ###   ########.fr       */
+/*   Updated: 2022/03/31 14:01:00 by dasanter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int			sphere_intersect(t_sph *sph, t_ray *ray, double *t)
 	double	t1 = 0.0;
 	double delta;
 	delta = (pow(v_dot(ray->dir, v_sub(ray->pos, sph->pos)), 2)) - (pow(v_len(v_sub(ray->pos, sph->pos)), 2) - (sph->r * sph->r));
-	//printf("DELTA = %f\n", delta);
 	t0 = - (v_dot(ray->dir, v_sub(ray->pos, sph->pos))) + sqrt(delta);
 	t1 = - (v_dot(ray->dir, v_sub(ray->pos, sph->pos))) - sqrt(delta);
 
