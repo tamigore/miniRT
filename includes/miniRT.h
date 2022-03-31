@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:30:18 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/31 15:24:01 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/03/31 16:33:50 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void		print_obj(t_obj *obj);
 
 t_obj		*init_object(t_env *env);
 void		append_obj(t_obj **objs, t_obj *new_obj);
-void		get_obj_color(t_obj *obj, t_ray *ray);
+t_v3		get_obj_color(t_obj *obj);
 void		get_obj_normal(t_obj *obj, t_ray *ray);
 
 /*
@@ -166,16 +166,6 @@ t_v3			canvas2view(t_env *env, t_cam *cam, int x, int y);
 void		reset_ray(t_ray *ray);
 void		set_ray(t_ray *ray, t_v3 pos, t_v3 dir, double t);
 void		init_ray(t_ray *ray);
-
-/*
-** get_color.c
-*/
-
-unsigned int		create_color(int trans, int red, int green, int blue);
-unsigned int		get_trans(int color);
-unsigned int		get_red(int color);
-unsigned int		get_green(int color);
-unsigned int		get_blue(int color);
 
 /*
 ** get_scene.c

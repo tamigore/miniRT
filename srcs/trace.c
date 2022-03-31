@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:30:03 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/31 15:23:36 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/03/31 16:34:21 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ static void			shade(t_env *env, t_ray *ray)
 	hit_obj = trace_objs(env->obj, ray);
 	if (hit_obj)
 	{
-		get_obj_color(hit_obj, ray);
+		ray->color = get_obj_color(hit_obj);
 		ray->hit = v_add(ray->pos, v_multi(ray->t, ray->dir));
 		get_obj_normal(hit_obj, ray);
 		//ray->color = trace_ray_to_light(env, ray); // creat lights

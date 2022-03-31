@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   obj.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:32:20 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/17 17:38:39 by dasanter         ###   ########.fr       */
+/*   Updated: 2022/03/31 16:34:38 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,19 @@ void		append_obj(t_obj **objs, t_obj *new_obj)
 		*objs = new_obj;
 }
 
-void	get_obj_color(t_obj *obj, t_ray *ray)
+t_v3	get_obj_color(t_obj *obj)
 {
 	if (obj->id == SPHERE)
-		ray->color = ((t_sph *)(obj->data))->color;
+		return (((t_sph *)(obj->data))->color);
 	else if (obj->id == PLANE)
-		ray->color = ((t_pla *)(obj->data))->color;
+		return (((t_pla *)(obj->data))->color);
 	else if (obj->id == SQUARE)
-		ray->color = ((t_sqr *)(obj->data))->color;
+		return (((t_sqr *)(obj->data))->color);
 	else if (obj->id == CYLINDER)
-		ray->color = ((t_cyl *)(obj->data))->color;
+		return (((t_cyl *)(obj->data))->color);
 	else if (obj->id == TRIANGLE)
-		ray->color = ((t_tri *)(obj->data))->color;
+		return (((t_tri *)(obj->data))->color);
+	return (v_init(0, 0, 0));
 }
 
 void	get_obj_normal(t_obj *obj, t_ray *ray)
