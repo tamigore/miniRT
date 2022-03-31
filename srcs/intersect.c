@@ -3,68 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   intersect.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:37:55 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/31 14:01:00 by dasanter         ###   ########.fr       */
+/*   Updated: 2022/03/31 19:09:23 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-// int			sphere_intersect(t_sph *sph, t_ray *ray, double *t)
-// {
-// 	double	t0;
-// 	double	t1;
-// 	t_v3	coef;
-// 	t_v3	L;
-
-// 	L = v_sub(ray->pos, sph->pos);
-// 	coef.x = v_dot(ray->dir, ray->dir);
-// 	coef.y = 2 * v_dot(ray->dir, L);
-// 	coef.z = v_dot(L, L) - (sph->r * sph->r);
-// 	if (!solve_quadratic(coef, &t0, &t1))
-// 		return (0);
-// 	if (t0 > t1 && t1 > EPSILON)
-// 		swap(&t0, &t1);
-// 	if (t0 > INFINITY || t0 < EPSILON)
-// 		return (0);
-// 	*t = t0;
-// 	return (1);
-// }
+// Le sphere intersect de Tadeo est le best le tiens pue la merde XD
 
 int			sphere_intersect(t_sph *sph, t_ray *ray, double *t)
 {
-	double	t0 = 0.0;
-	double	t1 = 0.0;
-	double delta;
-	delta = (pow(v_dot(ray->dir, v_sub(ray->pos, sph->pos)), 2)) - (pow(v_len(v_sub(ray->pos, sph->pos)), 2) - (sph->r * sph->r));
-	t0 = - (v_dot(ray->dir, v_sub(ray->pos, sph->pos))) + sqrt(delta);
-	t1 = - (v_dot(ray->dir, v_sub(ray->pos, sph->pos))) - sqrt(delta);
+	double	t0;
+	double	t1;
+	t_v3	coef;
+	t_v3	L;
 
-	if (delta < 0)
+	L = v_sub(ray->pos, sph->pos);
+	coef.x = v_dot(ray->dir, ray->dir);
+	coef.y = 2 * v_dot(ray->dir, L);
+	coef.z = v_dot(L, L) - (sph->r * sph->r);
+	if (!solve_quadratic(coef, &t0, &t1))
 		return (0);
-	else if (delta == 0)
-	{
-		if (t0 < t1 && t0 > 0)
-			*t = t0;
-		else if (t1 < t0 && t1 > 0)
-			*t = t1;
-		return (1);
-	}
-	else if (delta > 0)
-	{
-		if (t1 > 0 || t0 > 0)
-		{
-			if (t1 <= t0)
-				*t = t1;
-			else
-				*t = t0;
-			return (1);
-		}
-	}
-	return (0);
+	if (t0 > t1 && t1 > EPSILON)
+		swap(&t0, &t1);
+	if (t0 > INFINITY || t0 < EPSILON)
+		return (0);
+	*t = t0;
+	return (1);
 }
+
+// int			sphere_intersect(t_sph *sph, t_ray *ray, double *t)
+// {
+// 	double	t0 = 0.0;
+// 	double	t1 = 0.0;
+// 	double delta;
+// 	delta = (pow(v_dot(ray->dir, v_sub(ray->pos, sph->pos)), 2)) - (pow(v_len(v_sub(ray->pos, sph->pos)), 2) - (sph->r * sph->r));
+// 	t0 = - (v_dot(ray->dir, v_sub(ray->pos, sph->pos))) + sqrt(delta);
+// 	t1 = - (v_dot(ray->dir, v_sub(ray->pos, sph->pos))) - sqrt(delta);
+
+// 	if (delta < 0)
+// 		return (0);
+// 	else if (delta == 0)
+// 	{
+// 		if (t0 < t1 && t0 > 0)
+// 			*t = t0;
+// 		else if (t1 < t0 && t1 > 0)
+// 			*t = t1;
+// 		return (1);
+// 	}
+// 	else if (delta > 0)
+// 	{
+// 		if (t1 > 0 || t0 > 0)
+// 		{
+// 			if (t1 <= t0)
+// 				*t = t1;
+// 			else
+// 				*t = t0;
+// 			return (1);
+// 		}
+// 	}
+// 	return (0);
+// }
+
 int			cylinder_intersect(t_cyl *cyl, t_ray *ray, double *t)
 {
 	t_v3	coef;

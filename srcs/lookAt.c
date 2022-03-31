@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lookAt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:41:56 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/16 14:17:34 by dasanter         ###   ########.fr       */
+/*   Updated: 2022/03/31 19:11:29 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,35 +36,35 @@ static t_v3		look_at(t_v3 dir, t_v3 cam_dir)
 **		camera space.
 */
 
-// static t_v3		vector_direct(int fov, int resX, int resY, int x, int y)
-// {
-// 	double		Px;
-// 	double		Py;
-// 	double		ratio;
-// 	double		tang;
-
-// 	tang = tan((fov * M_PI / 180) / 2);
-// 	ratio = (double)resX / (double)resY;
-// 	Px = -(2 * ((x + 0.5) / resX) - 1) * ratio * tang;
-// 	Py = (1 - 2 * ((y + 0.5) / resY)) * tang;
-// 	return (v_init(Px, Py, 1));
-// }
-
 static t_v3		vector_direct(int fov, int resX, int resY, int x, int y)
 {
 	double		Px;
 	double		Py;
-	double		Pz;
 	double		ratio;
 	double		tang;
 
 	tang = tan((fov * M_PI / 180) / 2);
 	ratio = (double)resX / (double)resY;
-	Px = ((x + 0.5) - (resX / 2)) * ratio;
-	Py = - ((y + 0.5) - (resY / 2));
-	Pz = (resY / (2 * tang));
-	return (v_init(Px, Py, Pz));
+	Px = (2 * ((x + 0.5) / resX) - 1) * ratio * tang;
+	Py = (1 - 2 * ((y + 0.5) / resY)) * tang;
+	return (v_init(Px, Py, 1));
 }
+
+// static t_v3		vector_direct(int fov, int resX, int resY, int x, int y)
+// {
+// 	double		Px;
+// 	double		Py;
+// 	double		Pz;
+// 	double		ratio;
+// 	double		tang;
+
+// 	tang = tan((fov * M_PI / 180) / 2);
+// 	ratio = (double)resX / (double)resY;
+// 	Px = ((x + 0.5) - (resX / 2)) * ratio * tang;
+// 	Py = - ((y + 0.5) - (resY / 2)) * tang;
+// 	Pz = (resY / (2 * tang));
+// 	return (v_init(Px, Py, Pz));
+// }
 
 /*
 **	canvas2view : Take the canvas point (x, y) and transform it to 3d world.
@@ -76,7 +76,7 @@ t_v3			canvas2view(t_env *env, t_cam *cam, int x, int y)
 
 	vec = vector_direct(cam->fov, env->res.x, env->res.y, x, y);
 	vec = v_norm(vec);
-	vec = look_at(vec, cam->dir);
+	vec = look_at(vec, v_norm(v_sub(cam->dir, cam->pos)));//v_init(cam->pos.x + (x / env->res.x), cam->pos.y + (y / env->res.x), cam->pos.z))));
 	vec = v_norm(vec);
 	return (vec);
 }

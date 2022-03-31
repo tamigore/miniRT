@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:30:03 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/31 16:34:21 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/03/31 17:58:29 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,6 @@ void				trace_ray(t_env *env)
 	t_ray			ray;
 
 	y = 0;
-	printf("env->img = %p\n", &(env->cam->img));
 	ray.pos = env->cam->pos;
 	while (y < (unsigned int)env->res.y -1)
 	{

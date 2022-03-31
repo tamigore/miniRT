@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:11:21 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/31 15:23:19 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/03/31 17:14:48 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,5 @@ void	render(t_env *env)
 			break ;
 	}
 	env->cam->next = tmp;
+	env->cam = env->cam->next;
 }
