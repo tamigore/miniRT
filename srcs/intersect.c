@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:37:55 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/31 19:09:23 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:26:50 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,21 @@ int			sphere_intersect(t_sph *sph, t_ray *ray, double *t)
 // 	return (0);
 // }
 
-int			cylinder_intersect(t_cyl *cyl, t_ray *ray, double *t)
-{
-	t_v3	coef;
-	t_v3	oc;
-	t_v3	dir;
-	t_v3	ocdir;
+// int			cylinder_intersect(t_cyl *cyl, t_ray *ray, double *t)
+// {
+// 	t_v3	coef;
+// 	t_v3	oc;
+// 	t_v3	dir;
+// 	t_v3	ocdir;
 
-	oc = v_sub(ray->pos, cyl->pos);
-	dir = v_sub(ray->dir, v_multi(v_dot(ray->dir, cyl->dir), cyl->dir));
-	ocdir = v_sub(oc, v_multi(v_dot(oc, cyl->dir), cyl->dir));
-	coef.x = v_dot(dir, dir);
-	coef.y = 2 * v_dot(dir, v_sub(dir, ocdir));
-	coef.z = v_dot(v_sub(dir, ocdir), v_sub(dir, ocdir)) - (cyl->d * cyl->d);
-	return (solve_cylinder(cyl, ray, coef, t));
-}
+// 	oc = v_sub(ray->pos, cyl->pos);
+// 	dir = v_sub(ray->dir, v_multi(v_dot(ray->dir, cyl->dir), cyl->dir));
+// 	ocdir = v_sub(oc, v_multi(v_dot(oc, cyl->dir), cyl->dir));
+// 	coef.x = v_dot(dir, dir);
+// 	coef.y = 2 * v_dot(dir, v_sub(dir, ocdir));
+// 	coef.z = v_dot(v_sub(dir, ocdir), v_sub(dir, ocdir)) - (cyl->d * cyl->d);
+// 	return (solve_cylinder(cyl, ray, coef, t));
+// }
 
 int			plane_intersect(t_pla *pla, t_ray *ray, double *t)
 {

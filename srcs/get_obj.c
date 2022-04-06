@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 18:28:44 by tamigore          #+#    #+#             */
-/*   Updated: 2021/02/01 16:11:40 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:13:59 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void		get_cylinder(t_env *env)
 	((t_sqr *)(obj->data))->dir.x = str_to_double(env);
 	((t_cyl *)(obj->data))->dir.y = str_to_double(env);
 	((t_cyl *)(obj->data))->dir.z = str_to_double(env);
-	((t_cyl *)(obj->data))->d = str_to_double(env);
+	((t_cyl *)(obj->data))->r = str_to_double(env) / 2;
 	((t_cyl *)(obj->data))->h = str_to_double(env);
 	((t_cyl *)(obj->data))->color.x = str_to_unsigned(env);
 	((t_cyl *)(obj->data))->color.y = str_to_unsigned(env);

@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:20:38 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/31 15:23:05 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/06 16:03:49 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ typedef struct		s_cam
 	t_v3			pos;
 	t_v3			dir;
 	int				fov;
+	t_v3			vx;
+	t_v3			vy;
+	t_v3			vz;
 //	double			**cam2world;
 	struct s_img	img;
 	struct s_cam	*next;
@@ -156,7 +159,9 @@ typedef struct		s_cyl
 	t_v3			pos;
 	t_v3			dir;
 	double			h;
-	double			d;
+	double			r;
+	double			dist1;
+	double			dist2;
 	t_v3			color;
 }					t_cyl;
 

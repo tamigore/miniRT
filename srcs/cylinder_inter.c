@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 19:30:56 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/31 19:51:40 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:15:16 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,28 @@ double			solve_plane(t_ray *ray, t_v3 plane_p, t_v3 plane_nv)
 	double	x;
 	double	denom;
 
-	denom = dot(plane_nv, ray->dir);
+	denom = v_dot(plane_nv, ray->dir);
 	if (denom == 0)
 		return (INFINITY);
-	x = (dot(plane_nv, vsubstract(plane_p, ray->pos))) / denom;
+	x = (v_dot(plane_nv, v_sub(plane_p, ray->pos))) / denom;
 	return (x > 0 ? x : INFINITY);
 }
 
-static int		solve_cylinder(double x[2], t_p3 o, t_p3 d, t_figures *lst)
+static int		solve_cylinder(double x[2], t_ray *ray, t_cyl *cyl)
 {
-	t_p3	v;
-	t_p3	u;
+	t_v3	v;
+	t_v3	u;
 	double	a;
 	double	b;
 	double	c;
 
-	v = scal_x_vec(dot(d, lst->fig.cy.nv), lst->fig.cy.nv);
-	v = vsubstract(d, v);
-	u = scal_x_vec(dot(vsubstract(o, lst->fig.cy.c), lst->fig.cy.nv),
-													lst->fig.cy.nv);
-	u = vsubstract(vsubstract(o, lst->fig.cy.c), u);
-	a = dot(v, v);
-	b = 2 * dot(v, u);
-	c = dot(u, u) - pow(lst->fig.cy.r, 2);
+	v = v_multi(v_dot(ray->dir, cyl->dir), cyl->dir);
+	v = v_sub(ray->dir, v);
+	u = v_multi(v_dot(v_sub(ray->pos, cyl->pos), cyl->dir), cyl->dir);
+	u = v_sub(v_sub(ray->dir, cyl->pos), u);
+	a = v_dot(v, v);
+	b = 2 * v_dot(v, u);
+	c = v_dot(u, u) - pow(cyl->r, 2);
 	x[0] = (-b + sqrt(pow(b, 2) - 4 * a * c)) / (2 * a);
 	x[1] = (-b - sqrt(pow(b, 2) - 4 * a * c)) / (2 * a);
 	if ((x[0] != x[0] && x[1] != x[1]) || (x[0] < EPSILON && x[1] < EPSILON))
@@ -51,49 +50,45 @@ static int		solve_cylinder(double x[2], t_p3 o, t_p3 d, t_figures *lst)
 	return (1);
 }
 
-static t_p3		calc_cy_normal(double x2[2], t_p3 o, t_p3 d, t_figures *lst)
+static t_v3		calc_cy_normal(double x2[2], t_ray *ray, t_cyl *cyl)
 {
 	double	dist;
 	double	x;
 
-	if ((lst->fig.cy.dist1 >= 0 && lst->fig.cy.dist1 <= lst->fig.cy.h
-				&& x2[0] > EPSILON) && (lst->fig.cy.dist2 >= 0
-				&& lst->fig.cy.dist2 <= lst->fig.cy.h && x2[1] > EPSILON))
+	if ((cyl->dist1 >= 0 && cyl->dist1 <= cyl->h
+				&& x2[0] > EPSILON) && (cyl->dist2 >= 0
+				&& cyl->dist2 <= cyl->h && x2[1] > EPSILON))
 	{
-		dist = x2[0] < x2[1] ? lst->fig.cy.dist1 : lst->fig.cy.dist2;
+		dist = x2[0] < x2[1] ? cyl->dist1 : cyl->dist2;
 		x = x2[0] < x2[1] ? x2[0] : x2[1];
 	}
-	else if (lst->fig.cy.dist1 >= 0 && lst->fig.cy.dist1 <= lst->fig.cy.h
-														&& x2[0] > EPSILON)
+	else if (cyl->dist1 >= 0 && cyl->dist1 <= cyl->h && x2[0] > EPSILON)
 	{
-		dist = lst->fig.cy.dist1;
+		dist = cyl->dist1;
 		x = x2[0];
 	}
 	else
 	{
-		dist = lst->fig.cy.dist2;
+		dist = cyl->dist2;
 		x = x2[1];
 	}
 	x2[0] = x;
-	return (normalize(vsubstract(vsubstract(scal_x_vec(x, d),
-			scal_x_vec(dist, lst->fig.cy.nv)), vsubstract(lst->fig.cy.c, o))));
+	return (v_norm(v_sub(v_sub(v_multi(x, ray->dir), v_multi(dist, cyl->dir)), v_sub(cyl->pos, ray->pos))));
 }
 
-static double	cy_intersection(t_p3 o, t_p3 d, t_p3 *normal, t_figures *lst)
+static double	cy_intersection(t_ray *ray, t_v3 *normal, t_cyl *cyl)
 {
 	double	x2[2];
 
-	if (solve_cylinder(x2, o, d, lst) == 0)
+	if (solve_cylinder(x2, ray, cyl) == 0)
 		return (INFINITY);
-	lst->fig.cy.dist1 = dot(lst->fig.cy.nv, vsubstract(scal_x_vec(x2[0], d),
-												vsubstract(lst->fig.cy.c, o)));
-	lst->fig.cy.dist2 = dot(lst->fig.cy.nv, vsubstract(scal_x_vec(x2[1], d),
-												vsubstract(lst->fig.cy.c, o)));
-	if (!((lst->fig.cy.dist1 >= 0 && lst->fig.cy.dist1 <= lst->fig.cy.h
-					&& x2[0] > EPSILON) || (lst->fig.cy.dist2 >= 0
-					&& lst->fig.cy.dist2 <= lst->fig.cy.h && x2[0] > EPSILON)))
+	cyl->dist1 = v_dot(cyl->dir, v_sub(v_multi(x2[0], ray->dir), v_sub(cyl->pos, ray->pos)));
+	cyl->dist2 = v_dot(cyl->dir, v_sub(v_multi(x2[1], ray->dir), v_sub(cyl->pos, ray->pos)));
+	if (!((cyl->dist1 >= 0 && cyl->dist1 <= cyl->h
+					&& x2[0] > EPSILON) || (cyl->dist2 >= 0
+					&& cyl->dist2 <= cyl->h && x2[0] > EPSILON)))
 		return (INFINITY);
-	*normal = calc_cy_normal(x2, o, d, lst);
+	*normal = calc_cy_normal(x2, ray, cyl);
 	return (x2[0]);
 }
 
@@ -110,22 +105,22 @@ static double	caps_intersection(t_ray *ray, t_cyl *cyl)
 	id2 = solve_plane(ray, c2, cyl->dir);
 	if (id1 < INFINITY || id2 < INFINITY)
 	{
-		ip1 = vadd(o, scal_x_vec(id1, d));
-		ip2 = vadd(o, scal_x_vec(id2, d));
-		if ((id1 < INFINITY && distance(ip1, lst->fig.cy.c) <= lst->fig.cy.r)
-				&& (id2 < INFINITY && distance(ip2, c2) <= lst->fig.cy.r))
+		ip1 = v_add(ray->pos, v_multi(id1, ray->dir));
+		ip2 = v_add(ray->pos, v_multi(id2, ray->dir));
+		if ((id1 < INFINITY && v_len(v_sub(cyl->pos, ip1)) <= cyl->r)
+				&& (id2 < INFINITY && v_len(v_sub(c2, ip2)) <= cyl->r))
 			return (id1 < id2 ? id1 : id2);
 		else if (id1 < INFINITY
-						&& distance(ip1, lst->fig.cy.c) <= lst->fig.cy.r)
+						&& v_len(v_sub(cyl->pos, ip1)) <= cyl->r)
 			return (id1);
-		else if (id2 < INFINITY && distance(ip2, c2) <= lst->fig.cy.r)
+		else if (id2 < INFINITY && v_len(v_sub(c2, ip2)) <= cyl->r)
 			return (id2);
 		return (INFINITY);
 	}
 	return (INFINITY);
 }
 
-double			cylinder_intersection(t_ray *ray, t_cyl *cyl)
+int			cylinder_intersect(t_cyl *cyl, t_ray *ray, double *t)
 {
 	double	cylinder_inter;
 	double	caps_inter;
@@ -138,10 +133,13 @@ double			cylinder_intersection(t_ray *ray, t_cyl *cyl)
 		if (cylinder_inter < caps_inter)
 		{
 			ray->normal = cy_normal;
-			return (cylinder_inter);
+			*t = cylinder_inter;
+			return (1);
 		}
 		ray->normal = cyl->dir;
-		return (caps_inter);
+		*t = caps_inter;
+		return (1);
 	}
-	return (INFINITY);
+	*t = INFINITY;
+	return (0);
 }

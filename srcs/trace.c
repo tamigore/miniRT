@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:30:03 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/31 17:58:29 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:29:51 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,8 @@ static void			put_pixel_to_image(t_img img, t_v3 color, int x, int y)
 	int		i;
 
 	i = (x * PIXEL_LEN + img.size_line * y);
+	// if (color.x >= MAX_RGB || color.y >= MAX_RGB || color.z >= MAX_RGB)
+	// 	printf("color : x = %f || y = %f || z = %f\n", color.x, color.y, color.z);
 	color = rescale_vec(color, 0, MAX_RGB);
 	img.pixels[i + TRANS] = (unsigned int)0;
 	img.pixels[i + RED] = (unsigned int)color.x;
@@ -162,6 +164,24 @@ static void			put_pixel_to_image(t_img img, t_v3 color, int x, int y)
 **	trace_ray : Does all the raytracing.
 */
 
+static t_v3	get_orthogonal(t_v3 vec)
+{
+	t_v3	v1;
+	t_v3	v2;
+	t_v3	v3;
+
+	v1 = v_cross(v_init(1, 0, 0), vec);
+	v2 = v_cross(v_init(0, 1, 0), vec);
+	v3 = v_cross(v_init(0, 0, 1), vec);
+	if (v_dot(v1, vec) == 0)
+		return (v1);
+	else if (v_dot(v2, vec) == 0)
+		return (v2);
+	else if (v_dot(v3, vec) == 0)
+		return (v3);
+	return (v_init(0, 0, 0));
+}
+
 void				trace_ray(t_env *env)
 {
 	unsigned int	x;
@@ -170,6 +190,13 @@ void				trace_ray(t_env *env)
 
 	y = 0;
 	ray.pos = env->cam->pos;
+	env->cam->dir = v_norm(env->cam->dir);
+	env->cam->vz = env->cam->dir;
+	env->cam->vx = get_orthogonal(env->cam->vz);
+	env->cam->vy = v_cross(env->cam->vz, env->cam->vx);
+	// printf("cam vz = (%.2f, %.2f, %.2f) vy = (%.2f, %.2f, %.2f) vx = (%.2f, %.2f, %.2f)",
+	// 	env->cam->vz.x, env->cam->vz.y, env->cam->vz.z, env->cam->vy.x, env->cam->vy.y, env->cam->vy.z,
+	// 	env->cam->vx.x, env->cam->vx.y, env->cam->vx.z);
 	while (y < (unsigned int)env->res.y -1)
 	{
 		x = 0;

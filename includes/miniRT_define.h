@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT_define.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:41:50 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/05 16:21:12 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/06 18:31:14 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@
 # define C_KEY 8
 # define D_KEY 100
 # define E_KEY 14
-# define F_KEY 3
+# define F_KEY 102
 # define G_KEY 5
 # define H_KEY 4
 # define I_KEY 34
@@ -145,7 +145,7 @@
 # define O_KEY 31
 # define P_KEY 35
 # define Q_KEY 12
-# define R_KEY 15
+# define R_KEY 114
 # define S_KEY 115
 # define T_KEY 17
 # define U_KEY 32
@@ -202,31 +202,6 @@
 # define CM_KEY 43
 # define PT_KEY 47
 # define SL_KEY 44
-
-/*
-** Functions keys, you might use fn key to use them
-** Seems that did not work. I don't know. Deso pas deso, au pire on les use pas.
-*/
-
-# define F1_KEY 122
-# define F2_KEY 120
-# define F3_KEY 99
-# define F4_KEY 118
-# define F5_KEY 96
-# define F6_KEY 97
-# define F7_KEY 98
-# define F8_KEY 100
-# define F9_KEY 101
-# define F10_KEY 109
-# define F11_KEY
-# define F12_KEY 111
-# define F13_KEY 105
-# define F14_KEY 107
-# define F15_KEY 113
-# define F16_KEY 106
-# define F17_KEY 64
-# define F18_KEY 79
-# define F19_KEY 80
 
 /*
 ** Arrow keys

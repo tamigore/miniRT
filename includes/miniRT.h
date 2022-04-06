@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:30:18 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/31 16:33:50 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:01:08 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int			triangle_intersect(t_tri *tri, t_ray *ray, double *t);
 int			solve_quadratic(t_v3 coef, double *x0, double *x1);
 int			hit_plane(t_v3 pos, t_v3 dir, t_ray *ray, double *t);
 int			check_edge(t_v3 to, t_v3 from, t_v3 hit, t_v3 normal);
-int			solve_cylinder(t_cyl *cyl, t_ray *ray, t_v3 corf, double *t);
+// int			solve_cylinder(t_cyl *cyl, t_ray *ray, t_v3 corf, double *t);
 
 /*
 ** utils.c

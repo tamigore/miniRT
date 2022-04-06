@@ -6,7 +6,7 @@
 #    By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/19 16:16:11 by tamigore          #+#    #+#              #
-#    Updated: 2022/03/31 16:49:03 by tamigore         ###   ########.fr        #
+#    Updated: 2022/04/06 14:02:25 by tamigore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SOURCES =	conv_nb.c	\
 			trace.c		\
 			trace_lgt.c	\
 			trace_obj.c	\
-			utils.c
+			utils.c		\
+			cylinder_inter.c
 
 SRCS = $(addprefix $(DIR_S),$(SOURCES))
 

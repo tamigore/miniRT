@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 18:17:14 by tamigore          #+#    #+#             */
-/*   Updated: 2021/02/01 18:24:34 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:05:00 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		print_cyl(t_cyl *cyl)
 {
 	printf("cyl :%.2f.x/%.2f.y/%.2f.z // %.2f.vx/%.2f.vy/%.2f.vz // %.0f.R/%.0f.G/%.0f.B // %.2f.h/%.2f.d\n", cyl->pos.x, cyl->pos.y,
 			cyl->pos.z, cyl->dir.x, cyl->dir.y, cyl->dir.z, cyl->color.x,
-			cyl->color.y, cyl->color.z, cyl->h, cyl->d);
+			cyl->color.y, cyl->color.z, cyl->h, cyl->r);
 }
 
 void		print_sqr(t_sqr *sqr)
