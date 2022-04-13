@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:28:29 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/13 16:52:05 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/13 17:47:39 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ int			main(int ac, char **av)
 	printf("arg : %s\n", av[1]);
 	env = init_env(); // second check && init
 	pars_sceen(av[1], env); // parsing
+	if (env->res.check == 0)
+	{
+		env->res.x = 500;
+		env->res.y = 500;
+	}
 	print_env(env);
 	render(env); // compute
 	graphic_loop(env); // graphic
