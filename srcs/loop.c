@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 11:29:06 by user42            #+#    #+#             */
-/*   Updated: 2022/04/06 18:36:19 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/13 17:24:45 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,125 +32,87 @@ static int	camera_move(int keycode, t_env *env)
 	}
 	if (keycode == W_KEY)
 	{
-		double **trans = mat_init();
-		trans[0] = mat_fil(1, 0, 0, env->cam->vz.x * 10);
-		trans[1] = mat_fil(0, 1, 0, env->cam->vz.y * 10);
-		trans[2] = mat_fil(0, 0, 1, env->cam->vz.z * 10);
-		trans[3] = mat_fil(0, 0, 0, 1);
-		env->cam->pos = vec3_x_mat4(env->cam->pos, trans);
-		mat_free(trans);
-		printf("pos = (%.2f | %.2f | %.2f)\n", env->cam->pos.x, env->cam->pos.y, env->cam->pos.z);
-		// env->cam->pos.z += 10;
+		env->cam->trans = translation_mat_init(vec_scale(10, env->cam->dir));
+		// env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->trans);
+		// printf("pos = (%.2f | %.2f | %.2f)\n", env->cam->pos.x, env->cam->pos.y, env->cam->pos.z);
 		printf("W\n");
 	}
 	if (keycode == A_KEY)
 	{
-		double **trans = mat_init();
-		trans[0] = mat_fil(1, 0, 0, -env->cam->vy.x * 10);
-		trans[1] = mat_fil(0, 1, 0, -env->cam->vy.y * 10);
-		trans[2] = mat_fil(0, 0, 1, -env->cam->vy.z * 10);
-		trans[3] = mat_fil(0, 0, 0, 1);
-		env->cam->pos = vec3_x_mat4(env->cam->pos, trans);
-		mat_free(trans);
-		printf("pos = (%.2f | %.2f | %.2f)\n", env->cam->pos.x, env->cam->pos.y, env->cam->pos.z);
+		env->cam->trans = translation_mat_init(vec_scale(10, env->cam->right));
+		// env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->trans);
+		// printf("pos = (%.2f | %.2f | %.2f)\n", env->cam->pos.x, env->cam->pos.y, env->cam->pos.z);
 		printf("A\n");
-		// env->cam->pos.x -= 10;
 	}
 	if (keycode == D_KEY)
 	{
-		double **trans = mat_init();
-		trans[0] = mat_fil(1, 0, 0, env->cam->vy.x * 10);
-		trans[1] = mat_fil(0, 1, 0, env->cam->vy.y * 10);
-		trans[2] = mat_fil(0, 0, 1, env->cam->vy.z * 10);
-		trans[3] = mat_fil(0, 0, 0, 1);
-		env->cam->pos = vec3_x_mat4(env->cam->pos, trans);
-		printf("pos = (%.2f | %.2f | %.2f)\n", env->cam->pos.x, env->cam->pos.y, env->cam->pos.z);
-		mat_free(trans);
-		// env->cam->pos.x += 10;
+		env->cam->trans = translation_mat_init(vec_scale(-10, env->cam->right));
+		// env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->trans);
+		// printf("pos = (%.2f | %.2f | %.2f)\n", env->cam->pos.x, env->cam->pos.y, env->cam->pos.z);
 		printf("D\n");
 	}
 	if (keycode == S_KEY)
 	{
-		double **trans = mat_init();
-		trans[0] = mat_fil(1, 0, 0, -env->cam->vz.x * 10);
-		trans[1] = mat_fil(0, 1, 0, -env->cam->vz.y * 10);
-		trans[2] = mat_fil(0, 0, 1, -env->cam->vz.z * 10);
-		trans[3] = mat_fil(0, 0, 0, 1);
-		env->cam->pos = vec3_x_mat4(env->cam->pos, trans);
-		printf("pos = (%.2f | %.2f | %.2f)\n", env->cam->pos.x, env->cam->pos.y, env->cam->pos.z);
-		mat_free(trans);
-		// env->cam->pos.z -= 10;
+		env->cam->trans = translation_mat_init(vec_scale(-10, env->cam->dir));
+		// env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->trans);
+		// printf("pos = (%.2f | %.2f | %.2f)\n", env->cam->pos.x, env->cam->pos.y, env->cam->pos.z);
 		printf("S\n");
 	}
 	if (keycode == R_KEY)
 	{
-		double **trans = mat_init();
-		trans[0] = mat_fil(1, 0, 0, env->cam->vy.x * 10);
-		trans[1] = mat_fil(0, 1, 0, env->cam->vy.y * 10);
-		trans[2] = mat_fil(0, 0, 1, env->cam->vy.z * 10);
-		trans[3] = mat_fil(0, 0, 0, 1);
-		env->cam->pos = vec3_x_mat4(env->cam->pos, trans);
-		printf("pos = (%.2f | %.2f | %.2f)\n", env->cam->pos.x, env->cam->pos.y, env->cam->pos.z);
-		mat_free(trans);
-		// env->cam->pos.y += 10;
+		env->cam->trans = translation_mat_init(vec_scale(10, env->cam->up));
+		// env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->trans);
+		// printf("pos = (%.2f | %.2f | %.2f)\n", env->cam->pos.x, env->cam->pos.y, env->cam->pos.z);
 		printf("R\n");
 	}
 	if (keycode == F_KEY)
 	{
-		double **trans = mat_init();
-		trans[0] = mat_fil(1, 0, 0, -env->cam->vy.x * 10);
-		trans[1] = mat_fil(0, 1, 0, -env->cam->vy.y * 10);
-		trans[2] = mat_fil(0, 0, 1, -env->cam->vy.z * 10);
-		trans[3] = mat_fil(0, 0, 0, 1);
-		env->cam->pos = vec3_x_mat4(env->cam->pos, trans);
-		printf("pos = (%.2f | %.2f | %.2f)\n", env->cam->pos.x, env->cam->pos.y, env->cam->pos.z);
-		mat_free(trans);
-		// env->cam->pos.y -= 10;
+		env->cam->trans = translation_mat_init(vec_scale(-10, env->cam->up));
+		// env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->trans);
+		// printf("pos = (%.2f | %.2f | %.2f)\n", env->cam->pos.x, env->cam->pos.y, env->cam->pos.z);
 		printf("F\n");
-	}
-	if (keycode == 65361)
-	{
-		double **rota = mat_init();
-		rota[0] = mat_fil(cos(-ROTA), 0, sin(-ROTA), 0);
-		rota[1] = mat_fil(0, 1, 0, 0);
-		rota[2] = mat_fil(-sin(-ROTA), 0, cos(-ROTA), 0);
-		rota[3] = mat_fil(0, 0, 0, 1);
-		env->cam->dir = v_norm(vec3_x_mat4(env->cam->dir, rota));
-		mat_free(rota);
-		printf("←\n");
-	}
-	if (keycode == 65363)
-	{
-		double **rota = mat_init();
-		rota[0] = mat_fil(cos(ROTA), 0, sin(ROTA), 0);
-		rota[1] = mat_fil(0, 1, 0, 0);
-		rota[2] = mat_fil(-sin(ROTA), 0, cos(ROTA), 0);
-		rota[3] = mat_fil(0, 0, 0, 1);
-		env->cam->dir = v_norm(vec3_x_mat4(env->cam->dir, rota));
-		mat_free(rota);
-		printf("→\n");
-	}
-	if (keycode == 65362)
-	{
-		double **rota = mat_init();
-		rota[0] = mat_fil(1, 0, 0, 0);
-		rota[1] = mat_fil(0, cos(-ROTA), -sin(-ROTA), 0);
-		rota[2] = mat_fil(0, sin(-ROTA), cos(-ROTA), 0);
-		rota[3] = mat_fil(0, 0, 0, 1);
-		env->cam->dir = v_norm(vec3_x_mat4(env->cam->dir, rota));
-		mat_free(rota);
-		printf("↑\n");
 	}
 	if (keycode == 65364)
 	{
-		double **rota = mat_init();
-		rota[0] = mat_fil(1, 0, 0, 0);
-		rota[1] = mat_fil(0, cos(ROTA), -sin(ROTA), 0);
-		rota[2] = mat_fil(0, sin(ROTA), cos(ROTA), 0);
-		rota[3] = mat_fil(0, 0, 0, 1);
-		env->cam->dir = v_norm(vec3_x_mat4(env->cam->dir, rota));
-		mat_free(rota);
+		env->cam->rota = rotx_mat_init(-10);
+		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->rota);
+		// printf("dir = (%.2f | %.2f | %.2f)\n", env->cam->dir.x, env->cam->dir.y, env->cam->dir.z);
+		printf("←\n");
+	}
+	if (keycode == 65362)
+	{
+		env->cam->rota = rotx_mat_init(10);
+		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->rota);
+		// printf("dir = (%.2f | %.2f | %.2f)\n", env->cam->dir.x, env->cam->dir.y, env->cam->dir.z);
+		printf("→\n");
+	}
+	if (keycode == 65361)
+	{
+		env->cam->rota = roty_mat_init(10);
+		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->rota);
+		// printf("dir = (%.2f | %.2f | %.2f)\n", env->cam->dir.x, env->cam->dir.y, env->cam->dir.z);
+		printf("↑\n");
+	}
+	if (keycode == 65363)
+	{
+		env->cam->rota = roty_mat_init(-10);
+		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->rota);
+		// printf("dir = (%.2f | %.2f | %.2f)\n", env->cam->dir.x, env->cam->dir.y, env->cam->dir.z);
 		printf("↓\n");
+	}
+	if (keycode == 65438)
+	{
+		env->cam->rota = rotz_mat_init(10);
+		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->rota);
+		// printf("dir = (%.2f | %.2f | %.2f)\n", env->cam->dir.x, env->cam->dir.y, env->cam->dir.z);
+		printf("1\n");
+	}
+	if (keycode == 65436)
+	{
+		env->cam->rota = rotz_mat_init(-10);
+		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->rota);
+		// printf("dir = (%.2f | %.2f | %.2f)\n", env->cam->dir.x, env->cam->dir.y, env->cam->dir.z);
+		printf("0\n");
 	}
 	return (1);
 }
@@ -160,7 +122,7 @@ int			key_handler(int keycode, t_env *env)
 	printf("key code = %d\n", keycode);
 	if (keycode == ESC_KEY)
 		exit_sucess(env);
-	if ((keycode >= 65361 && keycode <= 65364) || (keycode >= 32 && keycode <= 150))
+	if ((keycode >= 65361 && keycode <= 65438) || (keycode >= 32 && keycode <= 150))
 		if (camera_move(keycode, env) == 0)
 			return (0);
 	if (keycode == 65432)
@@ -183,15 +145,15 @@ int			key_handler(int keycode, t_env *env)
 		env->lgt->pos.y -= 3;
 		printf("5\n");
 	}
-	if (keycode == 65438)
+	if (keycode == 65453)
 	{
 		env->lgt->pos.z -= 3;
-		printf("0\n");
+		printf("-\n");
 	}
-	if (keycode == 65436)
+	if (keycode == 65451)
 	{
 		env->lgt->pos.z += 3;
-		printf("1\n");
+		printf("+\n");
 	}
 	trace_ray(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->cam->img.ptr, 0, 0);

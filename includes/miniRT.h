@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:30:18 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/06 14:01:08 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/13 15:59:58 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,16 @@ void		print_obj(t_obj *obj);
 
 t_obj		*init_object(t_env *env);
 void		append_obj(t_obj **objs, t_obj *new_obj);
-t_v3		get_obj_color(t_obj *obj);
+t_vec		get_obj_color(t_obj *obj);
 void		get_obj_normal(t_obj *obj, t_ray *ray);
 
 /*
-** Conv_nb.c
+** conv_nb.c
 */
 
 double		str_to_double(t_env *env);
-long long	str_to_long(t_env *env);
-unsigned	str_to_unsigned(t_env *env);
+double  	str_to_long(t_env *env);
+double  	str_to_unsigned(t_env *env);
 
 /*
 ** mlx_img.c
@@ -92,19 +92,27 @@ t_img		init_img(t_env *env);
 ** render.c
 */
 
+void		trace_ray(t_env *env);
 void		render(t_env *env);
 
 /*
-** tarce.c
+** trace.c
 */
 
-void		trace_ray(t_env *env);
+t_vec		get_orthogonal(t_vec vec);
+void    	put_pixel_to_image(t_img img, t_vec color, int x, int y);
+void		shade(t_env *env, t_ray *ray);
+t_vec		lights(t_obj *obj, t_ray *ray, t_lgt *light, t_amb amb);
+int			hit_objs(t_obj *obj, t_ray *ray, double *t);
+t_vec		rgbzed(double intens, t_vec obj_color, t_vec lgt_color);
+t_vec		vec_add_rgb(t_vec a, t_vec b);
+t_vec		vec_scale_rgb(double x, t_vec a);
 
 /*
 ** trace_lgt.c
 */
 
-t_v3		trace_ray_to_light(t_env *env, t_ray *ray);
+t_vec		trace_ray_to_light(t_env *env, t_ray *ray);
 
 /*
 ** trace_obj.c
@@ -137,34 +145,35 @@ int			triangle_intersect(t_tri *tri, t_ray *ray, double *t);
 ** inter_util.c
 */
 
-int			solve_quadratic(t_v3 coef, double *x0, double *x1);
-int			hit_plane(t_v3 pos, t_v3 dir, t_ray *ray, double *t);
-int			check_edge(t_v3 to, t_v3 from, t_v3 hit, t_v3 normal);
-// int			solve_cylinder(t_cyl *cyl, t_ray *ray, t_v3 corf, double *t);
+int			solve_quadratic(t_vec coef, double *x0, double *x1);
+int			hit_plane(t_vec pos, t_vec dir, t_ray *ray, double *t);
+int			check_edge(t_vec to, t_vec from, t_vec hit, t_vec normal);
+// int			solve_cylinder(t_cyl *cyl, t_ray *ray, t_vec corf, double *t);
 
 /*
 ** utils.c
 */
 
-t_v3		rescale_vec(t_v3 vec, int min, int max);
+t_vec		rescale_vec(t_vec vec, int min, int max);
 char		*ft_strjoindelone(char *s1, char *s2);
 int			rgb2color(int R, int G, int B);
 double		MaxVal(int nb, ...);
 void		swap(double *x, double *y);
+int	    	check_val(double val, double min, double max);
 
 /*
 ** look_at.c
 */
 
-t_v3			canvas2view(t_env *env, t_cam *cam, int x, int y);
-//double		**lookAt(double **cam2world, t_v3 dir, t_v3 pos);
+t_ray		canvas2view(t_env *env, t_cam *cam, int x, int y);
+//double		**lookAt(double **cam2world, t_vec dir, t_vec pos);
 
 /*
 ** ray.c
 */
 
 void		reset_ray(t_ray *ray);
-void		set_ray(t_ray *ray, t_v3 pos, t_v3 dir, double t);
+void		set_ray(t_ray *ray, t_vec pos, t_vec dir, double t);
 void		init_ray(t_ray *ray);
 
 /*
@@ -190,9 +199,9 @@ void		get_triangle(t_env *env);
 ** get_normal.c
 */
 
-t_v3		get_sph_normal(t_sph *sph, t_ray *ray);
-t_v3		get_cyl_normal(t_cyl *cyl, t_ray *ray);
-t_v3		get_tri_normal(t_tri *tri);
+t_vec		get_sph_normal(t_sph *sph, t_ray *ray);
+t_vec		get_cyl_normal(t_cyl *cyl, t_ray *ray);
+t_vec		get_tri_normal(t_tri *tri);
 
 
 /*
@@ -207,5 +216,15 @@ void		free_env(t_env *env);
 
 void		exit_error(t_env *env, t_errid id);
 void		exit_sucess(t_env *env);
+
+/*
+**world_coord.c
+*/
+
+void		set_mat_cam(t_cam *cam, t_vec rotation);
+t_mat		world2cam_mat(t_cam *cam);
+t_mat		cam2world_mat(t_cam *cam);
+t_vec		get_rightdir(t_vec dir);
+t_vec		get_updir(t_vec dir, t_vec right);
 
 #endif

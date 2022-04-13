@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tamigore <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/08 15:04:29 by tamigore          #+#    #+#              #
-#    Updated: 2021/01/05 14:36:43 by tamigore         ###   ########.fr        #
+#    Updated: 2022/04/12 17:23:50 by tamigore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,22 +107,27 @@ SRCS = $(addprefix $(DIR_S)/,$(SRC))
 
 OBJ = $(SRC:.c=.o)
 
+DIR_O = objs
+
+OBJS = $(addprefix $(DIR_O)/,$(OBJ))
+
 FLAGS = -Wall -Werror -Wextra -I $(DIR_I)
 
 NAME = libft.a
 
 all : $(NAME)
 
-$(NAME) : $(OBJ)
-	ar rc $(NAME) $(OBJ)
+$(NAME) : $(OBJS)
+	ar rc $(NAME) $(OBJS)
 	ranlib $(NAME)
 
-$(OBJ) : $(SRCS) $(DIR_I)/$(INC)
-	mkdir -p objs
+$(OBJS) : $(SRCS) $(DIR_I)/$(INC)
+	mkdir -p $(DIR_O)
 	$(CC) $(FLAGS) -c $(SRCS)
+	mv $(OBJ) $(DIR_O)
 
 clean :
-	rm -rf $(OBJ)
+	rm -rf $(DIR_O)
 
 fclean : clean
 	rm -rf $(NAME)

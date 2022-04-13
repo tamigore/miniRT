@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamigore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 18:31:48 by tamigore          #+#    #+#             */
-/*   Updated: 2019/11/22 16:53:55 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/12 17:34:09 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ typedef	struct	s_lst
 	struct s_lst	*next;
 }				t_lst;
 
-void			ft_swap(char *s1, char *s2);
+void			ft_(char *s1, char *s2);
 void			ft_sorttab(char **tab);
 int				get_next_line(const int fd, char **line);
 int				ft_search(char *str, char c);

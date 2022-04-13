@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 18:28:44 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/06 14:13:59 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/13 17:16:02 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		get_sphere(t_env *env)
 	((t_sph *)(obj->data))->pos.x = str_to_double(env);
 	((t_sph *)(obj->data))->pos.y = str_to_double(env);
 	((t_sph *)(obj->data))->pos.z = str_to_double(env);
-	((t_sph *)(obj->data))->r = str_to_double(env);
+	((t_sph *)(obj->data))->r = str_to_double(env) / 2;
 	((t_sph *)(obj->data))->color.x = str_to_unsigned(env);
 	((t_sph *)(obj->data))->color.y = str_to_unsigned(env);
 	((t_sph *)(obj->data))->color.z = str_to_unsigned(env);

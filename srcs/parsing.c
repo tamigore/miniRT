@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:36:40 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/04 17:57:13 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/13 17:12:24 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ static t_pars	g_parsers[] =
 	{ RES_ID, ID_LEN, &get_resolution },
 	{ AMB_ID, ID_LEN, &get_ambient },
 	{ CAM_ID, ID_LEN, &get_camera },
-	{ LGT_ID, ID_LEN, &get_light }
+	{ LGT_ID, ID_LEN, &get_light },
+	{ MLGT_ID, ID_LEN, &get_light },
+	{ MCAM_ID, ID_LEN, &get_camera }
 };
 
 /*
@@ -38,7 +40,7 @@ static void		fill_env_sceen(t_env *env)
 	int			j;
 
 	j = 0;
-	while (j < 9)
+	while (j < 11)
 	{
 		if (!ft_strncmp(g_parsers[j].id, env->sceen, g_parsers[j].id_len))
 		{
@@ -116,7 +118,5 @@ void			pars_sceen(char *av, t_env *env)
 			exit_error(env, SCENE_FMT);
 	}
 	env->sceen = head;
-//	check_scene(env);
-//	check_max_display(env);
 	free(head);
 }

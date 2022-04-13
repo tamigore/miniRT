@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tamigore <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/15 15:04:29 by tamigore          #+#    #+#              #
-#    Updated: 2021/01/06 16:45:08 by tamigore         ###   ########.fr        #
+#    Updated: 2022/04/12 18:08:28 by tamigore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,15 +18,20 @@ DIR_I = includes
 
 DIR_S = srcs
 
+DIR_O = objs
+
 SRC =	vector.c	\
 		vector_2.c	\
 		angles.c	\
 		matrix.c	\
-		matrix_op.c
+		matrix_op.c	\
+		matrix_tr.c
 
 SRCS = $(addprefix $(DIR_S)/,$(SRC))
 
 OBJ = $(SRC:.c=.o)
+
+OBJS = $(addprefix $(DIR_O)/,$(OBJ))
 
 FLAGS = -Wall -Werror -Wextra -I $(DIR_I)
 
@@ -34,15 +39,17 @@ NAME = libmath.a
 
 all : $(NAME)
 
-$(NAME) : $(OBJ)
-	ar rc $(NAME) $(OBJ)
+$(NAME) : $(OBJS)
+	ar rc $(NAME) $(OBJS)
 	ranlib $(NAME)
 
-$(OBJ) : $(SRCS) $(DIR_I)/$(INC)
+$(OBJS) : $(SRCS) $(DIR_I)/$(INC)
+	mkdir -p $(DIR_O)
 	$(CC) $(FLAGS) -c $(SRCS)
+	mv $(OBJ) $(DIR_O)
 
 clean :
-	rm -rf $(OBJ)
+	rm -rf $(DIR_O)
 
 fclean : clean
 	rm -rf $(NAME)

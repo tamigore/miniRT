@@ -3,61 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamigore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 12:14:26 by tamigore          #+#    #+#             */
-/*   Updated: 2021/04/19 12:19:39 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/12 17:11:09 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-t_v3	v_init(double x, double y, double z)
+t_vec	vec_init(double x, double y, double z, double w)
 {
-	t_v3	vec;
+	t_vec	vec;
 
 	vec.x = x;
 	vec.y = y;
 	vec.z = z;
+	vec.w = w;
 	return (vec);
 }
 
-t_v3	v_add(t_v3 a, t_v3 b)
+t_vec	vec_add(t_vec a, t_vec b)
 {
-	t_v3 vec;
+	t_vec	vec;
 
 	vec.x = a.x + b.x;
 	vec.y = a.y + b.y;
 	vec.z = a.z + b.z;
+	vec.w = a.w + b.w;
 	return (vec);
 }
 
-t_v3	v_sub(t_v3 a, t_v3 b)
+t_vec	vec_sub(t_vec a, t_vec b)
 {
-	t_v3	vec;
+	t_vec	vec;
 
 	vec.x = a.x - b.x;
 	vec.y = a.y - b.y;
 	vec.z = a.z - b.z;
+	vec.w = a.w - b.w; 
 	return (vec);
 }
 
-t_v3	v_cross(t_v3 a, t_v3 b)
+t_vec	vec_cross(t_vec a, t_vec b)
 {
-	t_v3	vec;
+	t_vec	vec;
 
 	vec.x = a.y * b.z - a.z * b.y;
 	vec.y = a.z * b.x - a.x * b.z;
 	vec.z = a.x * b.y - a.y * b.x;
+	vec.w = 0;
 	return (vec);
 }
 
-t_v3	v_multi(double x, t_v3 a)
+t_vec	vec_scale(double x, t_vec a)
 {
-	t_v3	vec;
+	t_vec	vec;
 
 	vec.x = a.x * x;
 	vec.y = a.y * x;
 	vec.z = a.z * x;
+	vec.w = a.w * x;
 	return (vec);
 }

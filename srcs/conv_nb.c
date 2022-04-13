@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   conv_nb.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 10:45:25 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/04 14:47:08 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/12 17:28:57 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-unsigned			str_to_unsigned(t_env *env)
+double	str_to_unsigned(t_env *env)
 {
-	unsigned long	nb;
+	double	nb;
 
 	nb = 0;
 	while (*(env->sceen) && (*(env->sceen) < '0' || *(env->sceen) > '9'))
@@ -30,10 +30,10 @@ unsigned			str_to_unsigned(t_env *env)
 	return (nb);
 }
 
-long long			str_to_long(t_env *env)
+double	str_to_long(t_env *env)
 {
-	int				minus;
-	long int		nb;
+	int		minus;
+	double	nb;
 
 	minus = 1;
 	while (*(env->sceen) && (*(env->sceen) < '0' || *(env->sceen) > '9'))
@@ -46,11 +46,11 @@ long long			str_to_long(t_env *env)
 	return (nb * minus);
 }
 
-double				str_to_double(t_env *env)
+double	str_to_double(t_env *env)
 {
-	int				minus;
-	double			nb;
-	long int		inte;
+	int		minus;
+	double	nb;
+	double	inte;
 
 	nb = 0;
 	minus = 1;

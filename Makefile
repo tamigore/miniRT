@@ -6,7 +6,7 @@
 #    By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/19 16:16:11 by tamigore          #+#    #+#              #
-#    Updated: 2022/04/06 14:02:25 by tamigore         ###   ########.fr        #
+#    Updated: 2022/04/12 18:48:46 by tamigore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,30 +22,31 @@ DIR_S = srcs/
 
 HEADER = includes/
 
-SOURCES =	conv_nb.c	\
-			exit.c		\
-			free.c		\
-			get_normal.c\
-			get_obj.c	\
-			get_scene.c	\
-			hit.c		\
-			init.c		\
-			inter_util.c\
-			intersect.c \
-			lookAt.c	\
-			loop.c		\
-			miniRT.c	\
-			mlx_img.c	\
-			obj.c		\
-			parsing.c	\
-			print.c		\
-			ray.c		\
-			render.c	\
-			rescale.c	\
-			trace.c		\
-			trace_lgt.c	\
-			trace_obj.c	\
-			utils.c		\
+SOURCES =	conv_nb.c		\
+			exit.c			\
+			free.c			\
+			get_normal.c	\
+			get_obj.c		\
+			get_scene.c		\
+			hit.c			\
+			init.c			\
+			inter_util.c	\
+			intersect.c 	\
+			lookAt.c		\
+			loop.c			\
+			miniRT.c		\
+			mlx_img.c		\
+			obj.c			\
+			parsing.c		\
+			print.c			\
+			ray.c			\
+			render.c		\
+			rescale.c		\
+			trace.c			\
+			trace_lgt.c		\
+			trace_obj.c		\
+			utils.c			\
+			world_coord.c	\
 			cylinder_inter.c
 
 SRCS = $(addprefix $(DIR_S),$(SOURCES))

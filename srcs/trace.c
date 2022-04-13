@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:30:03 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/06 17:29:51 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/13 16:18:21 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 /*
 **	shade : Get the object lights specular + direct.
 */
-t_v3	v_multi_rgb(double x, t_v3 a)
+t_vec	vec_scale_rgb(double x, t_vec a)
 {
-	t_v3	vec;
+	t_vec	vec;
 
 	vec.x = a.x * x;
 	vec.y = a.y * x;
@@ -31,9 +31,9 @@ t_v3	v_multi_rgb(double x, t_v3 a)
 	return (vec);
 }
 
-t_v3	v_add_rgb(t_v3 a, t_v3 b)
+t_vec	vec_add_rgb(t_vec a, t_vec b)
 {
-	t_v3 vec;
+	t_vec vec;
 
 	vec.x = a.x + b.x;
 	vec.y = a.y + b.y;
@@ -47,7 +47,7 @@ t_v3	v_add_rgb(t_v3 a, t_v3 b)
 	return (vec);
 }
 
-t_v3	rgbzed(double intens, t_v3 obj_color, t_v3 lgt_color)
+t_vec	rgbzed(double intens, t_vec obj_color, t_vec lgt_color)
 {
 	double x;
 	double y;
@@ -65,7 +65,7 @@ t_v3	rgbzed(double intens, t_v3 obj_color, t_v3 lgt_color)
 		z = obj_color.z;
 	else 
 		z = lgt_color.z;
-	return (v_multi(intens, (v_init(x,y,z))));
+	return (vec_scale(intens, (vec_init(x, y, z, 0))));
 }
 
 int		hit_objs(t_obj *obj, t_ray *ray, double *t)
@@ -84,30 +84,29 @@ int		hit_objs(t_obj *obj, t_ray *ray, double *t)
 	return (ret);
 }
 
-t_v3	lights(t_obj *obj, t_ray *ray, t_lgt *light, t_amb amb)
+t_vec	lights(t_obj *obj, t_ray *ray, t_lgt *light, t_amb amb)
 {
-	t_v3 color;
-	t_v3 tmp_col;
-	t_v3 P;
-	t_v3 N;
+	t_vec color;
+	t_vec tmp_col;
+	t_vec P;
+	t_vec N;
 	t_lgt *tmp;
 	t_ray tmp_ray;
 	double intens;
 	double t;
 
 	(void)amb;
-	P = v_add(ray->pos, v_init(ray->dir.x * ray->t,ray->dir.y * ray->t,ray->dir.z * ray->t));
-	N = v_norm(v_sub(P, ((t_sph *)(obj->data))->pos));	
-	intens = (100 * light->ratio) * v_dot(v_norm(v_sub(light->pos, P)), N) / pow(v_len(v_sub(light->pos, P)),2);
+	P = vec_add(ray->pos, vec_init(ray->dir.x * ray->t,ray->dir.y * ray->t,ray->dir.z * ray->t, 0));
+	N = vec_norm(vec_sub(P, ((t_sph *)(obj->data))->pos));	
 	//printf("Color before: %f | %f | %f\n", ray->color.x, ray->color.y, ray->color.z);
 	tmp = light;
 	color = rgbzed(amb.ratio, ((t_sph *)(obj->data))->color, amb.color);
 	while (tmp)
 	{
-		intens = (100 * tmp->ratio) * v_dot(v_norm(v_sub(tmp->pos, P)), N) / pow(v_len(v_sub(tmp->pos, P)),2);
+		intens = (1000 * tmp->ratio) * vec_dot(vec_norm(vec_sub(tmp->pos, P)), N) / pow(vec_len(vec_sub(tmp->pos, P)),2);
 		//printf("itens : %f\n", intens);
 		tmp_ray.pos = ray->hit;
-		tmp_ray.dir = v_norm(v_sub(tmp->pos, ray->hit));
+		tmp_ray.dir = vec_norm(vec_sub(tmp->pos, ray->hit));
 		tmp_col = rgbzed(intens, ((t_sph *)(obj->data))->color, tmp->color);
 	//	printf("x %4.4f | y %4.4f | z %4.4f\n", tmp_col.x, tmp_col.y, tmp_col.z);
 		if (!hit_objs(obj, &tmp_ray, &t))
@@ -115,7 +114,7 @@ t_v3	lights(t_obj *obj, t_ray *ray, t_lgt *light, t_amb amb)
 		//	printf("adding color : \n");
 		//	printf("color : x %4.4f | y %4.4f | z %4.4f\n", color.x, color.y, color.z);
 		//	printf("tmp_c : x %4.4f | y %4.4f | z %4.4f\n", tmp_col.x, tmp_col.y, tmp_col.z);
-			color = v_add_rgb(tmp_col, color);
+			color = vec_add_rgb(tmp_col, color);
 		//	printf("equal : x %4.4f | y %4.4f | z %4.4f\n", color.x, color.y, color.z);
 		}
 		tmp = tmp->next;
@@ -125,7 +124,7 @@ t_v3	lights(t_obj *obj, t_ray *ray, t_lgt *light, t_amb amb)
 	return (color);
 }
 
-static void			shade(t_env *env, t_ray *ray)
+void			shade(t_env *env, t_ray *ray)
 {
 	t_obj			*hit_obj;
 
@@ -133,7 +132,7 @@ static void			shade(t_env *env, t_ray *ray)
 	if (hit_obj)
 	{
 		ray->color = get_obj_color(hit_obj);
-		ray->hit = v_add(ray->pos, v_multi(ray->t, ray->dir));
+		ray->hit = vec_add(ray->pos, vec_scale(ray->t, ray->dir));
 		get_obj_normal(hit_obj, ray);
 		//ray->color = trace_ray_to_light(env, ray); // creat lights
 		//printf("function before: %f | %f | %f\n", ray->color.x, ray->color.y, ray->color.z);
@@ -146,7 +145,7 @@ static void			shade(t_env *env, t_ray *ray)
 **		according to the mlx librairy.
 */
 
-static void			put_pixel_to_image(t_img img, t_v3 color, int x, int y)
+void			put_pixel_to_image(t_img img, t_vec color, int x, int y)
 {
 	int		i;
 
@@ -164,50 +163,20 @@ static void			put_pixel_to_image(t_img img, t_v3 color, int x, int y)
 **	trace_ray : Does all the raytracing.
 */
 
-static t_v3	get_orthogonal(t_v3 vec)
+t_vec	get_orthogonal(t_vec vec)
 {
-	t_v3	v1;
-	t_v3	v2;
-	t_v3	v3;
+	t_vec	v1;
+	t_vec	v2;
+	t_vec	v3;
 
-	v1 = v_cross(v_init(1, 0, 0), vec);
-	v2 = v_cross(v_init(0, 1, 0), vec);
-	v3 = v_cross(v_init(0, 0, 1), vec);
-	if (v_dot(v1, vec) == 0)
+	v1 = vec_cross(vec_init(1, 0, 0, 0), vec);
+	v2 = vec_cross(vec_init(0, 1, 0, 0), vec);
+	v3 = vec_cross(vec_init(0, 0, 1, 0), vec);
+	if (vec_dot(v1, vec) == 0)
 		return (v1);
-	else if (v_dot(v2, vec) == 0)
+	else if (vec_dot(v2, vec) == 0)
 		return (v2);
-	else if (v_dot(v3, vec) == 0)
+	else if (vec_dot(v3, vec) == 0)
 		return (v3);
-	return (v_init(0, 0, 0));
-}
-
-void				trace_ray(t_env *env)
-{
-	unsigned int	x;
-	unsigned int	y;
-	t_ray			ray;
-
-	y = 0;
-	ray.pos = env->cam->pos;
-	env->cam->dir = v_norm(env->cam->dir);
-	env->cam->vz = env->cam->dir;
-	env->cam->vx = get_orthogonal(env->cam->vz);
-	env->cam->vy = v_cross(env->cam->vz, env->cam->vx);
-	// printf("cam vz = (%.2f, %.2f, %.2f) vy = (%.2f, %.2f, %.2f) vx = (%.2f, %.2f, %.2f)",
-	// 	env->cam->vz.x, env->cam->vz.y, env->cam->vz.z, env->cam->vy.x, env->cam->vy.y, env->cam->vy.z,
-	// 	env->cam->vx.x, env->cam->vx.y, env->cam->vx.z);
-	while (y < (unsigned int)env->res.y -1)
-	{
-		x = 0;
-		while (x < (unsigned int)env->res.x - 1)
-		{
-			reset_ray(&ray);
-			ray.dir = canvas2view(env, env->cam, x, y);
-			shade(env, &ray);
-			put_pixel_to_image(env->cam->img, ray.color, x, y);
-			x++;
-		}
-		y++;
-	}
+	return (vec_init(0, 0, 0, 0));
 }

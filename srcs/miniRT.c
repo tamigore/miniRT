@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:28:29 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/08 19:07:46 by dasanter         ###   ########.fr       */
+/*   Updated: 2022/04/13 16:52:05 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** usage : secure file
 ** ATTENTION |.rt|
 */
+
 static int	usage(char *str)
 {
 	int	i;

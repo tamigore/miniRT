@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:22:50 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/31 15:26:06 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/13 15:16:11 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_env		*init_env(void)
 	env->nb_lgt = 0;
 	env->obj = NULL;
 	env->nb_obj = 0;
-	// env->img = NULL;
 	return (env);
 }
 
@@ -40,6 +39,10 @@ t_cam		*init_camera(t_env *env)
 	if (!cam)
 		exit_error(env, ERRNO_TO_STR);
 	cam->fov = 0;
+	cam->cam2world = identity_mat_init();
+	cam->world2cam = identity_mat_init();
+	cam->rota= identity_mat_init();
+	cam->trans = identity_mat_init();
 	cam->next = NULL;
 	return (cam);
 }

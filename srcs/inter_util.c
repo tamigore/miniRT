@@ -6,13 +6,13 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:40:08 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/06 14:33:09 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/12 17:46:59 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int			solve_quadratic(t_v3 coef, double *x0, double *x1)
+int			solve_quadratic(t_vec coef, double *x0, double *x1)
 {
 	double	delta;
 	double	q;
@@ -37,53 +37,16 @@ int			solve_quadratic(t_v3 coef, double *x0, double *x1)
 	return (1);
 }
 
-// static int	inside_cyl(t_cyl *cyl, t_ray *ray, double t)
-// {
-// 	t_v3	hit;
-// 	t_v3	bot;
-// 	t_v3	top;
-
-// 	hit = v_add(ray->pos, v_multi(t, ray->dir));
-// 	bot = v_sub(hit, cyl->pos);
-// 	top = v_sub(hit, v_add(cyl->pos, v_multi(cyl->h, cyl->dir)));
-// 	return ((v_dot(cyl->dir, bot) > 0)
-// 		&& (v_dot(cyl->dir, top) < 0));
-// }
-
-// int			solve_cylinder(t_cyl *cyl, t_ray *ray, t_v3 coef, double *t)
-// {
-// 	double	root1;
-// 	double	root2;
-// 	int		hit;
-
-// 	hit = 0;
-// 	if (solve_quadratic(coef, &root1, &root2))
-// 	{
-// 		if (root1 > EPSILON && inside_cyl(cyl, ray, root1))
-// 		{
-// 			hit = 1;
-// 			*t = root1;
-// 		}
-// 		if (root2 > EPSILON && inside_cyl(cyl, ray, root2))
-// 		{
-// 			hit = 1;
-// 			if (root2 > root1)
-// 				*t = root2;
-// 		}
-// 	}
-// 	return (hit);
-// }
-
-int			hit_plane(t_v3 pos, t_v3 dir, t_ray *ray, double *t)
+int			hit_plane(t_vec pos, t_vec dir, t_ray *ray, double *t)
 {
 	double	denom;
 
-	denom = v_dot(dir, ray->dir);
+	denom = vec_dot(dir, ray->dir);
 	if (denom == 0)
 		return (0);
 	if (fabs(denom) > EPSILON)
 	{
-		*t = v_dot(dir, v_sub(pos, ray->pos)) / denom;
+		*t = vec_dot(dir, vec_sub(pos, ray->pos)) / denom;
 		if (*t >= EPSILON)
 			return (1);
 		else
@@ -92,12 +55,12 @@ int			hit_plane(t_v3 pos, t_v3 dir, t_ray *ray, double *t)
 	return (0);
 }
 
-int			check_edge(t_v3 to, t_v3 from, t_v3 hit, t_v3 normal)
+int			check_edge(t_vec to, t_vec from, t_vec hit, t_vec normal)
 {
-	t_v3	edge;
-	t_v3	vec;
+	t_vec	edge;
+	t_vec	vec;
 
-	edge = v_sub(to, from);
-	vec = v_sub(hit, from);
-	return (v_dot(normal, v_cross(edge, vec)) >= 0.0);
+	edge = vec_sub(to, from);
+	vec = vec_sub(hit, from);
+	return (vec_dot(normal, vec_cross(edge, vec)) >= 0.0);
 }

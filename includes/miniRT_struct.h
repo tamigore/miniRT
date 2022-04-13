@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:20:38 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/06 16:03:49 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/12 19:48:21 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 typedef struct		s_amb
 {
 	int				check;
-	t_v3			color;
+	t_vec			color;
 	double			ratio;
 }					t_amb;
 
@@ -83,13 +83,15 @@ typedef struct		s_img
 
 typedef struct		s_cam
 {
-	t_v3			pos;
-	t_v3			dir;
+	t_vec			pos;
+	t_vec			dir;
 	int				fov;
-	t_v3			vx;
-	t_v3			vy;
-	t_v3			vz;
-//	double			**cam2world;
+	t_vec			right;
+	t_vec			up;
+	t_mat			cam2world;
+	t_mat			world2cam;
+	t_mat			rota;
+	t_mat			trans;
 	struct s_img	img;
 	struct s_cam	*next;
 }					t_cam;
@@ -105,9 +107,9 @@ typedef struct		s_cam
 
 typedef struct		s_lgt
 {
-	t_v3			pos;
+	t_vec			pos;
 	double			ratio;
-	t_v3			color;
+	t_vec			color;
 	struct s_lgt	*next;
 }					t_lgt;
 
@@ -121,9 +123,9 @@ typedef struct		s_lgt
 
 typedef struct		s_pla
 {
-	t_v3			pos;
-	t_v3			dir;
-	t_v3			color;
+	t_vec			pos;
+	t_vec			dir;
+	t_vec			color;
 }					t_pla;
 
 /*t_img		*init_img(t_env *env)
@@ -138,10 +140,10 @@ typedef struct		s_pla
 
 typedef struct		s_sqr
 {
-	t_v3			pos;
-	t_v3			dir;
+	t_vec			pos;
+	t_vec			dir;
 	double			side;
-	t_v3			color;
+	t_vec			color;
 }					t_sqr;
 
 /*
@@ -156,13 +158,13 @@ typedef struct		s_sqr
 
 typedef struct		s_cyl
 {
-	t_v3			pos;
-	t_v3			dir;
+	t_vec			pos;
+	t_vec			dir;
 	double			h;
 	double			r;
 	double			dist1;
 	double			dist2;
-	t_v3			color;
+	t_vec			color;
 }					t_cyl;
 
 /*
@@ -176,10 +178,10 @@ typedef struct		s_cyl
 
 typedef struct		s_tri
 {
-	t_v3			p1;
-	t_v3			p2;
-	t_v3			p3;
-	t_v3			color;
+	t_vec			p1;
+	t_vec			p2;
+	t_vec			p3;
+	t_vec			color;
 }					t_tri;
 
 /*
@@ -192,9 +194,9 @@ typedef struct		s_tri
 
 typedef struct		s_sph
 {
-	t_v3			pos;
+	t_vec			pos;
 	double			r;
-	t_v3			color;
+	t_vec			color;
 }					t_sph;
 
 /*
@@ -238,12 +240,12 @@ typedef struct		s_obj
 
 typedef struct		s_ray
 {
-	t_v3			pos;
-	t_v3			dir;
+	t_vec			pos;
+	t_vec			dir;
 	double			t;
-	t_v3			color;
-	t_v3			hit;
-	t_v3			normal;
+	t_vec			color;
+	t_vec			hit;
+	t_vec			normal;
 }					t_ray;
 
 /*

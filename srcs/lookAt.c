@@ -6,37 +6,37 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:41:56 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/06 17:29:46 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/13 16:15:58 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static t_v3		look_at(t_v3 dir, t_v3 cam_dir)
-{
-	t_v3		x;
-	t_v3		y;
-	t_v3		z;
-	t_v3		res;
+// static t_vec		look_at(t_vec dir, t_vec cam_dir)
+// {
+// 	t_vec		x;
+// 	t_vec		y;
+// 	t_vec		z;
+// 	t_vec		res;
 
-	z = cam_dir;
-	if (cam_dir.y == 1 || cam_dir.y == -1)
-		x = cam_dir.y == 1 ? v_init(1, 0, 0) : v_init(-1, 0, 0);
-	else
-		x = v_cross(v_init(0, 1, 0), z);
-	y = v_cross(z, x);
-	res.x = dir.x * x.x + dir.y * y.x + dir.z * z.x;
-	res.y = dir.x * x.y + dir.y * y.y + dir.z * z.y;
-	res.z = dir.x * x.z + dir.y * y.z + dir.z * z.z;
-	return (res);
-}
+// 	z = cam_dir;
+// 	if (cam_dir.y == 1 || cam_dir.y == -1)
+// 		x = cam_dir.y == 1 ? vec_init(1, 0, 0, 0) : vec_init(-1, 0, 0, 0);
+// 	else
+// 		x = vec_cross(vec_init(0, 1, 0, 0), z);
+// 	y = vec_cross(z, x);
+// 	res.x = dir.x * x.x + dir.y * y.x + dir.z * z.x;
+// 	res.y = dir.x * x.y + dir.y * y.y + dir.z * z.y;
+// 	res.z = dir.x * x.z + dir.y * y.z + dir.z * z.z;
+// 	return (res);
+// }
 
 /*
 **	vector_direct : Takes the (x, y) pixel of our screen and transform it to
 **		camera space.
 */
 
-static t_v3		vector_direct(int fov, int resX, int resY, int x, int y)
+static t_vec		vector_direct(int fov, int resX, int resY, int x, int y)
 {
 	double		Px;
 	double		Py;
@@ -47,10 +47,10 @@ static t_v3		vector_direct(int fov, int resX, int resY, int x, int y)
 	ratio = (double)resX / (double)resY;
 	Px = (2 * ((x + 0.5) / resX) - 1) * ratio * tang;
 	Py = (1 - 2 * ((y + 0.5) / resY)) * tang;
-	return (v_init(Px, Py, 1));
+	return (vec_init(Px, Py, -1, 0));
 }
 
-// static t_v3		vector_direct(int fov, int resX, int resY, int x, int y)
+// static t_vec		vector_direct(int fov, int resX, int resY, int x, int y)
 // {
 // 	double		Px;
 // 	double		Py;
@@ -62,63 +62,29 @@ static t_v3		vector_direct(int fov, int resX, int resY, int x, int y)
 // 	ratio = (double)resX / (double)resY;
 // 	Px = ((x + 0.5) - (resX / 2)) * ratio * tang;
 // 	Py = - ((y + 0.5) - (resY / 2)) * tang;
-// 	Pz = (resY / (2 * tang));
-// 	return (v_init(Px, Py, Pz));
+// 	Pz = -(resY / (2 * tang));
+// 	return (vec_init(Px, Py, Pz, 0));
 // }
 
 /*
 **	canvas2view : Take the canvas point (x, y) and transform it to 3d world.
 */
 
-t_v3			canvas2view(t_env *env, t_cam *cam, int x, int y)
+t_ray			canvas2view(t_env *env, t_cam *cam, int x, int y)
 {
-	t_v3		vec;
+	t_ray		ray;
+	t_vec		new_pos;
+	t_vec		new_dir;
 
-	vec = vector_direct(cam->fov, env->res.x, env->res.y, x, y);
-	vec = v_norm(vec);
-	vec = look_at(vec, v_norm(cam->dir));
-	vec = v_norm(vec);
-	return (vec);
+	init_ray(&ray);
+	ray.dir = vec_norm(vector_direct(cam->fov, env->res.x, env->res.y, x, y));
+	new_pos = mat_mult_vec(cam->cam2world, ray.pos);
+	new_pos = vec_add(ray.pos, cam->pos);
+	new_dir = vec_add(ray.pos, ray.dir);
+	new_dir = mat_mult_vec(cam->cam2world, new_dir);
+	new_dir = vec_add(new_dir, cam->pos);
+	ray.pos = new_pos;
+	ray.dir = vec_norm(vec_sub(new_pos, new_dir));
+	// vec = vec_norm(look_at(vec, vec_norm(cam->dir)));
+	return (ray);
 }
-
-/*
-double	**lookAt(double **cam2world, t_v3 dir, t_v3 pos)
-{
-	t_v3	X;
-	t_v3	Y;
-	t_v3	Z;
-	double	**mat;
-	double	**tmp;
-	double	**inv;
-
-	Z = v_norm(v_sub(dir, pos));
-	if (v_comp(X = v_cross(v_init(0, 1, 0), Z), v_init(0, 0, 0)))
-		X = v_cross(v_init(1, 0, 0), Z);
-	Y = v_cross(Z, X);
-	if (!(tmp = mat_init()))
-		return (NULL);
-	tmp[0] = mat_fil(X.x, X.y, X.z, pos.x);
-	tmp[1] = mat_fil(Y.x, Y.y, Y.z, pos.y);
-	tmp[2] = mat_fil(Z.x, Z.z, Z.z, pos.z);
-	tmp[3] = mat_fil(0, 0, 0, 1);
-	if (!(mat = mat_init()))
-		return (NULL);
-	mat[0] = mat_fil(1, 0, 0, -pos.x);
-	mat[1] = mat_fil(0, 1, 0, -pos.y);
-	mat[2] = mat_fil(0, 0, 1, -pos.z);
-	mat[3][3] = 1;
-	if (!(inv = mat_init()))
-		return (NULL);
-	mat4_x_mat4(tmp, mat, inv);
-	mat_free(mat);
-	mat_free(tmp);
-	if (!(mat_invers(inv, cam2world)))
-	{
-		cam2world = inv;
-		free(inv);
-		return (cam2world);
-	}
-	mat_free(inv);
-	return (cam2world);
-}
-*/

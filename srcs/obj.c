@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:32:20 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/31 16:34:38 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/12 18:00:45 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		append_obj(t_obj **objs, t_obj *new_obj)
 		*objs = new_obj;
 }
 
-t_v3	get_obj_color(t_obj *obj)
+t_vec	get_obj_color(t_obj *obj)
 {
 	if (obj->id == SPHERE)
 		return (((t_sph *)(obj->data))->color);
@@ -53,7 +53,7 @@ t_v3	get_obj_color(t_obj *obj)
 		return (((t_cyl *)(obj->data))->color);
 	else if (obj->id == TRIANGLE)
 		return (((t_tri *)(obj->data))->color);
-	return (v_init(0, 0, 0));
+	return (vec_init(0, 0, 0, 0));
 }
 
 void	get_obj_normal(t_obj *obj, t_ray *ray)
@@ -68,6 +68,6 @@ void	get_obj_normal(t_obj *obj, t_ray *ray)
 		ray->normal = get_cyl_normal((t_cyl *)(obj->data), ray);
 	else if (obj->id == TRIANGLE)
 		ray->normal = get_tri_normal((t_tri *)(obj->data));
-	if (v_dot(ray->dir, ray->normal) > 0)
-		v_multi(-1, ray->normal);
+	if (vec_dot(ray->dir, ray->normal) > 0)
+		vec_scale(-1, ray->normal);
 }

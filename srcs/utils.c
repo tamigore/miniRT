@@ -6,13 +6,13 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 19:07:28 by tamigore          #+#    #+#             */
-/*   Updated: 2021/02/16 20:16:21 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/13 15:59:45 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-t_v3	rescale_vec(t_v3 vec, int min, int max)
+t_vec	rescale_vec(t_vec vec, int min, int max)
 {
 	if (vec.x > max)
 		vec.x = max;
@@ -27,6 +27,15 @@ t_v3	rescale_vec(t_v3 vec, int min, int max)
 	if (vec.z < min)
 		vec.z = min;
 	return (vec);
+}
+
+int		check_val(double val, double min, double max)
+{
+	if (val > max)
+		return (0);
+	if (val < min)
+		return (0);
+	return (1);
 }
 
 char		*ft_strjoindelone(char *s1, char *s2)
@@ -82,13 +91,4 @@ double		MaxVal(int nb, ...)
 		x++;
 	}
 	return (i);
-}
-
-void		swap(double *x, double *y)
-{
-	double	tmp;
-
-	tmp = *x;
-	*x = *y;
-	*y = tmp;
 }

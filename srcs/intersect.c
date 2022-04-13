@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:37:55 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/06 14:26:50 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/13 17:35:12 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ int			sphere_intersect(t_sph *sph, t_ray *ray, double *t)
 {
 	double	t0;
 	double	t1;
-	t_v3	coef;
-	t_v3	L;
+	t_vec	coef;
+	t_vec	L;
 
-	L = v_sub(ray->pos, sph->pos);
-	coef.x = v_dot(ray->dir, ray->dir);
-	coef.y = 2 * v_dot(ray->dir, L);
-	coef.z = v_dot(L, L) - (sph->r * sph->r);
+	L = vec_sub(ray->pos, sph->pos);
+	coef.x = vec_dot(ray->dir, ray->dir);
+	coef.y = 2 * vec_dot(ray->dir, L);
+	coef.z = vec_dot(L, L) - (sph->r * sph->r);
 	if (!solve_quadratic(coef, &t0, &t1))
 		return (0);
 	if (t0 > t1 && t1 > EPSILON)
@@ -35,55 +35,6 @@ int			sphere_intersect(t_sph *sph, t_ray *ray, double *t)
 	return (1);
 }
 
-// int			sphere_intersect(t_sph *sph, t_ray *ray, double *t)
-// {
-// 	double	t0 = 0.0;
-// 	double	t1 = 0.0;
-// 	double delta;
-// 	delta = (pow(v_dot(ray->dir, v_sub(ray->pos, sph->pos)), 2)) - (pow(v_len(v_sub(ray->pos, sph->pos)), 2) - (sph->r * sph->r));
-// 	t0 = - (v_dot(ray->dir, v_sub(ray->pos, sph->pos))) + sqrt(delta);
-// 	t1 = - (v_dot(ray->dir, v_sub(ray->pos, sph->pos))) - sqrt(delta);
-
-// 	if (delta < 0)
-// 		return (0);
-// 	else if (delta == 0)
-// 	{
-// 		if (t0 < t1 && t0 > 0)
-// 			*t = t0;
-// 		else if (t1 < t0 && t1 > 0)
-// 			*t = t1;
-// 		return (1);
-// 	}
-// 	else if (delta > 0)
-// 	{
-// 		if (t1 > 0 || t0 > 0)
-// 		{
-// 			if (t1 <= t0)
-// 				*t = t1;
-// 			else
-// 				*t = t0;
-// 			return (1);
-// 		}
-// 	}
-// 	return (0);
-// }
-
-// int			cylinder_intersect(t_cyl *cyl, t_ray *ray, double *t)
-// {
-// 	t_v3	coef;
-// 	t_v3	oc;
-// 	t_v3	dir;
-// 	t_v3	ocdir;
-
-// 	oc = v_sub(ray->pos, cyl->pos);
-// 	dir = v_sub(ray->dir, v_multi(v_dot(ray->dir, cyl->dir), cyl->dir));
-// 	ocdir = v_sub(oc, v_multi(v_dot(oc, cyl->dir), cyl->dir));
-// 	coef.x = v_dot(dir, dir);
-// 	coef.y = 2 * v_dot(dir, v_sub(dir, ocdir));
-// 	coef.z = v_dot(v_sub(dir, ocdir), v_sub(dir, ocdir)) - (cyl->d * cyl->d);
-// 	return (solve_cylinder(cyl, ray, coef, t));
-// }
-
 int			plane_intersect(t_pla *pla, t_ray *ray, double *t)
 {
 	return (hit_plane(pla->pos, pla->dir, ray, t));
@@ -91,14 +42,14 @@ int			plane_intersect(t_pla *pla, t_ray *ray, double *t)
 
 int			square_intersect(t_sqr *sqr, t_ray *ray, double *t)
 {
-	t_v3	hit;
-	t_v3	dist;
+	t_vec	hit;
+	t_vec	dist;
 	double	border;
 
 	if (hit_plane(sqr->pos, sqr->dir, ray, t))
 	{
-		hit = v_add(ray->pos, v_multi(*t, ray->dir));
-		dist = v_sub(hit, sqr->pos);
+		hit = vec_add(ray->pos, vec_scale(*t, ray->dir));
+		dist = vec_sub(hit, sqr->pos);
 		border = sqr->side * 0.5;
 		return (
 			(fabs(dist.x) <= border)
@@ -110,13 +61,13 @@ int			square_intersect(t_sqr *sqr, t_ray *ray, double *t)
 
 int			triangle_intersect(t_tri *tri, t_ray *ray, double *t)
 {
-	t_v3	hit;
-	t_v3	normal;
+	t_vec	hit;
+	t_vec	normal;
 
 	normal = get_tri_normal(tri);
 	if (hit_plane(tri->p1, normal, ray, t))
 	{
-		hit = v_add(ray->pos, v_multi(*t, ray->dir));
+		hit = vec_add(ray->pos, vec_scale(*t, ray->dir));
 		return (check_edge(tri->p2, tri->p1, hit, normal))
 		&& (check_edge(tri->p3, tri->p2, hit, normal))
 		&& (check_edge(tri->p1, tri->p3, hit, normal));

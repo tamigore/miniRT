@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:10:05 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/31 15:37:54 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/13 16:06:24 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,15 @@ void		free_env(t_env *env)
 {
 	if (!env)
 		return ;
-	if (env->mlx)
+	if (env->mlx && env->win)
 		mlx_destroy_window(env->mlx, env->win);
-	free_cam(env->cam, env->mlx);
-	free_lgt(env->lgt);
-	free_obj(env->obj);
-	free(env->mlx);
+	if (env->cam)
+		free_cam(env->cam, env->mlx);
+	if (env->lgt)
+		free_lgt(env->lgt);
+	if (env->obj)
+		free_obj(env->obj);
+	if (env->mlx)
+		free(env->mlx);
 	free(env);
 }
