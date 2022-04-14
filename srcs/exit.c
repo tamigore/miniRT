@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:04:48 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/13 17:12:18 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:34:00 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static t_err	g_errors[] =
 	{ COLOR_FMT, "Invalid scene: Color badly formatted.\n" },
 	{ COORD_FMT, "Invalid scene: Coordinates badly formatted.\n" },
 	{ CYL_FMT, "Invalid scene: Cylinder badly formatted.\n" },
+	{ FD_ERR, "Invalid file descriptor: Open failed.\n" },
 	{ FLOAT_FMT, "Invalid scene: Floating-point number badly formatted.\n" },
 	{ ID_ERR, "Invalid scene: Unknown identifier.\n" },
 	{ LIGHT_FMT, "Invalid scene: Light badly formatted.\n" },
@@ -31,7 +32,6 @@ static t_err	g_errors[] =
 	{ NO_CAM, "No camera declared. Rendering stopped.\n" },
 	{ NO_LIGHT, "No light declared. Rendering stopped.\n" },
 	{ NO_OBJ, "No object declared. Rendering stopped.\n" },
-	{ NO_RES, "No resolution declared. Rendering stopped.\n" },
 	{ NUM_FMT, "Invalid scene: Number badly formatted.\n" },
 	{ PLANE_FMT, "Invalid scene: Plane badly formatted.\n" },
 	{ RES_DUP, "Invalid scene: Resolution must be declared once.\n" },

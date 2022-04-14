@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 18:30:44 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 16:39:37 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 18:51:39 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,22 @@ t_mat		cam2world_mat(t_cam *cam)
 	mat.mat[3][1] = cam->world2cam.mat[1][3];
 	mat.mat[3][2] = cam->world2cam.mat[2][3];
 	return (mat);
+}
+
+t_vec	get_orthogonal(t_vec vec)
+{
+	t_vec	v1;
+	t_vec	v2;
+	t_vec	v3;
+
+	v1 = vec_cross(vec_init(1, 0, 0, 0), vec);
+	v2 = vec_cross(vec_init(0, 1, 0, 0), vec);
+	v3 = vec_cross(vec_init(0, 0, 1, 0), vec);
+	if (vec_dot(v1, vec) == 0)
+		return (v1);
+	else if (vec_dot(v2, vec) == 0)
+		return (v2);
+	else if (vec_dot(v3, vec) == 0)
+		return (v3);
+	return (vec_init(0, 0, 0, 0));
 }

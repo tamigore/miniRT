@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:26:22 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 18:45:16 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,9 @@ void		get_camera(t_env *env)
 	cam->dir.z = str_to_float(env);
 	cam->dir = vec_norm(cam->dir);
 	cam->fov = str_to_unsigned(env);
-	if (!check_val(cam->fov, 0, 180) || !check_val(cam->dir.z, -1, 1)
-		|| !check_val(cam->dir.y, -1, 1) || !check_val(cam->dir.x, -1, 1)
+	if (!check_val(cam->fov, 0, 180) || !check_vec(cam->dir)
 		|| fabs(cam->pos.x) == INFINITY || fabs(cam->pos.y) == INFINITY
-		|| fabs(cam->pos.z) == INFINITY || vec_comp(cam->dir, vec_init(0,0,0,0)))
+		|| fabs(cam->pos.z) == INFINITY)
 		exit_error(env, CAM_FMT);
 	cam->up = vec_norm(get_orthogonal(cam->dir));
 	cam->right = vec_norm(vec_cross(cam->dir, cam->up));

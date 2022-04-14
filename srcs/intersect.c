@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:37:55 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 19:13:14 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,32 @@ int			square_intersect(t_sqr *sqr, t_ray *ray, float *t)
 	t_vec	hit;
 	t_vec	dist;
 	float	border;
+	t_vec	up;
+	t_vec	right;
 
+	right = get_orthogonal(sqr->dir);
+	up = vec_cross(sqr->dir, right);
 	if (hit_plane(sqr->pos, sqr->dir, ray, t))
+	{
+		hit = vec_add(ray->pos, vec_scale(*t, ray->dir));
+		dist = vec_sub(hit, sqr->pos);
+		border = sqr->side * 0.5;
+		return (
+			(fabs(dist.x) <= border)
+			&& (fabs(dist.y) <= border)
+			&& (fabs(dist.z) <= border));
+	}
+	else if (hit_plane(sqr->pos, right, ray, t))
+	{
+		hit = vec_add(ray->pos, vec_scale(*t, ray->dir));
+		dist = vec_sub(hit, sqr->pos);
+		border = sqr->side * 0.5;
+		return (
+			(fabs(dist.x) <= border)
+			&& (fabs(dist.y) <= border)
+			&& (fabs(dist.z) <= border));
+	}
+	else if (hit_plane(sqr->pos, up, ray, t))
 	{
 		hit = vec_add(ray->pos, vec_scale(*t, ray->dir));
 		dist = vec_sub(hit, sqr->pos);

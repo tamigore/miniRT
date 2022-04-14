@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 18:28:44 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 18:43:45 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,15 @@ void		get_sphere(t_env *env)
 	((t_sph *)(obj->data))->color.x = str_to_unsigned(env);
 	((t_sph *)(obj->data))->color.y = str_to_unsigned(env);
 	((t_sph *)(obj->data))->color.z = str_to_unsigned(env);
+	if (!check_val(((t_sph *)(obj->data))->color.x, 0, 255)
+		|| !check_val(((t_sph *)(obj->data))->color.y, 0, 255)
+		|| !check_val(((t_sph *)(obj->data))->color.z, 0, 255))
+		exit_error(env, COLOR_FMT);
+	if (fabs(((t_sph *)(obj->data))->pos.x) == INFINITY
+		|| fabs(((t_sph *)(obj->data))->pos.y) == INFINITY
+		|| fabs(((t_sph *)(obj->data))->pos.z) == INFINITY
+		|| fabs(((t_sph *)(obj->data))->r) == INFINITY)
+		exit_error(env, FLOAT_FMT);
 	env->nb_obj++;
 	append_obj(&(env->obj), obj);
 }
@@ -60,6 +69,15 @@ void		get_plane(t_env *env)
 	((t_pla *)(obj->data))->color.x = str_to_unsigned(env);
 	((t_pla *)(obj->data))->color.y = str_to_unsigned(env);
 	((t_pla *)(obj->data))->color.z = str_to_unsigned(env);
+	if (!check_val(((t_pla *)(obj->data))->color.x, 0, 255)
+		|| !check_val(((t_pla *)(obj->data))->color.y, 0, 255)
+		|| !check_val(((t_pla *)(obj->data))->color.z, 0, 255))
+		exit_error(env, COLOR_FMT);
+	if (fabs(((t_pla *)(obj->data))->pos.x) == INFINITY
+		|| fabs(((t_pla *)(obj->data))->pos.y) == INFINITY
+		|| fabs(((t_pla *)(obj->data))->pos.z) == INFINITY
+		|| !check_vec(((t_pla *)(obj->data))->dir))
+		exit_error(env, FLOAT_FMT);
 	env->nb_obj++;
 	append_obj(&(env->obj), obj);
 }
@@ -88,6 +106,16 @@ void		get_square(t_env *env)
 	((t_sqr *)(obj->data))->color.x = str_to_unsigned(env);
 	((t_sqr *)(obj->data))->color.y = str_to_unsigned(env);
 	((t_sqr *)(obj->data))->color.z = str_to_unsigned(env);
+	if (!check_val(((t_sqr *)(obj->data))->color.x, 0, 255)
+		|| !check_val(((t_sqr *)(obj->data))->color.y, 0, 255)
+		|| !check_val(((t_sqr *)(obj->data))->color.z, 0, 255))
+		exit_error(env, COLOR_FMT);
+	if (fabs(((t_sqr *)(obj->data))->pos.x) == INFINITY
+		|| fabs(((t_sqr *)(obj->data))->pos.y) == INFINITY
+		|| fabs(((t_sqr *)(obj->data))->pos.z) == INFINITY
+		|| !check_vec(((t_sqr *)(obj->data))->dir)
+		|| fabs(((t_sqr *)(obj->data))->side) == INFINITY)
+		exit_error(env, FLOAT_FMT);
 	env->nb_obj++;
 	append_obj(&(env->obj), obj);
 }
@@ -117,6 +145,17 @@ void		get_cylinder(t_env *env)
 	((t_cyl *)(obj->data))->color.x = str_to_unsigned(env);
 	((t_cyl *)(obj->data))->color.y = str_to_unsigned(env);
 	((t_cyl *)(obj->data))->color.z = str_to_unsigned(env);
+	if (!check_val(((t_cyl *)(obj->data))->color.x, 0, 255)
+		|| !check_val(((t_cyl *)(obj->data))->color.y, 0, 255)
+		|| !check_val(((t_cyl *)(obj->data))->color.z, 0, 255))
+		exit_error(env, COLOR_FMT);
+	if (fabs(((t_cyl *)(obj->data))->pos.x) == INFINITY
+		|| fabs(((t_cyl *)(obj->data))->pos.y) == INFINITY
+		|| fabs(((t_cyl *)(obj->data))->pos.z) == INFINITY
+		|| !check_vec(((t_cyl *)(obj->data))->dir)
+		|| fabs(((t_cyl *)(obj->data))->r) == INFINITY
+		|| fabs(((t_cyl *)(obj->data))->h) == INFINITY)
+		exit_error(env, FLOAT_FMT);
 	env->nb_obj++;
 	append_obj(&(env->obj), obj);
 }
@@ -147,6 +186,20 @@ void		get_triangle(t_env *env)
 	((t_tri *)(obj->data))->color.x = str_to_unsigned(env);
 	((t_tri *)(obj->data))->color.y = str_to_unsigned(env);
 	((t_tri *)(obj->data))->color.z = str_to_unsigned(env);
+	if (!check_val(((t_tri *)(obj->data))->color.x, 0, 255)
+		|| !check_val(((t_tri *)(obj->data))->color.y, 0, 255)
+		|| !check_val(((t_tri *)(obj->data))->color.z, 0, 255))
+		exit_error(env, COLOR_FMT);
+	if (fabs(((t_tri *)(obj->data))->p1.x) == INFINITY
+		|| fabs(((t_tri *)(obj->data))->p1.y) == INFINITY
+		|| fabs(((t_tri *)(obj->data))->p1.z) == INFINITY
+		|| fabs(((t_tri *)(obj->data))->p2.x) == INFINITY
+		|| fabs(((t_tri *)(obj->data))->p2.y) == INFINITY
+		|| fabs(((t_tri *)(obj->data))->p2.z) == INFINITY
+		|| fabs(((t_tri *)(obj->data))->p3.x) == INFINITY
+		|| fabs(((t_tri *)(obj->data))->p3.y) == INFINITY
+		|| fabs(((t_tri *)(obj->data))->p3.z) == INFINITY)
+		exit_error(env, FLOAT_FMT);
 	env->nb_obj++;
 	append_obj(&(env->obj), obj);
 }

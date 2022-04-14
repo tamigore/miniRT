@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:36:40 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/13 17:12:24 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:42:55 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static char		*read_sceen(t_env *env, char *file_path)
 	result = NULL;
 	fd = open(file_path, O_RDONLY);
 	if (!fd)
-		exit_error(env, ERRNO_TO_STR);
+		exit_error(env, FD_ERR);
 	while ((bytes_read = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
 		buffer[bytes_read] = '\0';
@@ -117,6 +117,12 @@ void			pars_sceen(char *av, t_env *env)
 		else
 			exit_error(env, SCENE_FMT);
 	}
+	if (env->nb_cam == 0)
+		exit_error(env, NO_CAM);
+	else if (env->nb_lgt == 0)
+		exit_error(env, NO_LIGHT);
+	else if (env->nb_obj == 0)
+		exit_error(env, NO_OBJ);
 	env->sceen = head;
 	free(head);
 }

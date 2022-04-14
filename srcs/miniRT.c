@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:28:29 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/13 17:47:39 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 18:48:18 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int			main(int ac, char **av)
 			exit(0);
 	}
 	printf("arg : %s\n", av[1]);
-	env = init_env(); // second check && init
-	pars_sceen(av[1], env); // parsing
+	env = init_env(); // init
+	pars_sceen(av[1], env); // parsing & check all
 	if (env->res.check == 0)
 	{
 		env->res.x = 500;

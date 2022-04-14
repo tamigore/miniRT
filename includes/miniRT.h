@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:30:18 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:14:59 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 18:51:18 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ void		render(t_env *env);
 ** trace.c
 */
 
-t_vec		get_orthogonal(t_vec vec);
 void    	put_pixel_to_image(t_img img, t_vec color, int x, int y);
 void		shade(t_env *env, t_ray *ray);
 t_vec		lights(t_obj *obj, t_ray *ray, t_lgt *light, t_amb amb);
@@ -163,8 +162,8 @@ int			check_edge(t_vec to, t_vec from, t_vec hit, t_vec normal);
 t_vec		rescale_vec(t_vec vec, int min, int max);
 char		*ft_strjoindelone(char *s1, char *s2);
 int			rgb2color(int R, int G, int B);
-void		swap(float *x, float *y);
 int	    	check_val(float val, float min, float max);
+int			check_vec(t_vec vec);
 
 /*
 ** look_at.c
@@ -229,7 +228,6 @@ void		exit_sucess(t_env *env);
 void		set_mat_cam(t_cam *cam, t_vec rotation);
 t_mat		world2cam_mat(t_cam *cam);
 t_mat		cam2world_mat(t_cam *cam);
-t_vec		get_rightdir(t_vec dir);
-t_vec		get_updir(t_vec dir, t_vec right);
+t_vec		get_orthogonal(t_vec vec);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:20:38 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:34:01 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,9 +302,7 @@ typedef enum	e_errid
 	NO_CAM,
 	NO_LIGHT,
 	NO_OBJ,
-	NO_RES,
 	NUM_FMT,
-	OPT_ERR,
 	PLANE_FMT,
 	RES_DUP,
 	RES_LOW,

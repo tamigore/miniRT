@@ -6,11 +6,15 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:11:21 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 16:51:40 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 18:54:10 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+/*
+**	trace_ray : Does all the raytracing.
+*/
 
 void				trace_ray(t_env *env)
 {
@@ -33,6 +37,10 @@ void				trace_ray(t_env *env)
 	}
 }
 
+/*
+**	init_img : init mlx image.
+*/
+
 t_img		init_img(t_env *env)
 {
 	t_img	img;
@@ -47,6 +55,10 @@ t_img		init_img(t_env *env)
 				&(img.size_line), &(img.endian));
 	return (img);
 }
+
+/*
+**	render : init and render one image per camera.
+*/
 
 void	render(t_env *env)
 {

@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 19:07:28 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:15:14 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:57:33 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,16 @@ int		check_val(float val, float min, float max)
 	return (1);
 }
 
-char		*ft_strjoindelone(char *s1, char *s2)
+int		check_vec(t_vec vec)
+{
+	if ((vec.x == 0 && vec.y == 0 && vec.z == 0 )
+		|| (!check_val(vec.x, -1, 1) || !check_val(vec.y, -1, 1)
+		|| !check_val(vec.z, -1, 1)))
+		return (0);
+	return (1);
+}
+
+char	*ft_strjoindelone(char *s1, char *s2)
 {
 	char	*result;
 	size_t	len_s1;
@@ -65,7 +74,7 @@ char		*ft_strjoindelone(char *s1, char *s2)
 	return (result);
 }
 
-int			rgb2color(int R, int G, int B)
+int		rgb2color(int R, int G, int B)
 {
 	return ((R<<16)|(G<<8)|B);
 }

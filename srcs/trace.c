@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:30:03 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 19:19:13 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_vec	lights(t_obj *obj, t_ray *ray, t_lgt *light, t_amb amb)
 	(void)amb;
 	P = vec_add(ray->pos, vec_init(ray->dir.x * ray->t,ray->dir.y * ray->t,ray->dir.z * ray->t, 0));
 	N = vec_norm(vec_sub(P, ((t_sph *)(obj->data))->pos));	
-	//printf("Color before: %f | %f | %f\n", ray->color.x, ray->color.y, ray->color.z);
+	// printf("Color before: %f | %f | %f\n", ray->color.x, ray->color.y, ray->color.z);
 	tmp = light;
 	color = rgbzed(amb.ratio, ((t_sph *)(obj->data))->color, amb.color);
 	while (tmp)
@@ -136,7 +136,7 @@ void			shade(t_env *env, t_ray *ray)
 		get_obj_normal(hit_obj, ray);
 		// ray->color = trace_ray_to_light(env, ray); // creat lights
 		// printf("function before: %f | %f | %f\n", ray->color.x, ray->color.y, ray->color.z);
-		// ray->color = lights(hit_obj, ray, env->lgt, env->amb );
+		ray->color = lights(hit_obj, ray, env->lgt, env->amb );
 	}
 }
 
@@ -157,26 +157,4 @@ void			put_pixel_to_image(t_img img, t_vec color, int x, int y)
 	img.pixels[i + RED] = (unsigned int)color.x;
 	img.pixels[i + GREEN] = (unsigned int)color.y;
 	img.pixels[i + BLUE] = (unsigned int)color.z;
-}
-
-/*
-**	trace_ray : Does all the raytracing.
-*/
-
-t_vec	get_orthogonal(t_vec vec)
-{
-	t_vec	v1;
-	t_vec	v2;
-	t_vec	v3;
-
-	v1 = vec_cross(vec_init(1, 0, 0, 0), vec);
-	v2 = vec_cross(vec_init(0, 1, 0, 0), vec);
-	v3 = vec_cross(vec_init(0, 0, 1, 0), vec);
-	if (vec_dot(v1, vec) == 0)
-		return (v1);
-	else if (vec_dot(v2, vec) == 0)
-		return (v2);
-	else if (vec_dot(v3, vec) == 0)
-		return (v3);
-	return (vec_init(0, 0, 0, 0));
 }
