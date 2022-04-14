@@ -6,13 +6,11 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:37:55 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/13 17:35:12 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:45:08 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-// Le sphere intersect de Tadeo est le best le tiens pue la merde XD
 
 int			sphere_intersect(t_sph *sph, t_ray *ray, double *t)
 {

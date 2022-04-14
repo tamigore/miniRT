@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:30:03 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/13 16:18:21 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:07:05 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_vec	lights(t_obj *obj, t_ray *ray, t_lgt *light, t_amb amb)
 	color = rgbzed(amb.ratio, ((t_sph *)(obj->data))->color, amb.color);
 	while (tmp)
 	{
-		intens = (1000 * tmp->ratio) * vec_dot(vec_norm(vec_sub(tmp->pos, P)), N) / pow(vec_len(vec_sub(tmp->pos, P)),2);
+		intens = (100 * tmp->ratio) * vec_dot(vec_norm(vec_sub(tmp->pos, P)), N) / pow(vec_len(vec_sub(tmp->pos, P)),2);
 		//printf("itens : %f\n", intens);
 		tmp_ray.pos = ray->hit;
 		tmp_ray.dir = vec_norm(vec_sub(tmp->pos, ray->hit));
@@ -134,9 +134,9 @@ void			shade(t_env *env, t_ray *ray)
 		ray->color = get_obj_color(hit_obj);
 		ray->hit = vec_add(ray->pos, vec_scale(ray->t, ray->dir));
 		get_obj_normal(hit_obj, ray);
-		//ray->color = trace_ray_to_light(env, ray); // creat lights
-		//printf("function before: %f | %f | %f\n", ray->color.x, ray->color.y, ray->color.z);
-		ray->color = lights(hit_obj, ray, env->lgt, env->amb );
+		// ray->color = trace_ray_to_light(env, ray); // creat lights
+		// printf("function before: %f | %f | %f\n", ray->color.x, ray->color.y, ray->color.z);
+		// ray->color = lights(hit_obj, ray, env->lgt, env->amb );
 	}
 }
 

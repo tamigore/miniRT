@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 18:17:14 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/06 14:05:00 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:41:53 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void		print_lgt(t_lgt *lgt)
 
 void		print_cyl(t_cyl *cyl)
 {
-	printf("cyl :%.2f.x/%.2f.y/%.2f.z // %.2f.vx/%.2f.vy/%.2f.vz // %.0f.R/%.0f.G/%.0f.B // %.2f.h/%.2f.d\n", cyl->pos.x, cyl->pos.y,
+	printf("cyl :%.2f.x/%.2f.y/%.2f.z // %.2f.vx/%.2f.vy/%.2f.vz // %.0f.R/%.0f.G/%.0f.B // %.2f.h/%.2f.r\n", cyl->pos.x, cyl->pos.y,
 			cyl->pos.z, cyl->dir.x, cyl->dir.y, cyl->dir.z, cyl->color.x,
 			cyl->color.y, cyl->color.z, cyl->h, cyl->r);
 }
@@ -88,7 +88,7 @@ void		print_pla(t_pla *pla)
 
 void		print_sph(t_sph *sph)
 {
-	printf("sph :%.2f.x/%.2f.y/%.2f.z // %.2f.d // %.0f.R/%.0f.G/%.0f.B\n",
+	printf("sph :%.2f.x/%.2f.y/%.2f.z // %.2f.r // %.0f.R/%.0f.G/%.0f.B\n",
 			sph->pos.x, sph->pos.y, sph->pos.z, sph->r, sph->color.x,
 			sph->color.y, sph->color.z);
 }
@@ -129,4 +129,24 @@ void		print_obj(t_obj *obj)
 	}
 	else
 		printf("obj :NULL\n");
+}
+
+void	print_matrix(t_mat mat)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			printf("%4.2f", mat.mat[j++][i]);
+			if (j != 4)
+				printf(" |");
+		}
+		printf("\n");
+		i++;
+	}
 }

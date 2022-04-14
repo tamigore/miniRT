@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 19:30:56 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/12 18:07:35 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:57:56 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int			cylinder_intersect(t_cyl *cyl, t_ray *ray, double *t)
 	{
 		if (cylinder_inter < caps_inter)
 		{
-//			ray->normal = cy_normal;
+			// ray->normal = cy_normal;
 			*t = cylinder_inter;
 			return (1);
 		}

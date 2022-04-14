@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 18:30:44 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/13 17:46:15 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:39:37 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,4 @@ t_mat		cam2world_mat(t_cam *cam)
 	mat.mat[3][1] = cam->world2cam.mat[1][3];
 	mat.mat[3][2] = cam->world2cam.mat[2][3];
 	return (mat);
-}
-
-t_vec			get_rightdir(t_vec dir)
-{
-	if (vec_comp(dir, vec_init(0, 1, 0, 0)))
-		return (vec_init(0, 1, 0, 0));
-	else if (vec_comp(dir, vec_scale(-1, vec_init(0, 1, 0, 0))))
-		return (vec_init(0, 1, 0, 0));
-	return (vec_norm(vec_scale(-1, vec_cross(dir, vec_init(0, 1, 0, 0)))));
-}
-
-t_vec			get_updir(t_vec dir, t_vec right)
-{
-	return (vec_norm(vec_cross(dir, right)));
 }

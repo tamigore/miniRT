@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:26:22 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/13 17:38:25 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:11:22 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,11 @@ void		get_camera(t_env *env)
 	if (!check_val(cam->fov, 0, 180) || !check_val(cam->dir.z, -1, 1)
 		|| !check_val(cam->dir.y, -1, 1) || !check_val(cam->dir.x, -1, 1)
 		|| fabs(cam->pos.x) == INFINITY || fabs(cam->pos.y) == INFINITY
-		|| fabs(cam->pos.z) == INFINITY)
+		|| fabs(cam->pos.z) == INFINITY || vec_comp(cam->dir, vec_init(0,0,0,0)))
 		exit_error(env, CAM_FMT);
-	cam->right = get_orthogonal(cam->dir);
-	cam->up = vec_norm(vec_cross(cam->dir, cam->right));
-	set_mat_cam(cam, cam->dir);
-	// cam->cam2world = mat_mult_mat(cam->cam2world, rotz_mat_init(-33));
+	cam->up = vec_norm(get_orthogonal(cam->dir));
+	cam->right = vec_norm(vec_cross(cam->dir, cam->up));
+	set_mat_cam(cam, vec_init(0,0,0,0));
 	env->nb_cam++;
 	append_cam(&(env->cam), cam);
 }

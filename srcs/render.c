@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:11:21 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/13 17:30:55 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:51:40 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,26 @@ void				trace_ray(t_env *env)
 		{
 			ray = canvas2view(env, env->cam, x, y);
 			shade(env, &ray);
-			if (x == (unsigned int)env->res.x / 2 && y == (unsigned int)env->res.y /2)
-				print_ray(&ray);
 			put_pixel_to_image(env->cam->img, ray.color, x, y);
 			x++;
 		}
 		y++;
 	}
+}
+
+t_img		init_img(t_env *env)
+{
+	t_img	img;
+
+	img.size_x = env->res.x;
+	img.size_y = env->res.y;
+	img.bpp = 32;
+	img.size_line = (img.bpp / 8) * img.size_x;
+	img.endian = 0;
+	img.ptr = mlx_new_image(env->mlx, img.size_x, img.size_y);
+	img.pixels = mlx_get_data_addr(img.ptr, &(img.bpp),
+				&(img.size_line), &(img.endian));
+	return (img);
 }
 
 void	render(t_env *env)

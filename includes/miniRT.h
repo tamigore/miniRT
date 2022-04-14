@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:30:18 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/13 15:59:58 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:51:39 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@
 int			close_program(t_env *env);
 int			key_handler(int keycode, t_env *env);
 void		graphic_loop(t_env *env);
+
+/*
+** world_coord.c
+*/
+
+void	move_left_right(t_env *env, int keycode);
+void	move_forward_backward(t_env *env, int keycode);
+void	move_up_down(t_env *env, int keycode);
+void	rotate_1(t_env *env, int keycode);
+void	rotate_2(t_env *env, int keycode);
 
 /*
 ** parsing.c
@@ -64,6 +74,7 @@ void		print_pla(t_pla *pla);
 void		print_sph(t_sph *sph);
 void		print_ray(t_ray *ray);
 void		print_obj(t_obj *obj);
+void		print_matrix(t_mat mat);
 
 /*
 ** obj.c
@@ -83,16 +94,11 @@ double  	str_to_long(t_env *env);
 double  	str_to_unsigned(t_env *env);
 
 /*
-** mlx_img.c
-*/
-
-t_img		init_img(t_env *env);
-
-/*
 ** render.c
 */
 
 void		trace_ray(t_env *env);
+t_img		init_img(t_env *env);
 void		render(t_env *env);
 
 /*

@@ -6,7 +6,7 @@
 #    By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/19 16:16:11 by tamigore          #+#    #+#              #
-#    Updated: 2022/04/12 18:48:46 by tamigore         ###   ########.fr        #
+#    Updated: 2022/04/14 17:08:55 by tamigore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,18 +35,17 @@ SOURCES =	conv_nb.c		\
 			lookAt.c		\
 			loop.c			\
 			miniRT.c		\
-			mlx_img.c		\
 			obj.c			\
 			parsing.c		\
 			print.c			\
 			ray.c			\
 			render.c		\
-			rescale.c		\
 			trace.c			\
 			trace_lgt.c		\
 			trace_obj.c		\
 			utils.c			\
 			world_coord.c	\
+			cam_move.c		\
 			cylinder_inter.c
 
 SRCS = $(addprefix $(DIR_S),$(SOURCES))
