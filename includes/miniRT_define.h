@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:41:50 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/13 17:07:47 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@
 ** SBC_KEY is the square bracket closing (]) and brace closing (}) key
 ** BSL_KEY is the backslash (\) and pipe (|) key
 ** SC_KEY is the semicolon (;) and colon (:) key
-** SQ_KEY is the simple quote (') and double quote (") key
+** SQ_KEY is the simple quote (') and float quote (") key
 ** CM_KEY is the comma (,) and angle bracket opening (<) key
 ** PT_KEY is the point (.) and angle bracket closing (>) key
 ** SL_KEY is the slash (/) and question mark (?) key

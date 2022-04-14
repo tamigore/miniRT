@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:30:18 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 16:51:39 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:14:59 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ void		get_obj_normal(t_obj *obj, t_ray *ray);
 ** conv_nb.c
 */
 
-double		str_to_double(t_env *env);
-double  	str_to_long(t_env *env);
-double  	str_to_unsigned(t_env *env);
+float		str_to_float(t_env *env);
+float  	str_to_long(t_env *env);
+float  	str_to_unsigned(t_env *env);
 
 /*
 ** render.c
@@ -109,10 +109,10 @@ t_vec		get_orthogonal(t_vec vec);
 void    	put_pixel_to_image(t_img img, t_vec color, int x, int y);
 void		shade(t_env *env, t_ray *ray);
 t_vec		lights(t_obj *obj, t_ray *ray, t_lgt *light, t_amb amb);
-int			hit_objs(t_obj *obj, t_ray *ray, double *t);
-t_vec		rgbzed(double intens, t_vec obj_color, t_vec lgt_color);
+int			hit_objs(t_obj *obj, t_ray *ray, float *t);
+t_vec		rgbzed(float intens, t_vec obj_color, t_vec lgt_color);
 t_vec		vec_add_rgb(t_vec a, t_vec b);
-t_vec		vec_scale_rgb(double x, t_vec a);
+t_vec		vec_scale_rgb(float x, t_vec a);
 
 /*
 ** trace_lgt.c
@@ -135,26 +135,26 @@ int			trace_tri(t_tri *tri, t_ray *ray);
 */
 
 t_obj		*trace_objs(t_obj *obj, t_ray *ray);
-int			hit_obj(t_obj *obj, t_ray *ray, double *t);
+int			hit_obj(t_obj *obj, t_ray *ray, float *t);
 
 /*
 ** intersect.c
 */
 
-int			sphere_intersect(t_sph *sph, t_ray *ray, double *t);
-int			cylinder_intersect(t_cyl *cyl, t_ray *ray, double *t);
-int			plane_intersect(t_pla *pla, t_ray *ray, double *t);
-int			square_intersect(t_sqr *sqr, t_ray *ray, double *t);
-int			triangle_intersect(t_tri *tri, t_ray *ray, double *t);
+int			sphere_intersect(t_sph *sph, t_ray *ray, float *t);
+int			cylinder_intersect(t_cyl *cyl, t_ray *ray, float *t);
+int			plane_intersect(t_pla *pla, t_ray *ray, float *t);
+int			square_intersect(t_sqr *sqr, t_ray *ray, float *t);
+int			triangle_intersect(t_tri *tri, t_ray *ray, float *t);
 
 /*
 ** inter_util.c
 */
 
-int			solve_quadratic(t_vec coef, double *x0, double *x1);
-int			hit_plane(t_vec pos, t_vec dir, t_ray *ray, double *t);
+int			solve_quadratic(t_vec coef, float *x0, float *x1);
+int			hit_plane(t_vec pos, t_vec dir, t_ray *ray, float *t);
 int			check_edge(t_vec to, t_vec from, t_vec hit, t_vec normal);
-// int			solve_cylinder(t_cyl *cyl, t_ray *ray, t_vec corf, double *t);
+// int			solve_cylinder(t_cyl *cyl, t_ray *ray, t_vec corf, float *t);
 
 /*
 ** utils.c
@@ -163,23 +163,22 @@ int			check_edge(t_vec to, t_vec from, t_vec hit, t_vec normal);
 t_vec		rescale_vec(t_vec vec, int min, int max);
 char		*ft_strjoindelone(char *s1, char *s2);
 int			rgb2color(int R, int G, int B);
-double		MaxVal(int nb, ...);
-void		swap(double *x, double *y);
-int	    	check_val(double val, double min, double max);
+void		swap(float *x, float *y);
+int	    	check_val(float val, float min, float max);
 
 /*
 ** look_at.c
 */
 
 t_ray		canvas2view(t_env *env, t_cam *cam, int x, int y);
-//double		**lookAt(double **cam2world, t_vec dir, t_vec pos);
+//float		**lookAt(float **cam2world, t_vec dir, t_vec pos);
 
 /*
 ** ray.c
 */
 
 void		reset_ray(t_ray *ray);
-void		set_ray(t_ray *ray, t_vec pos, t_vec dir, double t);
+void		set_ray(t_ray *ray, t_vec pos, t_vec dir, float t);
 void		init_ray(t_ray *ray);
 
 /*

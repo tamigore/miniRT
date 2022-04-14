@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:30:03 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:07:05 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 **	shade : Get the object lights specular + direct.
 */
-t_vec	vec_scale_rgb(double x, t_vec a)
+t_vec	vec_scale_rgb(float x, t_vec a)
 {
 	t_vec	vec;
 
@@ -47,11 +47,11 @@ t_vec	vec_add_rgb(t_vec a, t_vec b)
 	return (vec);
 }
 
-t_vec	rgbzed(double intens, t_vec obj_color, t_vec lgt_color)
+t_vec	rgbzed(float intens, t_vec obj_color, t_vec lgt_color)
 {
-	double x;
-	double y;
-	double z;
+	float x;
+	float y;
+	float z;
 
 	if (obj_color.x < lgt_color.x)
 		x = obj_color.x;
@@ -68,7 +68,7 @@ t_vec	rgbzed(double intens, t_vec obj_color, t_vec lgt_color)
 	return (vec_scale(intens, (vec_init(x, y, z, 0))));
 }
 
-int		hit_objs(t_obj *obj, t_ray *ray, double *t)
+int		hit_objs(t_obj *obj, t_ray *ray, float *t)
 {
 	int ret;
 	t_obj *tmp;
@@ -92,8 +92,8 @@ t_vec	lights(t_obj *obj, t_ray *ray, t_lgt *light, t_amb amb)
 	t_vec N;
 	t_lgt *tmp;
 	t_ray tmp_ray;
-	double intens;
-	double t;
+	float intens;
+	float t;
 
 	(void)amb;
 	P = vec_add(ray->pos, vec_init(ray->dir.x * ray->t,ray->dir.y * ray->t,ray->dir.z * ray->t, 0));

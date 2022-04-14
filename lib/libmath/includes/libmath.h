@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 18:31:48 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/12 18:09:09 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:16:16 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@
 
 typedef struct	s_v3
 {
-	double		x;
-	double		y;
-	double		z;
+	float		x;
+	float		y;
+	float		z;
 }				t_v3;
 
 /*
@@ -47,10 +47,10 @@ typedef struct	s_v3
 
 typedef struct	s_vec
 {
-	double		x;
-	double		y;
-	double		z;
-	double		w;
+	float		x;
+	float		y;
+	float		z;
+	float		w;
 }				t_vec;
 
 /*
@@ -65,18 +65,18 @@ typedef struct	s_vec
 
 typedef struct	t_mat
 {
-	double		mat[4][4];
+	float		mat[4][4];
 }				t_mat;
 
 /*
 ** VECTOR.C vector basics
 */
 
-t_vec			vec_init(double x, double y, double z, double w);
+t_vec			vec_init(float x, float y, float z, float w);
 t_vec			vec_add(t_vec a, t_vec b);
 t_vec			vec_sub(t_vec a, t_vec b);
 t_vec			vec_cross(t_vec a, t_vec b);
-t_vec			vec_scale(double x, t_vec a);
+t_vec			vec_scale(float x, t_vec a);
 
 /*
 ** VECTOR_2.C vector operation
@@ -84,19 +84,18 @@ t_vec			vec_scale(double x, t_vec a);
 
 t_vec			vec_prod(t_vec a, t_vec b);
 int				vec_comp(t_vec a, t_vec b);
-double			vec_len(t_vec v);
+float			vec_len(t_vec v);
 t_vec			vec_norm(t_vec vec);
-double			vec_dot(t_vec a, t_vec b);
+float			vec_dot(t_vec a, t_vec b);
 
 /*
 ** ANGLES.C trigo basics
 */
 
-double			deg2rad(double deg);
-double			rad2deg(double rad);
-double			tan(double x);
-double			vec_cos(t_vec a, t_vec b);
-void			swap(double *x, double *y);
+float			deg2rad(float deg);
+float			rad2deg(float rad);
+float			vec_cos(t_vec a, t_vec b);
+void			swap(float *x, float *y);
 
 /*
 ** MATRIX.C matrix init and fill

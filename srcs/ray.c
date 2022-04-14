@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:26:22 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/12 18:06:12 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		reset_ray(t_ray *ray)
 	ray->normal = vec_init(0, 0, 0, 0);
 }
 
-void		set_ray(t_ray *ray, t_vec pos, t_vec dir, double t)
+void		set_ray(t_ray *ray, t_vec pos, t_vec dir, float t)
 {
 	ray->pos = pos;
 	ray->dir = dir;

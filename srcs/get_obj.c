@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 18:28:44 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/13 17:16:02 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void		get_sphere(t_env *env)
 		free(obj);
 		exit_error(env, ERRNO_TO_STR);
 	}
-	((t_sph *)(obj->data))->pos.x = str_to_double(env);
-	((t_sph *)(obj->data))->pos.y = str_to_double(env);
-	((t_sph *)(obj->data))->pos.z = str_to_double(env);
-	((t_sph *)(obj->data))->r = str_to_double(env) / 2;
+	((t_sph *)(obj->data))->pos.x = str_to_float(env);
+	((t_sph *)(obj->data))->pos.y = str_to_float(env);
+	((t_sph *)(obj->data))->pos.z = str_to_float(env);
+	((t_sph *)(obj->data))->r = str_to_float(env) / 2;
 	((t_sph *)(obj->data))->color.x = str_to_unsigned(env);
 	((t_sph *)(obj->data))->color.y = str_to_unsigned(env);
 	((t_sph *)(obj->data))->color.z = str_to_unsigned(env);
@@ -51,12 +51,12 @@ void		get_plane(t_env *env)
 		free(obj);
 		exit_error(env, ERRNO_TO_STR);
 	}
-	((t_pla *)(obj->data))->pos.x = str_to_double(env);
-	((t_pla *)(obj->data))->pos.y = str_to_double(env);
-	((t_pla *)(obj->data))->pos.z = str_to_double(env);
-	((t_pla *)(obj->data))->dir.x = str_to_double(env);
-	((t_pla *)(obj->data))->dir.y = str_to_double(env);
-	((t_pla *)(obj->data))->dir.z = str_to_double(env);
+	((t_pla *)(obj->data))->pos.x = str_to_float(env);
+	((t_pla *)(obj->data))->pos.y = str_to_float(env);
+	((t_pla *)(obj->data))->pos.z = str_to_float(env);
+	((t_pla *)(obj->data))->dir.x = str_to_float(env);
+	((t_pla *)(obj->data))->dir.y = str_to_float(env);
+	((t_pla *)(obj->data))->dir.z = str_to_float(env);
 	((t_pla *)(obj->data))->color.x = str_to_unsigned(env);
 	((t_pla *)(obj->data))->color.y = str_to_unsigned(env);
 	((t_pla *)(obj->data))->color.z = str_to_unsigned(env);
@@ -78,13 +78,13 @@ void		get_square(t_env *env)
 		free(obj);
 		exit_error(env, ERRNO_TO_STR);
 	}
-	((t_sqr *)(obj->data))->pos.x = str_to_double(env);
-	((t_sqr *)(obj->data))->pos.y = str_to_double(env);
-	((t_sqr *)(obj->data))->pos.z = str_to_double(env);
-	((t_sqr *)(obj->data))->dir.x = str_to_double(env);
-	((t_sqr *)(obj->data))->dir.y = str_to_double(env);
-	((t_sqr *)(obj->data))->dir.z = str_to_double(env);
-	((t_sqr *)(obj->data))->side = str_to_double(env);
+	((t_sqr *)(obj->data))->pos.x = str_to_float(env);
+	((t_sqr *)(obj->data))->pos.y = str_to_float(env);
+	((t_sqr *)(obj->data))->pos.z = str_to_float(env);
+	((t_sqr *)(obj->data))->dir.x = str_to_float(env);
+	((t_sqr *)(obj->data))->dir.y = str_to_float(env);
+	((t_sqr *)(obj->data))->dir.z = str_to_float(env);
+	((t_sqr *)(obj->data))->side = str_to_float(env);
 	((t_sqr *)(obj->data))->color.x = str_to_unsigned(env);
 	((t_sqr *)(obj->data))->color.y = str_to_unsigned(env);
 	((t_sqr *)(obj->data))->color.z = str_to_unsigned(env);
@@ -106,14 +106,14 @@ void		get_cylinder(t_env *env)
 		free(obj);
 		exit_error(env, ERRNO_TO_STR);
 	}
-	((t_cyl *)(obj->data))->pos.x = str_to_double(env);
-	((t_cyl *)(obj->data))->pos.y = str_to_double(env);
-	((t_cyl *)(obj->data))->pos.z = str_to_double(env);
-	((t_sqr *)(obj->data))->dir.x = str_to_double(env);
-	((t_cyl *)(obj->data))->dir.y = str_to_double(env);
-	((t_cyl *)(obj->data))->dir.z = str_to_double(env);
-	((t_cyl *)(obj->data))->r = str_to_double(env) / 2;
-	((t_cyl *)(obj->data))->h = str_to_double(env);
+	((t_cyl *)(obj->data))->pos.x = str_to_float(env);
+	((t_cyl *)(obj->data))->pos.y = str_to_float(env);
+	((t_cyl *)(obj->data))->pos.z = str_to_float(env);
+	((t_sqr *)(obj->data))->dir.x = str_to_float(env);
+	((t_cyl *)(obj->data))->dir.y = str_to_float(env);
+	((t_cyl *)(obj->data))->dir.z = str_to_float(env);
+	((t_cyl *)(obj->data))->r = str_to_float(env) / 2;
+	((t_cyl *)(obj->data))->h = str_to_float(env);
 	((t_cyl *)(obj->data))->color.x = str_to_unsigned(env);
 	((t_cyl *)(obj->data))->color.y = str_to_unsigned(env);
 	((t_cyl *)(obj->data))->color.z = str_to_unsigned(env);
@@ -135,15 +135,15 @@ void		get_triangle(t_env *env)
 		free(obj);
 		exit_error(env, ERRNO_TO_STR);
 	}
-	((t_tri *)(obj->data))->p1.x = str_to_double(env);
-	((t_tri *)(obj->data))->p1.y = str_to_double(env);
-	((t_tri *)(obj->data))->p1.z = str_to_double(env);
-	((t_tri *)(obj->data))->p2.x = str_to_double(env);
-	((t_tri *)(obj->data))->p2.y = str_to_double(env);
-	((t_tri *)(obj->data))->p2.z = str_to_double(env);
-	((t_tri *)(obj->data))->p3.x = str_to_double(env);
-	((t_tri *)(obj->data))->p3.y = str_to_double(env);
-	((t_tri *)(obj->data))->p3.z = str_to_double(env);
+	((t_tri *)(obj->data))->p1.x = str_to_float(env);
+	((t_tri *)(obj->data))->p1.y = str_to_float(env);
+	((t_tri *)(obj->data))->p1.z = str_to_float(env);
+	((t_tri *)(obj->data))->p2.x = str_to_float(env);
+	((t_tri *)(obj->data))->p2.y = str_to_float(env);
+	((t_tri *)(obj->data))->p2.z = str_to_float(env);
+	((t_tri *)(obj->data))->p3.x = str_to_float(env);
+	((t_tri *)(obj->data))->p3.y = str_to_float(env);
+	((t_tri *)(obj->data))->p3.z = str_to_float(env);
 	((t_tri *)(obj->data))->color.x = str_to_unsigned(env);
 	((t_tri *)(obj->data))->color.y = str_to_unsigned(env);
 	((t_tri *)(obj->data))->color.z = str_to_unsigned(env);

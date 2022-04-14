@@ -6,16 +6,16 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:37:55 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 16:45:08 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int			sphere_intersect(t_sph *sph, t_ray *ray, double *t)
+int			sphere_intersect(t_sph *sph, t_ray *ray, float *t)
 {
-	double	t0;
-	double	t1;
+	float	t0;
+	float	t1;
 	t_vec	coef;
 	t_vec	L;
 
@@ -33,16 +33,16 @@ int			sphere_intersect(t_sph *sph, t_ray *ray, double *t)
 	return (1);
 }
 
-int			plane_intersect(t_pla *pla, t_ray *ray, double *t)
+int			plane_intersect(t_pla *pla, t_ray *ray, float *t)
 {
 	return (hit_plane(pla->pos, pla->dir, ray, t));
 }
 
-int			square_intersect(t_sqr *sqr, t_ray *ray, double *t)
+int			square_intersect(t_sqr *sqr, t_ray *ray, float *t)
 {
 	t_vec	hit;
 	t_vec	dist;
-	double	border;
+	float	border;
 
 	if (hit_plane(sqr->pos, sqr->dir, ray, t))
 	{
@@ -57,7 +57,7 @@ int			square_intersect(t_sqr *sqr, t_ray *ray, double *t)
 	return (0);
 }
 
-int			triangle_intersect(t_tri *tri, t_ray *ray, double *t)
+int			triangle_intersect(t_tri *tri, t_ray *ray, float *t)
 {
 	t_vec	hit;
 	t_vec	normal;

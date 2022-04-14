@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 12:14:45 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/12 17:11:25 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		vec_comp(t_vec a, t_vec b)
 		return (0);
 }
 
-double	vec_len(t_vec v)
+float	vec_len(t_vec v)
 {
 	return (sqrt((v.x * v.x) + (v.y * v.y) + (v.z * v.z)));
 }
@@ -45,7 +45,7 @@ t_vec	vec_norm(t_vec vec)
 	return (vec);
 }
 
-double	vec_dot(t_vec a, t_vec b)
+float	vec_dot(t_vec a, t_vec b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }

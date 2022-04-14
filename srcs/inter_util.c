@@ -6,16 +6,16 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:40:08 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/12 17:46:59 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int			solve_quadratic(t_vec coef, double *x0, double *x1)
+int			solve_quadratic(t_vec coef, float *x0, float *x1)
 {
-	double	delta;
-	double	q;
+	float	delta;
+	float	q;
 
 	delta = coef.y * coef.y - 4 * coef.x * coef.z;
 	if (delta < 0)
@@ -37,9 +37,9 @@ int			solve_quadratic(t_vec coef, double *x0, double *x1)
 	return (1);
 }
 
-int			hit_plane(t_vec pos, t_vec dir, t_ray *ray, double *t)
+int			hit_plane(t_vec pos, t_vec dir, t_ray *ray, float *t)
 {
-	double	denom;
+	float	denom;
 
 	denom = vec_dot(dir, ray->dir);
 	if (denom == 0)

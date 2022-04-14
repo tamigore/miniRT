@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:06:50 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/12 17:45:19 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_obj		*trace_objs(t_obj *obj, t_ray *ray)
 	return (hit);
 }
 
-int			hit_obj(t_obj *obj, t_ray *ray, double *t)
+int			hit_obj(t_obj *obj, t_ray *ray, float *t)
 {
 	int		hit;
 

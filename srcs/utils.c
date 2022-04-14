@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 19:07:28 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/13 15:59:45 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:15:14 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_vec	rescale_vec(t_vec vec, int min, int max)
 	return (vec);
 }
 
-int		check_val(double val, double min, double max)
+int		check_val(float val, float min, float max)
 {
 	if (val > max)
 		return (0);
@@ -68,27 +68,4 @@ char		*ft_strjoindelone(char *s1, char *s2)
 int			rgb2color(int R, int G, int B)
 {
 	return ((R<<16)|(G<<8)|B);
-}
-
-double		MaxVal(int nb, ...)
-{
-	double	i;
-	double	*x;
-	va_list	param;
-
-	i = 0;
-	if (!(x = (double *)malloc(sizeof(double) * nb)))
-		return (NAN);
-	va_start(param, nb);
-	while (i < nb)
-		x[(int)i++] = va_arg(param, double);
-	va_end(param);
-	i = *x;
-	while (nb-- > 0)
-	{
-		if (i < *x)
-			i = *x;
-		x++;
-	}
-	return (i);
 }

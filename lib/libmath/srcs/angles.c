@@ -6,35 +6,30 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 12:15:16 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/12 17:35:05 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:15:52 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-double	deg2rad(double deg)
+float	deg2rad(float deg)
 {
 	return (deg * M_PI / FLAT_ANGLE);
 }
 
-double	rad2deg(double rad)
+float	rad2deg(float rad)
 {
 	return (rad * FLAT_ANGLE / M_PI);
 }
 
-double	tan(double x)
-{
-	return (sinf(x) / cosf(x));
-}
-
-double	vec_cos(t_vec a, t_vec b)
+float	vec_cos(t_vec a, t_vec b)
 {
 	return (vec_dot(a, b) / vec_len(a) * vec_len(b));
 }
 
-void		swap(double *x, double *y)
+void		swap(float *x, float *y)
 {
-	double	tmp;
+	float	tmp;
 
 	tmp = *x;
 	*x = *y;

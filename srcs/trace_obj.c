@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:51:20 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:08:56 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int			trace_sph(t_sph *sph, t_ray *ray)
 {
 	int		hit;
-	double	t;
+	float	t;
 
 	hit = 0;
 	t = INFINITY;
@@ -33,7 +33,7 @@ int			trace_sph(t_sph *sph, t_ray *ray)
 int			trace_pla(t_pla *pla, t_ray *ray)
 {
 	int		hit;
-	double	t;
+	float	t;
 
 	hit = 0;
 	t = INFINITY;
@@ -51,7 +51,7 @@ int			trace_pla(t_pla *pla, t_ray *ray)
 int			trace_sqr(t_sqr *sqr, t_ray *ray)
 {
 	int		hit;
-	double	t;
+	float	t;
 
 	hit = 0;
 	t = INFINITY;
@@ -69,7 +69,7 @@ int			trace_sqr(t_sqr *sqr, t_ray *ray)
 int			trace_cyl(t_cyl *cyl, t_ray *ray)
 {
 	int		hit;
-	double	t;
+	float	t;
 
 	hit = 0;
 	t = INFINITY;
@@ -87,7 +87,7 @@ int			trace_cyl(t_cyl *cyl, t_ray *ray)
 int			trace_tri(t_tri *tri, t_ray *ray)
 {
 	int		hit;
-	double	t;
+	float	t;
 
 	hit = 0;
 	t = INFINITY;

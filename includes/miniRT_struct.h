@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:20:38 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/13 17:46:24 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct		s_amb
 {
 	int				check;
 	t_vec			color;
-	double			ratio;
+	float			ratio;
 }					t_amb;
 
 /*
@@ -108,7 +108,7 @@ typedef struct		s_cam
 typedef struct		s_lgt
 {
 	t_vec			pos;
-	double			ratio;
+	float			ratio;
 	t_vec			color;
 	struct s_lgt	*next;
 }					t_lgt;
@@ -142,7 +142,7 @@ typedef struct		s_sqr
 {
 	t_vec			pos;
 	t_vec			dir;
-	double			side;
+	float			side;
 	t_vec			color;
 }					t_sqr;
 
@@ -160,10 +160,10 @@ typedef struct		s_cyl
 {
 	t_vec			pos;
 	t_vec			dir;
-	double			h;
-	double			r;
-	double			dist1;
-	double			dist2;
+	float			h;
+	float			r;
+	float			dist1;
+	float			dist2;
 	t_vec			color;
 }					t_cyl;
 
@@ -195,7 +195,7 @@ typedef struct		s_tri
 typedef struct		s_sph
 {
 	t_vec			pos;
-	double			r;
+	float			r;
 	t_vec			color;
 }					t_sph;
 
@@ -242,7 +242,7 @@ typedef struct		s_ray
 {
 	t_vec			pos;
 	t_vec			dir;
-	double			t;
+	float			t;
 	t_vec			color;
 	t_vec			hit;
 	t_vec			normal;

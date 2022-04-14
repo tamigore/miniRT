@@ -6,16 +6,16 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 19:30:56 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 16:57:56 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-double			solve_plane(t_ray *ray, t_vec plane_p, t_vec plane_nv)
+float			solve_plane(t_ray *ray, t_vec plane_p, t_vec plane_nv)
 {
-	double	x;
-	double	denom;
+	float	x;
+	float	denom;
 
 	denom = vec_dot(plane_nv, ray->dir);
 	if (denom == 0)
@@ -24,13 +24,13 @@ double			solve_plane(t_ray *ray, t_vec plane_p, t_vec plane_nv)
 	return (x > 0 ? x : INFINITY);
 }
 
-static int		solve_cylinder(double x[2], t_ray *ray, t_cyl *cyl)
+static int		solve_cylinder(float x[2], t_ray *ray, t_cyl *cyl)
 {
 	t_vec	v;
 	t_vec	u;
-	double	a;
-	double	b;
-	double	c;
+	float	a;
+	float	b;
+	float	c;
 
 	v = vec_scale(vec_dot(ray->dir, cyl->dir), cyl->dir);
 	v = vec_sub(ray->dir, v);
@@ -50,10 +50,10 @@ static int		solve_cylinder(double x[2], t_ray *ray, t_cyl *cyl)
 	return (1);
 }
 
-static t_vec		calc_cy_normal(double x2[2], t_ray *ray, t_cyl *cyl)
+static t_vec		calc_cy_normal(float x2[2], t_ray *ray, t_cyl *cyl)
 {
-	double	dist;
-	double	x;
+	float	dist;
+	float	x;
 
 	if ((cyl->dist1 >= 0 && cyl->dist1 <= cyl->h
 				&& x2[0] > EPSILON) && (cyl->dist2 >= 0
@@ -76,9 +76,9 @@ static t_vec		calc_cy_normal(double x2[2], t_ray *ray, t_cyl *cyl)
 	return (vec_norm(vec_sub(vec_sub(vec_scale(x, ray->dir), vec_scale(dist, cyl->dir)), vec_sub(cyl->pos, ray->pos))));
 }
 
-static double	cy_intersection(t_ray *ray, t_vec *normal, t_cyl *cyl)
+static float	cy_intersection(t_ray *ray, t_vec *normal, t_cyl *cyl)
 {
-	double	x2[2];
+	float	x2[2];
 
 	if (solve_cylinder(x2, ray, cyl) == 0)
 		return (INFINITY);
@@ -92,10 +92,10 @@ static double	cy_intersection(t_ray *ray, t_vec *normal, t_cyl *cyl)
 	return (x2[0]);
 }
 
-static double	caps_intersection(t_ray *ray, t_cyl *cyl)
+static float	caps_intersection(t_ray *ray, t_cyl *cyl)
 {
-	double	id1;
-	double	id2;
+	float	id1;
+	float	id2;
 	t_vec	ip1;
 	t_vec	ip2;
 	t_vec	c2;
@@ -120,10 +120,10 @@ static double	caps_intersection(t_ray *ray, t_cyl *cyl)
 	return (INFINITY);
 }
 
-int			cylinder_intersect(t_cyl *cyl, t_ray *ray, double *t)
+int			cylinder_intersect(t_cyl *cyl, t_ray *ray, float *t)
 {
-	double	cylinder_inter;
-	double	caps_inter;
+	float	cylinder_inter;
+	float	caps_inter;
 	t_vec	cy_normal;
 
 	cylinder_inter = cy_intersection(ray, &cy_normal, cyl);

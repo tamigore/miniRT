@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:26:22 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:11:22 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void		get_ambient(t_env *env)
 	if (env->amb.check == 1)
 		exit_error(env, AMB_DUP);
 	env->amb.check = 1;
-	env->amb.ratio = str_to_double(env);
+	env->amb.ratio = str_to_float(env);
 	env->amb.color.x = str_to_unsigned(env);
 	env->amb.color.y = str_to_unsigned(env);
 	env->amb.color.z = str_to_unsigned(env);
@@ -59,12 +59,12 @@ void		get_camera(t_env *env)
 	if (*(env->sceen) == 'c' || *(env->sceen) == 'C')
 		(env->sceen)++;
 	cam = init_camera(env);
-	cam->pos.x = str_to_double(env);
-	cam->pos.y = str_to_double(env);
-	cam->pos.z = str_to_double(env);
-	cam->dir.x = str_to_double(env);
-	cam->dir.y = str_to_double(env);
-	cam->dir.z = str_to_double(env);
+	cam->pos.x = str_to_float(env);
+	cam->pos.y = str_to_float(env);
+	cam->pos.z = str_to_float(env);
+	cam->dir.x = str_to_float(env);
+	cam->dir.y = str_to_float(env);
+	cam->dir.z = str_to_float(env);
 	cam->dir = vec_norm(cam->dir);
 	cam->fov = str_to_unsigned(env);
 	if (!check_val(cam->fov, 0, 180) || !check_val(cam->dir.z, -1, 1)
@@ -86,10 +86,10 @@ void		get_light(t_env *env)
 	if (*(env->sceen) == 'l' || *(env->sceen) == 'L')
 		(env->sceen)++;
 	lgt = init_light(env);
-	lgt->pos.x = str_to_double(env);
-	lgt->pos.y = str_to_double(env);
-	lgt->pos.z = str_to_double(env);
-	lgt->ratio = str_to_double(env);
+	lgt->pos.x = str_to_float(env);
+	lgt->pos.y = str_to_float(env);
+	lgt->pos.z = str_to_float(env);
+	lgt->ratio = str_to_float(env);
 	lgt->color.x = str_to_unsigned(env);
 	lgt->color.y = str_to_unsigned(env);
 	lgt->color.z = str_to_unsigned(env);
