@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 19:30:56 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:28:06 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static t_vec		calc_cy_normal(float x2[2], t_ray *ray, t_cyl *cyl)
 	return (vec_norm(vec_sub(vec_sub(vec_scale(x, ray->dir), vec_scale(dist, cyl->dir)), vec_sub(cyl->pos, ray->pos))));
 }
 
-static float	cy_intersection(t_ray *ray, t_vec *normal, t_cyl *cyl)
+static float	cyl_intersect(t_ray *ray, t_vec *normal, t_cyl *cyl)
 {
 	float	x2[2];
 
@@ -92,7 +92,7 @@ static float	cy_intersection(t_ray *ray, t_vec *normal, t_cyl *cyl)
 	return (x2[0]);
 }
 
-static float	caps_intersection(t_ray *ray, t_cyl *cyl)
+static float	caps_intersect(t_ray *ray, t_cyl *cyl)
 {
 	float	id1;
 	float	id2;
@@ -126,20 +126,25 @@ int			cylinder_intersect(t_cyl *cyl, t_ray *ray, float *t)
 	float	caps_inter;
 	t_vec	cy_normal;
 
-	cylinder_inter = cy_intersection(ray, &cy_normal, cyl);
-	caps_inter = caps_intersection(ray, cyl);
+	cylinder_inter = cyl_intersect(ray, &cy_normal, cyl);
+	caps_inter = caps_intersect(ray, cyl);
 	if (cylinder_inter < INFINITY || caps_inter < INFINITY)
 	{
-		if (cylinder_inter < caps_inter)
+		if (cylinder_inter < caps_inter && cylinder_inter < INFINITY)
 		{
 			// ray->normal = cy_normal;
 			*t = cylinder_inter;
+			printf("| cyl_inter = %f ", cylinder_inter);
 			return (1);
 		}
-//		ray->normal = cyl->dir;
-		*t = caps_inter;
-		return (1);
+		else if (caps_inter < INFINITY)
+		{
+//			ray->normal = cyl->dir;
+			*t = caps_inter;
+			printf("| caps_inter = %f ", caps_inter);
+			return (1);
+		}
 	}
-	// *t = INFINITY;
+	*t = 0;
 	return (0);
 }

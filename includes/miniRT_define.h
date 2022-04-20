@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:41:50 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/20 13:45:19 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 # define CAM_ID "c"
 # define MLGT_ID "L"
 # define MCAM_ID "C"
-# define SQR_ID "sq"
+// # define SQR_ID "sq"
 # define TRI_ID "tr"
 # define CYL_ID "cy"
 # define SPH_ID "sp"

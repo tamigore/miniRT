@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:04:48 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:34:00 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/20 13:46:16 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_err	g_errors[] =
 	{ RES_LOW, "Resolution too low: minimum is 300x300. Rendering stopped.\n" },
 	{ SCENE_FMT, "Invalid scene: Scene badly formatted.\n" },
 	{ SPHERE_FMT, "Invalid scene: Sphere badly formatted.\n" },
-	{ SQUARE_FMT, "Invalid scene: Square badly formatted.\n" }
+	// { SQUARE_FMT, "Invalid scene: Square badly formatted.\n" }
 };
 
 /*

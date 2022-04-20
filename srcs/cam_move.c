@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 16:29:01 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 16:38:30 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/20 13:31:59 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,19 @@ void	rotate_1(t_env *env, int keycode)
 	{
 		env->cam->rota = rotx_mat_init(-10);
 		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->rota);
-		printf("←\n");
+		printf("↓\n");
 	}
 	else if (keycode == 65362)
 	{
 		env->cam->rota = rotx_mat_init(10);
 		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->rota);
-		printf("→\n");
+		printf("↑\n");
 	}
 	else if (keycode == 65361)
 	{
 		env->cam->rota = roty_mat_init(10);
 		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->rota);
-		printf("↑\n");
+		printf("←\n");
 	}
 }
 
@@ -87,22 +87,19 @@ void	rotate_2(t_env *env, int keycode)
 	if (keycode == 65363)
 	{
 		env->cam->rota = roty_mat_init(-10);
-		print_matrix(env->cam->cam2world);
 		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->rota);
-		printf("↓\n");
+		printf("→\n");
 	}
 	else if (keycode == 65438)
 	{
 		env->cam->rota = rotz_mat_init(10);
-		print_matrix(env->cam->cam2world);
 		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->rota);
-		printf("1\n");
+		printf("0\n");
 	}
 	else if (keycode == 65436)
 	{
 		env->cam->rota = rotz_mat_init(-10);
-		print_matrix(env->cam->cam2world);
 		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->rota);
-		printf("0\n");
+		printf("1\n");
 	}
 }

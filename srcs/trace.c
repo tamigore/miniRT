@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:30:03 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 19:19:13 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/20 13:32:32 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,11 +132,11 @@ void			shade(t_env *env, t_ray *ray)
 	if (hit_obj)
 	{
 		ray->color = get_obj_color(hit_obj);
-		ray->hit = vec_add(ray->pos, vec_scale(ray->t, ray->dir));
-		get_obj_normal(hit_obj, ray);
+		// ray->hit = vec_add(ray->pos, vec_scale(ray->t, ray->dir));
+		// get_obj_normal(hit_obj, ray);
 		// ray->color = trace_ray_to_light(env, ray); // creat lights
 		// printf("function before: %f | %f | %f\n", ray->color.x, ray->color.y, ray->color.z);
-		ray->color = lights(hit_obj, ray, env->lgt, env->amb );
+		// ray->color = lights(hit_obj, ray, env->lgt, env->amb );
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:30:18 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 18:51:18 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/20 13:48:57 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		print_env(t_env *env);
 void		print_cam(t_cam *cam);
 void		print_lgt(t_lgt *lum);
 void		print_cyl(t_cyl *cyl);
-void		print_sqr(t_sqr *car);
+// void		print_sqr(t_sqr *car);
 void		print_tri(t_tri *tri);
 void		print_pla(t_pla *pla);
 void		print_sph(t_sph *sph);
@@ -125,7 +125,7 @@ t_vec		trace_ray_to_light(t_env *env, t_ray *ray);
 
 int			trace_sph(t_sph *sph, t_ray *ray);
 int			trace_pla(t_pla *pla, t_ray *ray);
-int			trace_sqr(t_sqr *sqr, t_ray *ray);
+// int			trace_sqr(t_sqr *sqr, t_ray *ray);
 int			trace_cyl(t_cyl *cyl, t_ray *ray);
 int			trace_tri(t_tri *tri, t_ray *ray);
 
@@ -143,7 +143,7 @@ int			hit_obj(t_obj *obj, t_ray *ray, float *t);
 int			sphere_intersect(t_sph *sph, t_ray *ray, float *t);
 int			cylinder_intersect(t_cyl *cyl, t_ray *ray, float *t);
 int			plane_intersect(t_pla *pla, t_ray *ray, float *t);
-int			square_intersect(t_sqr *sqr, t_ray *ray, float *t);
+// int			square_intersect(t_sqr *sqr, t_ray *ray, float *t);
 int			triangle_intersect(t_tri *tri, t_ray *ray, float *t);
 
 /*
@@ -195,7 +195,7 @@ void		get_ambient(t_env *env);
 
 void		get_sphere(t_env *env);
 void		get_plane(t_env *env);
-void		get_square(t_env *env);
+// void		get_square(t_env *env);
 void		get_cylinder(t_env *env);
 void		get_triangle(t_env *env);
 

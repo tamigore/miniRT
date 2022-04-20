@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 18:28:44 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 18:43:45 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/20 13:49:49 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,43 +82,43 @@ void		get_plane(t_env *env)
 	append_obj(&(env->obj), obj);
 }
 
-void		get_square(t_env *env)
-{
-	t_obj	*obj;
+// void		get_square(t_env *env)
+// {
+// 	t_obj	*obj;
 
-	if (!ft_strncmp(env->sceen, SQR_ID, ID_OBJ_LEN))
-		(env->sceen) += ID_OBJ_LEN;
-	obj = init_object(env);
-	obj->id = SQUARE;
-	obj->data = malloc(sizeof(t_sqr));
-	if (!obj->data)
-	{
-		free(obj);
-		exit_error(env, ERRNO_TO_STR);
-	}
-	((t_sqr *)(obj->data))->pos.x = str_to_float(env);
-	((t_sqr *)(obj->data))->pos.y = str_to_float(env);
-	((t_sqr *)(obj->data))->pos.z = str_to_float(env);
-	((t_sqr *)(obj->data))->dir.x = str_to_float(env);
-	((t_sqr *)(obj->data))->dir.y = str_to_float(env);
-	((t_sqr *)(obj->data))->dir.z = str_to_float(env);
-	((t_sqr *)(obj->data))->side = str_to_float(env);
-	((t_sqr *)(obj->data))->color.x = str_to_unsigned(env);
-	((t_sqr *)(obj->data))->color.y = str_to_unsigned(env);
-	((t_sqr *)(obj->data))->color.z = str_to_unsigned(env);
-	if (!check_val(((t_sqr *)(obj->data))->color.x, 0, 255)
-		|| !check_val(((t_sqr *)(obj->data))->color.y, 0, 255)
-		|| !check_val(((t_sqr *)(obj->data))->color.z, 0, 255))
-		exit_error(env, COLOR_FMT);
-	if (fabs(((t_sqr *)(obj->data))->pos.x) == INFINITY
-		|| fabs(((t_sqr *)(obj->data))->pos.y) == INFINITY
-		|| fabs(((t_sqr *)(obj->data))->pos.z) == INFINITY
-		|| !check_vec(((t_sqr *)(obj->data))->dir)
-		|| fabs(((t_sqr *)(obj->data))->side) == INFINITY)
-		exit_error(env, FLOAT_FMT);
-	env->nb_obj++;
-	append_obj(&(env->obj), obj);
-}
+// 	if (!ft_strncmp(env->sceen, SQR_ID, ID_OBJ_LEN))
+// 		(env->sceen) += ID_OBJ_LEN;
+// 	obj = init_object(env);
+// 	obj->id = SQUARE;
+// 	obj->data = malloc(sizeof(t_sqr));
+// 	if (!obj->data)
+// 	{
+// 		free(obj);
+// 		exit_error(env, ERRNO_TO_STR);
+// 	}
+// 	((t_sqr *)(obj->data))->pos.x = str_to_float(env);
+// 	((t_sqr *)(obj->data))->pos.y = str_to_float(env);
+// 	((t_sqr *)(obj->data))->pos.z = str_to_float(env);
+// 	((t_sqr *)(obj->data))->dir.x = str_to_float(env);
+// 	((t_sqr *)(obj->data))->dir.y = str_to_float(env);
+// 	((t_sqr *)(obj->data))->dir.z = str_to_float(env);
+// 	((t_sqr *)(obj->data))->side = str_to_float(env);
+// 	((t_sqr *)(obj->data))->color.x = str_to_unsigned(env);
+// 	((t_sqr *)(obj->data))->color.y = str_to_unsigned(env);
+// 	((t_sqr *)(obj->data))->color.z = str_to_unsigned(env);
+// 	if (!check_val(((t_sqr *)(obj->data))->color.x, 0, 255)
+// 		|| !check_val(((t_sqr *)(obj->data))->color.y, 0, 255)
+// 		|| !check_val(((t_sqr *)(obj->data))->color.z, 0, 255))
+// 		exit_error(env, COLOR_FMT);
+// 	if (fabs(((t_sqr *)(obj->data))->pos.x) == INFINITY
+// 		|| fabs(((t_sqr *)(obj->data))->pos.y) == INFINITY
+// 		|| fabs(((t_sqr *)(obj->data))->pos.z) == INFINITY
+// 		|| !check_vec(((t_sqr *)(obj->data))->dir)
+// 		|| fabs(((t_sqr *)(obj->data))->side) == INFINITY)
+// 		exit_error(env, FLOAT_FMT);
+// 	env->nb_obj++;
+// 	append_obj(&(env->obj), obj);
+// }
 
 void		get_cylinder(t_env *env)
 {
@@ -137,7 +137,7 @@ void		get_cylinder(t_env *env)
 	((t_cyl *)(obj->data))->pos.x = str_to_float(env);
 	((t_cyl *)(obj->data))->pos.y = str_to_float(env);
 	((t_cyl *)(obj->data))->pos.z = str_to_float(env);
-	((t_sqr *)(obj->data))->dir.x = str_to_float(env);
+	((t_cyl *)(obj->data))->dir.x = str_to_float(env);
 	((t_cyl *)(obj->data))->dir.y = str_to_float(env);
 	((t_cyl *)(obj->data))->dir.z = str_to_float(env);
 	((t_cyl *)(obj->data))->r = str_to_float(env) / 2;
