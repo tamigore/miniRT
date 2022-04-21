@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 18:17:14 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 16:41:53 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/20 13:53:07 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ void		print_cyl(t_cyl *cyl)
 			cyl->color.y, cyl->color.z, cyl->h, cyl->r);
 }
 
-void		print_sqr(t_sqr *sqr)
-{
-	printf("sqr :%.2f.x/%.2f.y/%.2f.z // %.2f.vx/%.2f.vy/%.2f.vz // %.0f.R/%.0f.G/%.0f.B // %.2f.h\n", sqr->pos.x, sqr->pos.y,
-			sqr->pos.z, sqr->dir.x, sqr->dir.y, sqr->dir.z, sqr->color.x,
-			sqr->color.y, sqr->color.z, sqr->side);
-}
+// void		print_sqr(t_sqr *sqr)
+// {
+// 	printf("sqr :%.2f.x/%.2f.y/%.2f.z // %.2f.vx/%.2f.vy/%.2f.vz // %.0f.R/%.0f.G/%.0f.B // %.2f.h\n", sqr->pos.x, sqr->pos.y,
+// 			sqr->pos.z, sqr->dir.x, sqr->dir.y, sqr->dir.z, sqr->color.x,
+// 			sqr->color.y, sqr->color.z, sqr->side);
+// }
 
 void		print_tri(t_tri *tri)
 {
@@ -114,9 +114,9 @@ void		print_obj(t_obj *obj)
 		tmp = obj;
 		while (tmp)
 		{
-			if (tmp->id == SQUARE)
-				print_sqr(tmp->data);
-			else if (tmp->id == SPHERE)
+			// if (tmp->id == SQUARE)
+			// 	print_sqr(tmp->data);
+			if (tmp->id == SPHERE)
 				print_sph(tmp->data);
 			else if (tmp->id == CYLINDER)
 				print_cyl(tmp->data);

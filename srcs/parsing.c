@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:36:40 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:42:55 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/20 13:47:24 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_pars	g_parsers[] =
 {
 	{ SPH_ID, ID_OBJ_LEN, &get_sphere },
 	{ PLA_ID, ID_OBJ_LEN, &get_plane },
-	{ SQR_ID, ID_OBJ_LEN, &get_square },
+	// { SQR_ID, ID_OBJ_LEN, &get_square },
 	{ CYL_ID, ID_OBJ_LEN, &get_cylinder },
 	{ TRI_ID, ID_OBJ_LEN, &get_triangle },
 	{ RES_ID, ID_LEN, &get_resolution },

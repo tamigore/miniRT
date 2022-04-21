@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:06:50 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/21 14:05:17 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@ t_obj		*trace_objs(t_obj *obj, t_ray *ray)
 				hit = tmp;
 		if (tmp->id == PLANE)
 			if (trace_pla((t_pla *)(tmp->data), ray))
-				hit = tmp;
-		if (tmp->id == SQUARE)
-			if (trace_sqr((t_sqr *)(tmp->data), ray))
 				hit = tmp;
 		if (tmp->id == CYLINDER)
 			if (trace_cyl((t_cyl *)(tmp->data), ray))
@@ -50,8 +47,6 @@ int			hit_obj(t_obj *obj, t_ray *ray, float *t)
 		hit = sphere_intersect((t_sph *)obj->data, ray, t);
 	else if (obj->id == PLANE)
 		hit = plane_intersect((t_pla *)obj->data, ray, t);
-	else if (obj->id == SQUARE)
-		hit = square_intersect((t_sqr *)obj->data, ray, t);
 	else if (obj->id == CYLINDER)
 		hit = cylinder_intersect((t_cyl *)obj->data, ray, t);
 	else if (obj->id == TRIANGLE)

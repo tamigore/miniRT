@@ -6,13 +6,13 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:20:47 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/21 13:22:27 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static int		is_in_shadow(t_obj *objs, t_ray *ray, t_vec lgt_dir)
+static int		is_in_shadow(t_env *env, t_ray *ray, t_vec lgt_dir)
 {
 	t_obj		*tmp;
 	t_ray		shadow_ray;
@@ -20,10 +20,10 @@ static int		is_in_shadow(t_obj *objs, t_ray *ray, t_vec lgt_dir)
 
 	t = vec_len(lgt_dir);
 	set_ray(&shadow_ray, ray->hit, vec_norm(lgt_dir), t);
-	tmp = objs;
+	tmp = env->obj;
 	while (tmp)
 	{
-		if (hit_obj(tmp, &shadow_ray, &t))
+		if (hit_obj(tmp, env, &shadow_ray, &t))
 		{
 			if (t < shadow_ray.t)
 				return (1);
@@ -47,7 +47,7 @@ static float	get_specular(t_ray *ray, t_lgt *lgt, t_vec lgt_dir, float pov)
 	return (coef);
 }
 
-static void		compute_lgt(t_obj *obj, t_lgt *lgt, t_ray *ray, t_vec *color)
+static void		compute_lgt(t_env *env, t_lgt *lgt, t_ray *ray, t_vec *color)
 {
 	t_vec		lgt_dir;
 	float		pov;
@@ -58,7 +58,7 @@ static void		compute_lgt(t_obj *obj, t_lgt *lgt, t_ray *ray, t_vec *color)
 	pov = vec_dot(ray->normal, lgt_dir);
 	lum = 0;
 	spec_lum = 0;
-	if (!is_in_shadow(obj, ray, lgt_dir) && pov > 0.0)
+	if (!is_in_shadow(env, ray, lgt_dir) && pov > 0.0)
 	{
 		//lum = lgt->ratio * vec_cos(ray->normal, lgt_dir);
 		//*color = vec_scale(lum, lgt->color);
@@ -76,7 +76,7 @@ t_vec			trace_ray_to_light(t_env *env, t_ray *ray)
 	color = vec_scale(env->amb.ratio, env->amb.color);
 	while (tmp)
 	{
-		compute_lgt(env->obj, tmp, ray, &color);
+		compute_lgt(env, tmp, ray, &color);
 		tmp = tmp->next;
 	}
 	ray->color.x = ray->color.x / MAX_RGB;

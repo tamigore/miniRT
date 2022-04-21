@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:32:20 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/12 18:00:45 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/20 13:47:20 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ t_vec	get_obj_color(t_obj *obj)
 		return (((t_sph *)(obj->data))->color);
 	else if (obj->id == PLANE)
 		return (((t_pla *)(obj->data))->color);
-	else if (obj->id == SQUARE)
-		return (((t_sqr *)(obj->data))->color);
+	// else if (obj->id == SQUARE)
+	// 	return (((t_sqr *)(obj->data))->color);
 	else if (obj->id == CYLINDER)
 		return (((t_cyl *)(obj->data))->color);
 	else if (obj->id == TRIANGLE)
@@ -62,8 +62,8 @@ void	get_obj_normal(t_obj *obj, t_ray *ray)
 		ray->normal = get_sph_normal((t_sph *)(obj->data), ray);
 	else if (obj->id == PLANE)
 		ray->normal = ((t_pla *)(obj->data))->dir;
-	else if (obj->id == SQUARE)
-		ray->normal = ((t_sqr *)(obj->data))->dir;
+	// else if (obj->id == SQUARE)
+	// 	ray->normal = ((t_sqr *)(obj->data))->dir;
 	else if (obj->id == CYLINDER)
 		ray->normal = get_cyl_normal((t_cyl *)(obj->data), ray);
 	else if (obj->id == TRIANGLE)

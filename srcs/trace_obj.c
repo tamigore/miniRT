@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:51:20 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/21 14:09:07 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,6 @@ int			trace_pla(t_pla *pla, t_ray *ray)
 	hit = 0;
 	t = INFINITY;
 	if ((plane_intersect(pla, ray, &t)))
-	{
-		if (ray->t > t && t > EPSILON)
-		{
-			ray->t = t;
-			hit = 1;
-		}
-	}
-	return (hit);
-}
-
-int			trace_sqr(t_sqr *sqr, t_ray *ray)
-{
-	int		hit;
-	float	t;
-
-	hit = 0;
-	t = INFINITY;
-	if ((square_intersect(sqr, ray, &t)))
 	{
 		if (ray->t > t && t > EPSILON)
 		{

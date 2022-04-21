@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:20:38 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:34:01 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/21 15:28:13 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,13 +138,13 @@ typedef struct		s_pla
 ** color = color of the square in 3 vector R->G->B in range [0.0,1.0]
 */
 
-typedef struct		s_sqr
-{
-	t_vec			pos;
-	t_vec			dir;
-	float			side;
-	t_vec			color;
-}					t_sqr;
+// typedef struct		s_sqr
+// {
+// 	t_vec			pos;
+// 	t_vec			dir;
+// 	float			side;
+// 	t_vec			color;
+// }					t_sqr;
 
 /*
 ** t_cyl = struct for cylinders
@@ -162,8 +162,6 @@ typedef struct		s_cyl
 	t_vec			dir;
 	float			h;
 	float			r;
-	float			dist1;
-	float			dist2;
 	t_vec			color;
 }					t_cyl;
 
@@ -206,7 +204,7 @@ typedef struct		s_sph
 typedef enum		s_objid
 {
 	SPHERE,
-	SQUARE,
+	// SQUARE,
 	TRIANGLE,
 	CYLINDER,
 	PLANE
@@ -308,7 +306,7 @@ typedef enum	e_errid
 	RES_LOW,
 	SCENE_FMT,
 	SPHERE_FMT,
-	SQUARE_FMT,
+	// SQUARE_FMT,
 }				t_errid;
 
 /*
