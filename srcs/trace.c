@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:30:03 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/21 18:06:16 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/21 18:36:02 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,7 @@ int		hit_objs(t_obj *obj, t_ray *ray, float *t, t_obj *closer)
 	while (tmp)
 	{
 		i++;
-		//printf("i : %d\n", i);
 		ret += hit_obj(tmp, ray, t);
-		//printf("t : %f\n", *t);
 		if (dist > *t)
 		{
 			dist = *t;
@@ -92,7 +90,6 @@ int		hit_objs(t_obj *obj, t_ray *ray, float *t, t_obj *closer)
 		}
 		tmp = tmp->next;
 	}
-	//printf("ret : %d\n", ret);
 	return (ret);
 }
 
@@ -135,8 +132,6 @@ void			shade(t_env *env, t_ray *ray)
 		ray->color = get_obj_color(hit_obj);
 		ray->hit = vec_add(ray->pos, vec_scale(ray->t, ray->dir));
 		get_obj_normal(hit_obj, ray);
-		// ray->color = trace_ray_to_light(env, ray); // creat lights
-		// printf("function before: %f | %f | %f\n", ray->color.x, ray->color.y, ray->color.z);
 		ray->color = lights(hit_obj, ray, env->lgt, env->amb );
 	}
 }
@@ -151,8 +146,6 @@ void			put_pixel_to_image(t_img img, t_vec color, int x, int y)
 	int		i;
 
 	i = (x * PIXEL_LEN + img.size_line * y);
-	// if (color.x >= MAX_RGB || color.y >= MAX_RGB || color.z >= MAX_RGB)
-	// 	printf("color : x = %f || y = %f || z = %f\n", color.x, color.y, color.z);
 	color = rescale_vec(color, 0, MAX_RGB);
 	img.pixels[i + TRANS] = (unsigned int)0;
 	img.pixels[i + RED] = (unsigned int)color.x;
