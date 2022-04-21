@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:30:18 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/21 14:07:58 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/21 17:56:01 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void		render(t_env *env);
 void    	put_pixel_to_image(t_img img, t_vec color, int x, int y);
 void		shade(t_env *env, t_ray *ray);
 t_vec	    lights(t_obj *obj, t_ray *ray, t_lgt *light, t_amb amb);
-int	    	hit_objs(t_obj *obj, t_ray *ray, float *t);
+int         hit_objs(t_obj *obj, t_ray *ray, float *t, t_obj *closer);
 t_vec		rgbzed(float intens, t_vec obj_color, t_vec lgt_color);
 t_vec		vec_add_rgb(t_vec a, t_vec b);
 t_vec		vec_scale_rgb(float x, t_vec a);

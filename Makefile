@@ -6,7 +6,7 @@
 #    By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/19 16:16:11 by tamigore          #+#    #+#              #
-#    Updated: 2022/04/20 14:21:54 by tamigore         ###   ########.fr        #
+#    Updated: 2022/04/21 16:50:15 by tamigore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ SRCS = $(addprefix $(DIR_S),$(SOURCES))
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -Wall -Werror -Wextra -I $(HEADER) -fPIE
+CFLAGS = -Wall -Werror -Wextra -I $(HEADER)
 
 FLAGS = -L $(LIBFT) -lft -L $(LIBMATH) -lmath
 

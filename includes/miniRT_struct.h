@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:20:38 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/21 15:28:13 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/21 16:48:00 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,24 +127,6 @@ typedef struct		s_pla
 	t_vec			dir;
 	t_vec			color;
 }					t_pla;
-
-/*t_img		*init_img(t_env *env)
-
-** t_sqr = struct for squares
-**
-** pos = coordinates of the square center for {x,y,z} axis
-** dir = 3D-normalized orientation vector in range [-1,1] for {x,y,z} axis
-** side = size of one side
-** color = color of the square in 3 vector R->G->B in range [0.0,1.0]
-*/
-
-// typedef struct		s_sqr
-// {
-// 	t_vec			pos;
-// 	t_vec			dir;
-// 	float			side;
-// 	t_vec			color;
-// }					t_sqr;
 
 /*
 ** t_cyl = struct for cylinders
@@ -305,8 +287,7 @@ typedef enum	e_errid
 	RES_DUP,
 	RES_LOW,
 	SCENE_FMT,
-	SPHERE_FMT,
-	// SQUARE_FMT,
+	SPHERE_FMT
 }				t_errid;
 
 /*

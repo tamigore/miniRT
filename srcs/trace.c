@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:30:03 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/21 14:08:48 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/21 18:06:16 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,28 @@ t_vec	rgbzed(float intens, t_vec obj_color, t_vec lgt_color)
 	return (vec_scale(intens, (vec_init(x, y, z, 0))));
 }
 
-int		hit_objs(t_obj *obj, t_ray *ray, float *t)
+int		hit_objs(t_obj *obj, t_ray *ray, float *t, t_obj *closer)
 {
 	int ret;
 	t_obj *tmp;
-
+	int i;
+	float dist;
+	
+	dist = 1.0 /0.0;
+	i = 0;
 	tmp = obj;
 	ret = 0;
 	while (tmp)
 	{
-		ret = hit_obj(tmp, ray, t);
+		i++;
+		//printf("i : %d\n", i);
+		ret += hit_obj(tmp, ray, t);
+		//printf("t : %f\n", *t);
+		if (dist > *t)
+		{
+			dist = *t;
+			closer = tmp;
+		}
 		tmp = tmp->next;
 	}
 	//printf("ret : %d\n", ret);
@@ -89,38 +101,27 @@ t_vec	lights(t_obj *obj, t_ray *ray, t_lgt *light, t_amb amb)
 	t_vec color;
 	t_vec tmp_col;
 	t_vec P;
-	t_vec N;
 	t_lgt *tmp;
 	t_ray tmp_ray;
 	float intens;
 	float t;
 
-	(void)amb;
 	P = vec_add(ray->pos, vec_init(ray->dir.x * ray->t,ray->dir.y * ray->t,ray->dir.z * ray->t, 0));
-	N = vec_norm(vec_sub(P, ((t_sph *)(obj->data))->pos));	
-	// printf("Color before: %f | %f | %f\n", ray->color.x, ray->color.y, ray->color.z);
 	tmp = light;
-	color = rgbzed(amb.ratio, ((t_sph *)(obj->data))->color, amb.color);
+	color = rgbzed(amb.ratio, get_obj_color(obj), amb.color);
 	while (tmp)
 	{
-		intens = (100 * tmp->ratio) * vec_dot(vec_norm(vec_sub(tmp->pos, P)), N) / pow(vec_len(vec_sub(tmp->pos, P)),2);
-		//printf("itens : %f\n", intens);
+		intens = ((10 * tmp->ratio) * vec_dot(vec_norm(vec_sub(tmp->pos, P)), ray->normal)) / pow(vec_len(vec_sub(tmp->pos, P)),1);
 		tmp_ray.pos = ray->hit;
 		tmp_ray.dir = vec_norm(vec_sub(tmp->pos, ray->hit));
-		tmp_col = rgbzed(intens, ((t_sph *)(obj->data))->color, tmp->color);
-	//	printf("x %4.4f | y %4.4f | z %4.4f\n", tmp_col.x, tmp_col.y, tmp_col.z);
-		if (!hit_objs(obj, &tmp_ray, &t))
+		reset_ray(&tmp_ray);
+		if (!hit_objs(obj, &tmp_ray, &t, NULL))
 		{
-		//	printf("adding color : \n");
-		//	printf("color : x %4.4f | y %4.4f | z %4.4f\n", color.x, color.y, color.z);
-		//	printf("tmp_c : x %4.4f | y %4.4f | z %4.4f\n", tmp_col.x, tmp_col.y, tmp_col.z);
+			tmp_col = rgbzed(intens, get_obj_color(obj), tmp->color);
 			color = vec_add_rgb(tmp_col, color);
-		//	printf("equal : x %4.4f | y %4.4f | z %4.4f\n", color.x, color.y, color.z);
 		}
 		tmp = tmp->next;
 	}
-	//printf("end of additions\n");
-	//printf("Color after: %f | %f | %f\n", color.x, color.y, color.z);
 	return (color);
 }
 
@@ -132,11 +133,11 @@ void			shade(t_env *env, t_ray *ray)
 	if (hit_obj)
 	{
 		ray->color = get_obj_color(hit_obj);
-		// ray->hit = vec_add(ray->pos, vec_scale(ray->t, ray->dir));
-		// get_obj_normal(hit_obj, ray);
+		ray->hit = vec_add(ray->pos, vec_scale(ray->t, ray->dir));
+		get_obj_normal(hit_obj, ray);
 		// ray->color = trace_ray_to_light(env, ray); // creat lights
 		// printf("function before: %f | %f | %f\n", ray->color.x, ray->color.y, ray->color.z);
-		// ray->color = lights(hit_obj, ray, env->lgt, env->amb );
+		ray->color = lights(hit_obj, ray, env->lgt, env->amb );
 	}
 }
 

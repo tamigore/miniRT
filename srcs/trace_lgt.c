@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:20:47 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/21 13:22:27 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/04/21 17:32:44 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int		is_in_shadow(t_env *env, t_ray *ray, t_vec lgt_dir)
 	tmp = env->obj;
 	while (tmp)
 	{
-		if (hit_obj(tmp, env, &shadow_ray, &t))
+		if (hit_obj(tmp, &shadow_ray, &t))
 		{
 			if (t < shadow_ray.t)
 				return (1);
@@ -60,8 +60,8 @@ static void		compute_lgt(t_env *env, t_lgt *lgt, t_ray *ray, t_vec *color)
 	spec_lum = 0;
 	if (!is_in_shadow(env, ray, lgt_dir) && pov > 0.0)
 	{
-		//lum = lgt->ratio * vec_cos(ray->normal, lgt_dir);
-		//*color = vec_scale(lum, lgt->color);
+		lum = lgt->ratio * vec_cos(ray->normal, lgt_dir);
+		*color = vec_scale(lum, lgt->color);
 		spec_lum = get_specular(ray, lgt, lgt_dir, pov);
 		*color = vec_add(*color, vec_scale(spec_lum, lgt->color));
 	}
