@@ -209,8 +209,8 @@
 ** Arrow keys
 */
 
-# define UP_KEY 126
-# define DOWN_KEY 125
+# define UP_KEY 65362
+# define DOWN_KEY 65364
 # define RIGHT_KEY 65363
 # define LEFT_KEY 65361
 

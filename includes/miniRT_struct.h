@@ -204,6 +204,12 @@ typedef struct		s_obj
 {
 	t_objid			id;
 	void			*data;
+	t_vec			pos;
+	t_vec			dir;
+	t_vec			up;
+	t_vec			right;
+	t_mat			obj2world;
+	t_mat			world2obj;
 	struct s_obj	*next;
 }					t_obj;
 
@@ -259,6 +265,7 @@ typedef struct		s_env
 	struct s_lgt	*lgt;
 	int				nb_obj;
 	struct s_obj	*obj;
+	struct s_obj	*hit_obj;
 }					t_env;
 
 /*

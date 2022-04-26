@@ -51,7 +51,7 @@ t_vec	get_obj_color(t_obj *obj)
 		return (((t_cyl *)(obj->data))->color);
 	else if (obj->id == TRIANGLE)
 		return (((t_tri *)(obj->data))->color);
-	return (vec_init(0, 0, 0, 0));
+	return (v_init(0, 0, 0, 0));
 }
 
 void	get_obj_normal(t_obj *obj, t_ray *ray)
@@ -64,6 +64,6 @@ void	get_obj_normal(t_obj *obj, t_ray *ray)
 		ray->normal = get_cyl_normal((t_cyl *)(obj->data), ray);
 	else if (obj->id == TRIANGLE)
 		ray->normal = get_tri_normal((t_tri *)(obj->data));
-	if (vec_dot(ray->dir, ray->normal) > 0)
-		vec_scale(-1, ray->normal);
+	if (v_dot(ray->dir, ray->normal) > 0)
+		v_scale(-1, ray->normal);
 }

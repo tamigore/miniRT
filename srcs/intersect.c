@@ -19,10 +19,10 @@ int			sphere_intersect(t_sph *sph, t_ray *ray, float *t)
 	t_vec	coef;
 	t_vec	L;
 
-	L = vec_sub(ray->pos, sph->pos);
-	coef.x = vec_dot(ray->dir, ray->dir);
-	coef.y = 2 * vec_dot(ray->dir, L);
-	coef.z = vec_dot(L, L) - (sph->r * sph->r);
+	L = v_sub(ray->pos, sph->pos);
+	coef.x = v_dot(ray->dir, ray->dir);
+	coef.y = 2 * v_dot(ray->dir, L);
+	coef.z = v_dot(L, L) - (sph->r * sph->r);
 	if (!solve_quadratic(coef, &t0, &t1))
 		return (0);
 	if (t0 > t1 && t1 > EPSILON)
@@ -46,10 +46,12 @@ int			triangle_intersect(t_tri *tri, t_ray *ray, float *t)
 	normal = get_tri_normal(tri);
 	if (hit_plane(tri->p1, normal, ray, t))
 	{
-		hit = vec_add(ray->pos, vec_scale(*t, ray->dir));
+		hit = v_add(ray->pos, v_scale(*t, ray->dir));
 		return (check_edge(tri->p2, tri->p1, hit, normal))
 		&& (check_edge(tri->p3, tri->p2, hit, normal))
 		&& (check_edge(tri->p1, tri->p3, hit, normal));
 	}
 	return (0);
 }
+
+

@@ -16,13 +16,13 @@ void	move_left_right(t_env *env, int keycode)
 {
 	if (keycode == A_KEY)
 	{
-		env->cam->trans = translation_mat_init(vec_init(10, 0, 0, 0));
+		env->cam->trans = translation_mat_init(v_init(10, 0, 0, 0));
 		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->trans);
 		printf("A\n");
 	}
 	else if (keycode == D_KEY)
 	{
-		env->cam->trans = translation_mat_init(vec_init(-10, 0, 0, 0));
+		env->cam->trans = translation_mat_init(v_init(-10, 0, 0, 0));
 		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->trans);
 		printf("D\n");
 	}
@@ -32,13 +32,13 @@ void	move_forward_backward(t_env *env, int keycode)
 {
 	if (keycode == W_KEY)
 	{
-		env->cam->trans = translation_mat_init(vec_init(0, 0, 10, 0));
+		env->cam->trans = translation_mat_init(v_init(0, 0, 10, 0));
 		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->trans);
 		printf("W\n");
 	}
 	else if (keycode == S_KEY)
 	{
-		env->cam->trans = translation_mat_init(vec_init(0, 0, -10, 0));
+		env->cam->trans = translation_mat_init(v_init(0, 0, -10, 0));
 		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->trans);
 		printf("S\n");
 	}
@@ -48,13 +48,13 @@ void	move_up_down(t_env *env, int keycode)
 {
 	if (keycode == R_KEY)
 	{
-		env->cam->trans = translation_mat_init(vec_init(0, -10, 0, 0));
+		env->cam->trans = translation_mat_init(v_init(0, -10, 0, 0));
 		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->trans);
 		printf("R\n");
 	}
 	else if (keycode == F_KEY)
 	{
-		env->cam->trans = translation_mat_init(vec_init(0, 10, 0, 0));
+		env->cam->trans = translation_mat_init(v_init(0, 10, 0, 0));
 		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->trans);
 		printf("F\n");
 	}
@@ -62,19 +62,19 @@ void	move_up_down(t_env *env, int keycode)
 
 void	rotate_1(t_env *env, int keycode)
 {
-	if (keycode == 65364)
+	if (keycode == DOWN_KEY)
 	{
 		env->cam->rota = rotx_mat_init(-10);
 		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->rota);
 		printf("↓\n");
 	}
-	else if (keycode == 65362)
+	else if (keycode == UP_KEY)
 	{
 		env->cam->rota = rotx_mat_init(10);
 		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->rota);
 		printf("↑\n");
 	}
-	else if (keycode == 65361)
+	else if (keycode == LEFT_KEY)
 	{
 		env->cam->rota = roty_mat_init(10);
 		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->rota);
@@ -84,7 +84,7 @@ void	rotate_1(t_env *env, int keycode)
 
 void	rotate_2(t_env *env, int keycode)
 {
-	if (keycode == 65363)
+	if (keycode == RIGHT_KEY)
 	{
 		env->cam->rota = roty_mat_init(-10);
 		env->cam->cam2world = mat_mult_mat(env->cam->cam2world, env->cam->rota);

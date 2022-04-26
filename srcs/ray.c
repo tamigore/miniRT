@@ -15,9 +15,9 @@
 void		reset_ray(t_ray *ray)
 {
 	ray->t = INFINITY;
-	ray->color = vec_init(0, 0, 0, 0);
-	ray->hit = vec_init(0, 0, 0, 0);
-	ray->normal = vec_init(0, 0, 0, 0);
+	ray->color = v_init(0, 0, 0, 0);
+	ray->hit = v_init(0, 0, 0, 0);
+	ray->normal = v_init(0, 0, 0, 0);
 }
 
 void		set_ray(t_ray *ray, t_vec pos, t_vec dir, float t)
@@ -29,6 +29,6 @@ void		set_ray(t_ray *ray, t_vec pos, t_vec dir, float t)
 
 void		init_ray(t_ray *ray)
 {
-	set_ray(ray, vec_init(0, 0, 0, 0), vec_init(0, 0, 0, 0), 0);
+	set_ray(ray, v_init(0, 0, 0, 0), v_init(0, 0, 0, 0), 0);
 	reset_ray(ray);
 }

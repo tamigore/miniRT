@@ -44,7 +44,7 @@ t_mat		rotmat_axis_angle(t_vec axis, float angle)
 	float	t;
 	t_mat	mat;
 
-	if (angle == 0 || angle == NAN || vec_len(axis) == 0)
+	if (angle == 0 || angle == NAN || v_len(axis) == 0)
 		return (identity_mat_init());
 	cos = cosf(angle);
 	sin = sinf(angle);

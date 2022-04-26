@@ -78,10 +78,27 @@ int			key_handler(int keycode, t_env *env)
 	mlx_put_image_to_window(env->mlx, env->win, env->cam->img.ptr, 0, 0);
 	return (0);
 }
+
+int    mouse_hook(int button, int x, int y, t_env *env)
+{
+    (void)button;
+    t_ray ray;
+    t_obj *tmp;
+
+    tmp = env->obj;
+    printf("click x : %d , y : %d\n", x, y);
+    ray = canvas2view(env, env->cam, x, y);
+	env->hit_obj = trace_objs(env->obj, &ray);
+    if (env->hit_obj != NULL)
+        print_obj(env->hit_obj);
+    return (1);
+}
+
 void		graphic_loop(t_env *env)
 {
 	env->win = mlx_new_window(env->mlx, env->res.x, env->res.y, "miniRT");
 	mlx_put_image_to_window(env->mlx, env->win, env->cam->img.ptr, 0, 0);
+	mlx_mouse_hook(env->win, mouse_hook, env);
 	mlx_hook(env->win, KEYPRESS, KEYPRESSMASK, key_handler, env);
 	mlx_hook(env->win, LEAVENOTIFY, 0, close_program, env);
 	mlx_loop(env->mlx);

@@ -12,7 +12,7 @@
 
 #include "libmath.h"
 
-t_vec	vec_init(float x, float y, float z, float w)
+t_vec	v_init(float x, float y, float z, float w)
 {
 	t_vec	vec;
 
@@ -23,7 +23,7 @@ t_vec	vec_init(float x, float y, float z, float w)
 	return (vec);
 }
 
-t_vec	vec_add(t_vec a, t_vec b)
+t_vec	v_add(t_vec a, t_vec b)
 {
 	t_vec	vec;
 
@@ -34,7 +34,7 @@ t_vec	vec_add(t_vec a, t_vec b)
 	return (vec);
 }
 
-t_vec	vec_sub(t_vec a, t_vec b)
+t_vec	v_sub(t_vec a, t_vec b)
 {
 	t_vec	vec;
 
@@ -45,7 +45,7 @@ t_vec	vec_sub(t_vec a, t_vec b)
 	return (vec);
 }
 
-t_vec	vec_cross(t_vec a, t_vec b)
+t_vec	v_cross(t_vec a, t_vec b)
 {
 	t_vec	vec;
 
@@ -56,7 +56,7 @@ t_vec	vec_cross(t_vec a, t_vec b)
 	return (vec);
 }
 
-t_vec	vec_scale(float x, t_vec a)
+t_vec	v_scale(float x, t_vec a)
 {
 	t_vec	vec;
 

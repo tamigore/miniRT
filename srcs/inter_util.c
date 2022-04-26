@@ -41,12 +41,12 @@ int			hit_plane(t_vec pos, t_vec dir, t_ray *ray, float *t)
 {
 	float	denom;
 
-	denom = vec_dot(dir, ray->dir);
+	denom = v_dot(dir, ray->dir);
 	if (denom == 0)
 		return (0);
 	if (fabs(denom) > EPSILON)
 	{
-		*t = vec_dot(dir, vec_sub(pos, ray->pos)) / denom;
+		*t = v_dot(dir, v_sub(pos, ray->pos)) / denom;
 		if (*t >= EPSILON)
 			return (1);
 		else
@@ -60,7 +60,7 @@ int			check_edge(t_vec to, t_vec from, t_vec hit, t_vec normal)
 	t_vec	edge;
 	t_vec	vec;
 
-	edge = vec_sub(to, from);
-	vec = vec_sub(hit, from);
-	return (vec_dot(normal, vec_cross(edge, vec)) >= 0.0);
+	edge = v_sub(to, from);
+	vec = v_sub(hit, from);
+	return (v_dot(normal, v_cross(edge, vec)) >= 0.0);
 }

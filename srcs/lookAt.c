@@ -29,7 +29,7 @@ static t_vec		vector_direct(int fov, int resX, int resY, int x, int y)
 	ratio = (float)resX / (float)resY;
 	Px = (2 * ((x + 0.5) / resX) - 1) * ratio * tang;
 	Py = (1 - 2 * ((y + 0.5) / resY)) * tang;
-	return (vec_init(Px, -Py, -1, 0));
+	return (v_init(Px, Py, -1, 0));
 }
 
 /*
@@ -46,13 +46,13 @@ t_ray			canvas2view(t_env *env, t_cam *cam, int x, int y)
 	if (env->cam->pos.w == 0)
 		env->cam->pos.w = 1;
 	ray.pos.w = 1;
-	ray.dir = vec_norm(vector_direct(cam->fov, env->res.x, env->res.y, x, y));
+	ray.dir = v_norm(vector_direct(cam->fov, env->res.x, env->res.y, x, y));
 	new_pos = mat_mult_vec(cam->cam2world, ray.pos);
-	new_pos = vec_add(new_pos, cam->pos);
-	new_dir = vec_add(ray.pos, ray.dir);
+	new_pos = v_add(new_pos, cam->pos);
+	new_dir = v_add(ray.pos, ray.dir);
 	new_dir = mat_mult_vec(cam->cam2world, new_dir);
-	new_dir = vec_add(new_dir, cam->pos);
+	new_dir = v_add(new_dir, cam->pos);
 	ray.pos = new_pos;
-	ray.dir = vec_norm(vec_sub(new_pos, new_dir));
+	ray.dir = v_norm(v_sub(new_pos, new_dir));
 	return (ray);
 }

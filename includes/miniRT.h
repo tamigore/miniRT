@@ -35,7 +35,7 @@ int			key_handler(int keycode, t_env *env);
 void		graphic_loop(t_env *env);
 
 /*
-** world_coord.c
+** cam_move.c
 */
 
 void	move_left_right(t_env *env, int keycode);
@@ -106,11 +106,11 @@ void		render(t_env *env);
 
 void    	put_pixel_to_image(t_img img, t_vec color, int x, int y);
 void		shade(t_env *env, t_ray *ray);
-t_vec	    lights(t_obj *obj, t_ray *ray, t_lgt *light, t_amb amb);
+t_vec	    lights(t_obj *obj, t_ray *ray, t_env *env);
 int         hit_objs(t_obj *obj, t_ray *ray, float *t, t_obj *closer);
 t_vec		rgbzed(float intens, t_vec obj_color, t_vec lgt_color);
-t_vec		vec_add_rgb(t_vec a, t_vec b);
-t_vec		vec_scale_rgb(float x, t_vec a);
+t_vec		v_add_rgb(t_vec a, t_vec b);
+t_vec		v_scale_rgb(float x, t_vec a);
 
 /*
 ** trace_lgt.c
@@ -138,6 +138,7 @@ int			hit_obj(t_obj *obj, t_ray *ray, float *t);
 ** intersect.c
 */
 
+float		interCylinder(t_ray *ray, t_cyl *cyl, t_vec *normal);
 int			sphere_intersect(t_sph *sph, t_ray *ray, float *t);
 int			cylinder_intersect(t_cyl *cyl, t_ray *ray, float *t);
 int			plane_intersect(t_pla *pla, t_ray *ray, float *t);
@@ -216,12 +217,13 @@ void		exit_error(t_env *env, t_errid id);
 void		exit_sucess(t_env *env);
 
 /*
-**world_coord.c
+** world_coord.c
 */
 
 void		set_mat_cam(t_cam *cam, t_vec rotation);
-t_mat		world2cam_mat(t_cam *cam);
-t_mat		cam2world_mat(t_cam *cam);
+void		set_mat_obj(t_obj *obj, t_vec rotation);
+t_mat		world2obj_mat(t_vec dir, t_vec up, t_vec right);
+t_mat		obj2world_mat(t_mat world2cam);
 t_vec		get_orthogonal(t_vec vec);
 
 #endif

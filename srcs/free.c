@@ -78,13 +78,18 @@ void		free_env(t_env *env)
 		return ;
 	if (env->mlx && env->win)
 		mlx_destroy_window(env->mlx, env->win);
+	printf("mlx\n");
 	if (env->cam)
 		free_cam(env->cam, env->mlx);
+	printf("cam\n");
 	if (env->lgt)
 		free_lgt(env->lgt);
+	printf("lgt\n");
 	if (env->obj)
 		free_obj(env->obj);
+	printf("obj\n");
 	if (env->mlx)
 		free(env->mlx);
+	printf("mlx2\n");
 	free(env);
 }

@@ -25,7 +25,8 @@ SRC =	vector.c	\
 		angles.c	\
 		matrix.c	\
 		matrix_op.c	\
-		matrix_tr.c
+		matrix_tr.c	\
+		math.c
 
 SRCS = $(addprefix $(DIR_S)/,$(SRC))
 

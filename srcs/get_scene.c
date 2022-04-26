@@ -65,15 +65,16 @@ void		get_camera(t_env *env)
 	cam->dir.x = str_to_float(env);
 	cam->dir.y = str_to_float(env);
 	cam->dir.z = str_to_float(env);
-	cam->dir = vec_norm(cam->dir);
+	cam->dir = v_norm(cam->dir);
 	cam->fov = str_to_unsigned(env);
 	if (!check_val(cam->fov, 0, 180) || !check_vec(cam->dir)
 		|| fabs(cam->pos.x) == INFINITY || fabs(cam->pos.y) == INFINITY
 		|| fabs(cam->pos.z) == INFINITY)
 		exit_error(env, CAM_FMT);
-	cam->up = vec_norm(get_orthogonal(cam->dir));
-	cam->right = vec_norm(vec_cross(cam->dir, cam->up));
-	set_mat_cam(cam, vec_init(0,0,0,0));
+	cam->dir = v_norm(cam->dir);
+	cam->up = v_norm(get_orthogonal(cam->dir));
+	cam->right = v_norm(v_cross(cam->dir, cam->up));
+	set_mat_cam(cam, v_init(0,0,0,0));
 	env->nb_cam++;
 	append_cam(&(env->cam), cam);
 }

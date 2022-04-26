@@ -72,21 +72,21 @@ typedef struct	t_mat
 ** VECTOR.C vector basics
 */
 
-t_vec			vec_init(float x, float y, float z, float w);
-t_vec			vec_add(t_vec a, t_vec b);
-t_vec			vec_sub(t_vec a, t_vec b);
-t_vec			vec_cross(t_vec a, t_vec b);
-t_vec			vec_scale(float x, t_vec a);
+t_vec			v_init(float x, float y, float z, float w);
+t_vec			v_add(t_vec a, t_vec b);
+t_vec			v_sub(t_vec a, t_vec b);
+t_vec			v_cross(t_vec a, t_vec b);
+t_vec			v_scale(float x, t_vec a);
 
 /*
 ** VECTOR_2.C vector operation
 */
 
-t_vec			vec_prod(t_vec a, t_vec b);
-int				vec_comp(t_vec a, t_vec b);
-float			vec_len(t_vec v);
-t_vec			vec_norm(t_vec vec);
-float			vec_dot(t_vec a, t_vec b);
+t_vec			v_prod(t_vec a, t_vec b);
+int				v_comp(t_vec a, t_vec b);
+float			v_len(t_vec v);
+t_vec			v_norm(t_vec vec);
+float			v_dot(t_vec a, t_vec b);
 
 /*
 ** ANGLES.C trigo basics
@@ -94,7 +94,7 @@ float			vec_dot(t_vec a, t_vec b);
 
 float			deg2rad(float deg);
 float			rad2deg(float rad);
-float			vec_cos(t_vec a, t_vec b);
+float			v_cos(t_vec a, t_vec b);
 void			swap(float *x, float *y);
 
 /*
@@ -110,7 +110,7 @@ t_mat	translation_mat_init(t_vec tranvec);
 */
 
 t_mat	mat_mult_mat(t_mat a, t_mat b);
-t_vec	vec_mult_mat(t_vec vec, t_mat m);
+t_vec	mat_mult_vec(t_mat a, t_vec b);
 
 /*
 ** MATRIX_TR.C matrix transformation and rotation
@@ -121,5 +121,12 @@ t_mat	rotmat_axis_angle(t_vec axis, float angle);
 t_mat	rotx_mat_init(float degrees);
 t_mat	roty_mat_init(float degrees);
 t_mat	rotz_mat_init(float degrees);
+
+/*
+** MATH.C
+*/
+
+double		ft_pow(double x, int i);
+int			sign(double x);
 
 #endif

@@ -18,8 +18,8 @@ static int		is_in_shadow(t_env *env, t_ray *ray, t_vec lgt_dir)
 	t_ray		shadow_ray;
 	float		t;
 
-	t = vec_len(lgt_dir);
-	set_ray(&shadow_ray, ray->hit, vec_norm(lgt_dir), t);
+	t = v_len(lgt_dir);
+	set_ray(&shadow_ray, ray->hit, v_norm(lgt_dir), t);
 	tmp = env->obj;
 	while (tmp)
 	{
@@ -40,10 +40,10 @@ static float	get_specular(t_ray *ray, t_lgt *lgt, t_vec lgt_dir, float pov)
 	float	coef;
 
 	coef = 1;
-	rev_dir = vec_scale(-1, ray->dir);
-	reflect = vec_sub(vec_scale((2 * pov), ray->normal), vec_norm(lgt_dir));
-	if (vec_dot(reflect, rev_dir) > 0.0)
-		coef = lgt->ratio * pow(vec_cos(reflect, rev_dir), 70);
+	rev_dir = v_scale(-1, ray->dir);
+	reflect = v_sub(v_scale((2 * pov), ray->normal), v_norm(lgt_dir));
+	if (v_dot(reflect, rev_dir) > 0.0)
+		coef = lgt->ratio * pow(v_cos(reflect, rev_dir), 70);
 	return (coef);
 }
 
@@ -54,16 +54,16 @@ static void		compute_lgt(t_env *env, t_lgt *lgt, t_ray *ray, t_vec *color)
 	float		lum;
 	float		spec_lum;
 
-	lgt_dir = vec_norm(vec_sub(lgt->pos, ray->hit));
-	pov = vec_dot(ray->normal, lgt_dir);
+	lgt_dir = v_norm(v_sub(lgt->pos, ray->hit));
+	pov = v_dot(ray->normal, lgt_dir);
 	lum = 0;
 	spec_lum = 0;
 	if (!is_in_shadow(env, ray, lgt_dir) && pov > 0.0)
 	{
-		lum = lgt->ratio * vec_cos(ray->normal, lgt_dir);
-		*color = vec_scale(lum, lgt->color);
+		lum = lgt->ratio * v_cos(ray->normal, lgt_dir);
+		*color = v_scale(lum, lgt->color);
 		spec_lum = get_specular(ray, lgt, lgt_dir, pov);
-		*color = vec_add(*color, vec_scale(spec_lum, lgt->color));
+		*color = v_add(*color, v_scale(spec_lum, lgt->color));
 	}
 }
 
@@ -73,7 +73,7 @@ t_vec			trace_ray_to_light(t_env *env, t_ray *ray)
 	t_vec		color;
 
 	tmp = env->lgt;
-	color = vec_scale(env->amb.ratio, env->amb.color);
+	color = v_scale(env->amb.ratio, env->amb.color);
 	while (tmp)
 	{
 		compute_lgt(env, tmp, ray, &color);
@@ -82,6 +82,6 @@ t_vec			trace_ray_to_light(t_env *env, t_ray *ray)
 	ray->color.x = ray->color.x / MAX_RGB;
 	ray->color.y = ray->color.y / MAX_RGB;
 	ray->color.z = ray->color.z / MAX_RGB;
-	color = rescale_vec(vec_prod(ray->color, color), 0, MAX_RGB);
+	color = rescale_vec(v_prod(ray->color, color), 0, MAX_RGB);
 	return (color);
 }

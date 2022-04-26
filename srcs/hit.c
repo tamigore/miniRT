@@ -38,6 +38,31 @@ t_obj		*trace_objs(t_obj *obj, t_ray *ray)
 	return (hit);
 }
 
+int		hit_objs(t_obj *obj, t_ray *ray, float *t, t_obj *closer)
+{
+	int ret;
+	t_obj *tmp;
+	int i;
+	float dist;
+	
+	dist = 1.0 /0.0;
+	i = 0;
+	tmp = obj;
+	ret = 0;
+	while (tmp)
+	{
+		i++;
+		ret += hit_obj(tmp, ray, t);
+		if (dist > *t)
+		{
+			dist = *t;
+			closer = tmp;
+		}
+		tmp = tmp->next;
+	}
+	return (ret);
+}
+
 int			hit_obj(t_obj *obj, t_ray *ray, float *t)
 {
 	int		hit;

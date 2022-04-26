@@ -14,26 +14,39 @@
 
 void		set_mat_cam(t_cam *cam, t_vec rotation)
 {
+	(void)rotation;
 	t_mat	mat;
 
-	mat = world2cam_mat(cam);
-	mat = mat_mult_mat(mat, rotmat_axis_angle(vec_init(1, 0, 0, 0), rotation.x));
-	mat = mat_mult_mat(mat, rotmat_axis_angle(vec_init(0, 1, 0, 0), rotation.y));
-	mat = mat_mult_mat(mat, rotmat_axis_angle(vec_init(0, 0, 1, 0), rotation.z));
+	mat = world2obj_mat(cam->dir, cam->up, cam->right);
+	// mat = mat_mult_mat(mat, rotmat_axis_angle(v_init(1, 0, 0, 0), rotation.x));
+	// mat = mat_mult_mat(mat, rotmat_axis_angle(v_init(0, 1, 0, 0), rotation.y));
+	// mat = mat_mult_mat(mat, rotmat_axis_angle(v_init(0, 0, 1, 0), rotation.z));
 	cam->world2cam = mat;
-	cam->cam2world = cam2world_mat(cam);
+	cam->cam2world = obj2world_mat(cam->world2cam);
 }
 
-t_mat		world2cam_mat(t_cam *cam)
+void		set_mat_obj(t_obj *obj, t_vec rotation)
+{
+	t_mat	mat;
+
+	mat = world2obj_mat(obj->dir, obj->up, obj->right);
+	mat = mat_mult_mat(mat, rotmat_axis_angle(v_init(1, 0, 0, 0), rotation.x));
+	mat = mat_mult_mat(mat, rotmat_axis_angle(v_init(0, 1, 0, 0), rotation.y));
+	mat = mat_mult_mat(mat, rotmat_axis_angle(v_init(0, 0, 1, 0), rotation.z));
+	obj->world2obj = mat;
+	obj->obj2world = obj2world_mat(obj->world2obj);
+}
+
+t_mat		world2obj_mat(t_vec dir, t_vec up, t_vec right)
 {
 	t_mat	mat;
 	t_vec	zaxis;
 	t_vec	yaxis;
 	t_vec	xaxis;
 
-	zaxis = cam->dir;
-	xaxis = cam->right;
-	yaxis = cam->up;
+	zaxis = dir;
+	xaxis = right;
+	yaxis = up;
 	mat = identity_mat_init();
 	mat.mat[0][0] = xaxis.x;
 	mat.mat[0][1] = xaxis.y;
@@ -47,40 +60,40 @@ t_mat		world2cam_mat(t_cam *cam)
 	return (mat);
 }
 
-t_mat		cam2world_mat(t_cam *cam)
+t_mat		obj2world_mat(t_mat world2cam)
 {
 	t_mat	mat;
 
-	mat = cam->world2cam;
-	mat.mat[0][1] = cam->world2cam.mat[1][0];
-	mat.mat[0][2] = cam->world2cam.mat[2][0];
-	mat.mat[0][3] = cam->world2cam.mat[3][0];
-	mat.mat[1][0] = cam->world2cam.mat[0][1];
-	mat.mat[1][2] = cam->world2cam.mat[2][1];
-	mat.mat[1][3] = cam->world2cam.mat[3][1];
-	mat.mat[2][0] = cam->world2cam.mat[0][2];
-	mat.mat[2][1] = cam->world2cam.mat[1][2];
-	mat.mat[2][3] = cam->world2cam.mat[3][2];
-	mat.mat[3][0] = cam->world2cam.mat[0][3];
-	mat.mat[3][1] = cam->world2cam.mat[1][3];
-	mat.mat[3][2] = cam->world2cam.mat[2][3];
+	mat = world2cam;
+	mat.mat[0][1] = world2cam.mat[1][0];
+	mat.mat[0][2] = world2cam.mat[2][0];
+	mat.mat[0][3] = world2cam.mat[3][0];
+	mat.mat[1][0] = world2cam.mat[0][1];
+	mat.mat[1][2] = world2cam.mat[2][1];
+	mat.mat[1][3] = world2cam.mat[3][1];
+	mat.mat[2][0] = world2cam.mat[0][2];
+	mat.mat[2][1] = world2cam.mat[1][2];
+	mat.mat[2][3] = world2cam.mat[3][2];
+	mat.mat[3][0] = world2cam.mat[0][3];
+	mat.mat[3][1] = world2cam.mat[1][3];
+	mat.mat[3][2] = world2cam.mat[2][3];
 	return (mat);
 }
 
-t_vec	get_orthogonal(t_vec vec)
+t_vec		get_orthogonal(t_vec vec)
 {
 	t_vec	v1;
 	t_vec	v2;
 	t_vec	v3;
 
-	v1 = vec_cross(vec_init(1, 0, 0, 0), vec);
-	v2 = vec_cross(vec_init(0, 1, 0, 0), vec);
-	v3 = vec_cross(vec_init(0, 0, 1, 0), vec);
-	if (vec_dot(v1, vec) == 0)
+	v1 = v_cross(v_init(1, 0, 0, 0), vec);
+	v2 = v_cross(v_init(0, 1, 0, 0), vec);
+	v3 = v_cross(v_init(0, 0, 1, 0), vec);
+	if (v_dot(v1, vec) == 0)
 		return (v1);
-	else if (vec_dot(v2, vec) == 0)
+	else if (v_dot(v2, vec) == 0)
 		return (v2);
-	else if (vec_dot(v3, vec) == 0)
+	else if (v_dot(v3, vec) == 0)
 		return (v3);
-	return (vec_init(0, 0, 0, 0));
+	return (v_init(0, 0, 0, 0));
 }

@@ -12,50 +12,47 @@
 
 #include "miniRT.h"
 
-static float	cyl_cap(t_vec poly, t_vec solve)
+float	interCylinder(t_ray *ray, t_cyl *cyl, t_vec *normal) // extreme a, extreme b, radius
 {
-	if (fabs(poly.y + poly.x * solve.x) < solve.z)
-		return (solve.x);
-	return (0);
-}
+    t_vec	ba = v_sub(v_add(v_scale(cyl->h, v_norm(cyl->dir)), cyl->pos), cyl->pos);
+    t_vec	oc = v_sub(ray->pos, cyl->pos);
+	t_vec	angle = v_init(v_dot(ba,ba), v_dot(ba, v_norm(ray->dir)), v_dot(ba,oc), 0);
+    
+    float k2 = angle.x - angle.y * angle.y;
+    float k1 = angle.x * v_dot(oc, v_norm(ray->dir)) - angle.z * angle.y;
+    float k0 = angle.x * v_dot(oc, oc) - angle.z * angle.z - cyl->r * cyl->r * angle.x;
+    
+    float h = k1 * k1 - k2 * k0;
 
-static float	cyl_col(t_cyl *cyl, t_ray *ray, t_ray obj, float angle[2])
-{
-	t_vec	poly;
-	t_vec	solve;
-	float	rp_cp_ch;
-
-	rp_cp_ch = vec_dot(obj.dir, obj.pos);
-	poly.x = angle[1] - angle[0] * angle[0];
-	poly.y = angle[1] * vec_dot(obj.pos, ray->dir) - rp_cp_ch * angle[0];
-	poly.z = angle[1] * vec_dot(obj.pos, obj.pos) - rp_cp_ch * rp_cp_ch - cyl->r * cyl->r * angle[1];
-	solve.z = poly.y * poly.y - poly.x * poly.z;
-	if (solve.z < 0.0)
+    if (h < 0.0)
 		return (0);
-	solve.z = sqrt(solve.z);
-	solve.x = (-poly.y - solve.z) / poly.x;
-	solve.y = rp_cp_ch + solve.x * angle[0];
-	if (solve.y > 0.0 && solve.y < angle[1])
-		return (solve.x);
-	if (solve.y < 0.0)
-		solve.x = - rp_cp_ch / angle[0];
-	else
-		solve.x = (angle[1] - rp_cp_ch) / angle[0];
-	return (cyl_cap(poly, solve));
+    h = sqrtf(h);
+    float t = (-k1 - h) / k2;
+
+    // body
+    float y = angle.z + t * angle.y;
+    if (y > 0.0 && y < angle.x)
+	{
+		*normal = v_scale(1 / cyl->r, v_sub(v_add(oc, v_scale(t, v_norm(ray->dir))), v_scale(y / angle.x, ba)));
+		return (t);
+	}
+    // caps
+    t = ( ((y < 0.0) ? 0.0 : angle.x) - angle.z) / angle.y;
+    if(fabs(k1 + k2 * t) < h)
+	{
+		*normal = v_scale(1 / angle.x, v_scale(sign(y), ba));
+        return (t);
+	}
+    return (0);
 }
 
 int		cylinder_intersect(t_cyl *cyl, t_ray *ray, float *t)
 {
-	t_ray		obj;
-	float		angle[2];
+	t_vec normal;
 
-	obj.dir = vec_sub(vec_scale(-cyl->h, cyl->dir), vec_scale(cyl->h, cyl->dir));
-	angle[1] = vec_dot(obj.dir, obj.dir);
-	obj.pos = vec_sub(ray->pos, vec_scale(cyl->h, cyl->dir));
-	angle[0] = vec_dot(obj.dir, ray->dir);
-	angle[1] = cyl_col(cyl, ray, obj, angle);
-	if (angle[1] < EPSILON)
-		return (0);
-	*t = angle[1];
-	return (1);
+	normal = v_init(0,0,0,0);
+	*t = interCylinder(ray, cyl, &normal);
+	if (t > 0)
+		return (1);
+	return (0);
 }

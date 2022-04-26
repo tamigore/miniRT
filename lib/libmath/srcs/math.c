@@ -25,3 +25,10 @@ double		ft_pow(double x, int i)
 	}
 	return (nb);
 }
+
+int			sign(double x)
+{
+	if (x >= 0)
+		return (1);
+	return (-1);
+}

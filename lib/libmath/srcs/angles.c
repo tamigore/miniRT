@@ -22,9 +22,9 @@ float	rad2deg(float rad)
 	return (rad * FLAT_ANGLE / M_PI);
 }
 
-float	vec_cos(t_vec a, t_vec b)
+float	v_cos(t_vec a, t_vec b)
 {
-	return (vec_dot(a, b) / vec_len(a) * vec_len(b));
+	return (v_dot(a, b) / v_len(a) * v_len(b));
 }
 
 void		swap(float *x, float *y)
