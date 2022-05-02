@@ -6,13 +6,13 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:06:50 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/21 18:13:00 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/02 15:29:23 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_obj		*trace_objs(t_obj *obj, t_ray *ray)
+t_obj		*hit_objs(t_obj *obj, t_ray *ray)
 {
 	t_obj	*tmp;
 	t_obj	*hit;
@@ -38,32 +38,7 @@ t_obj		*trace_objs(t_obj *obj, t_ray *ray)
 	return (hit);
 }
 
-int		hit_objs(t_obj *obj, t_ray *ray, float *t, t_obj *closer)
-{
-	int ret;
-	t_obj *tmp;
-	int i;
-	float dist;
-	
-	dist = 1.0 /0.0;
-	i = 0;
-	tmp = obj;
-	ret = 0;
-	while (tmp)
-	{
-		i++;
-		ret += hit_obj(tmp, ray, t);
-		if (dist > *t)
-		{
-			dist = *t;
-			closer = tmp;
-		}
-		tmp = tmp->next;
-	}
-	return (ret);
-}
-
-int			hit_obj(t_obj *obj, t_ray *ray, float *t)
+int			hit_obj(t_obj *obj, t_ray *ray, double *t)
 {
 	int		hit;
 

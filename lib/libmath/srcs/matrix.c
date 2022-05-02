@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 12:20:45 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/12 17:13:36 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/02 13:23:25 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_mat		identity_mat_init(void)
 	return (id);
 }
 
-t_mat		scale_mat_init(float scale)
+t_mat		scale_mat_init(double scale)
 {
 	t_mat	scalemat;
 

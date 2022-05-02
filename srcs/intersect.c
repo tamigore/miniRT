@@ -6,16 +6,16 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:37:55 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/21 18:10:55 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/02 13:23:25 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int			sphere_intersect(t_sph *sph, t_ray *ray, float *t)
+int			sphere_intersect(t_sph *sph, t_ray *ray, double *t)
 {
-	float	t0;
-	float	t1;
+	double	t0;
+	double	t1;
 	t_vec	coef;
 	t_vec	L;
 
@@ -33,12 +33,12 @@ int			sphere_intersect(t_sph *sph, t_ray *ray, float *t)
 	return (1);
 }
 
-int			plane_intersect(t_pla *pla, t_ray *ray, float *t)
+int			plane_intersect(t_pla *pla, t_ray *ray, double *t)
 {
 	return (hit_plane(pla->pos, pla->dir, ray, t));
 }
 
-int			triangle_intersect(t_tri *tri, t_ray *ray, float *t)
+int			triangle_intersect(t_tri *tri, t_ray *ray, double *t)
 {
 	t_vec	hit;
 	t_vec	normal;

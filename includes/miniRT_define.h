@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:41:50 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/21 18:22:51 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/02 14:21:59 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define END 0
 # define TITLE "miniRT"
 # define PIXEL_LEN 4
-# define EPSILON 0.01
+# define EPSILON 0.00001
 
 /*
 ** color
@@ -44,7 +44,6 @@
 # define CAM_ID "c"
 # define MLGT_ID "L"
 # define MCAM_ID "C"
-// # define SQR_ID "sq"
 # define TRI_ID "tr"
 # define CYL_ID "cy"
 # define SPH_ID "sp"
@@ -182,7 +181,7 @@
 ** SBC_KEY is the square bracket closing (]) and brace closing (}) key
 ** BSL_KEY is the backslash (\) and pipe (|) key
 ** SC_KEY is the semicolon (;) and colon (:) key
-** SQ_KEY is the simple quote (') and float quote (") key
+** SQ_KEY is the simple quote (') and double quote (") key
 ** CM_KEY is the comma (,) and angle bracket opening (<) key
 ** PT_KEY is the point (.) and angle bracket closing (>) key
 ** SL_KEY is the slash (/) and question mark (?) key

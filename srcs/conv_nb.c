@@ -6,15 +6,15 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 10:45:25 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/21 18:32:05 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/02 13:23:25 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-float	str_to_unsigned(t_env *env)
+double	str_to_unsigned(t_env *env)
 {
-	float	nb;
+	double	nb;
 
 	nb = 0;
 	while (*(env->sceen) && (*(env->sceen) < '0' || *(env->sceen) > '9'))
@@ -30,10 +30,10 @@ float	str_to_unsigned(t_env *env)
 	return (nb);
 }
 
-float	str_to_long(t_env *env)
+double	str_to_long(t_env *env)
 {
 	int		minus;
-	float	nb;
+	double	nb;
 
 	minus = 1;
 	while (*(env->sceen) && (*(env->sceen) < '0' || *(env->sceen) > '9'))
@@ -46,11 +46,11 @@ float	str_to_long(t_env *env)
 	return (nb * minus);
 }
 
-float	str_to_float(t_env *env)
+double	str_to_double(t_env *env)
 {
 	int		minus;
-	float	nb;
-	float	inte;
+	double	nb;
+	double	inte;
 
 	nb = 0;
 	minus = 1;
@@ -64,10 +64,10 @@ float	str_to_float(t_env *env)
 	if (*(env->sceen) == '.')
 	{
 		(env->sceen)++;
-		nb = (float)str_to_unsigned(env);
+		nb = (double)str_to_unsigned(env);
 		while (nb >= 1)
 			nb /= 10;
 	}
-	nb += (float)inte;
+	nb += (double)inte;
 	return (nb * minus);
 }

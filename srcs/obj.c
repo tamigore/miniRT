@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:32:20 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/21 18:22:48 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/02 18:23:05 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,30 @@ void	get_obj_normal(t_obj *obj, t_ray *ray)
 		ray->normal = get_tri_normal((t_tri *)(obj->data));
 	if (v_dot(ray->dir, ray->normal) > 0)
 		v_scale(-1, ray->normal);
+}
+
+t_vec	*get_obj_pos(t_obj *obj)
+{
+	t_vec *pos;
+
+	pos = NULL;
+	if (obj->id == SPHERE)
+		pos = &(((t_sph *)(obj->data))->pos);
+	else if (obj->id == PLANE)
+		pos = &(((t_pla *)(obj->data))->pos);
+	else if (obj->id == CYLINDER)
+		pos = &(((t_cyl *)(obj->data))->pos);
+	return (pos);
+}
+
+t_vec	*get_obj_dir(t_obj *obj)
+{		
+	t_vec *dir;
+
+	dir = NULL;
+	if (obj->id == PLANE)
+		dir = &(((t_pla *)(obj->data))->dir);
+	else if (obj->id == CYLINDER)
+		dir = &(((t_cyl *)(obj->data))->dir);
+	return (dir);
 }

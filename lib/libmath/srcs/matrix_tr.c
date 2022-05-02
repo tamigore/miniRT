@@ -12,11 +12,11 @@
 
 #include "libmath.h"
 
-t_mat		mat_axis_angle_get(t_vec axis, float cos, float sin, float t)
+t_mat		mat_axis_angle_get(t_vec axis, double cos, double sin, double t)
 {
 	t_mat		mat;
-	float		tmp1;
-	float		tmp2;
+	double		tmp1;
+	double		tmp2;
 
 	mat = identity_mat_init();
 	mat.mat[0][0] = cos + axis.x * axis.x * t;
@@ -37,11 +37,11 @@ t_mat		mat_axis_angle_get(t_vec axis, float cos, float sin, float t)
 	return (mat);
 }
 
-t_mat		rotmat_axis_angle(t_vec axis, float angle)
+t_mat		rotmat_axis_angle(t_vec axis, double angle)
 {
-	float	cos;
-	float	sin;
-	float	t;
+	double	cos;
+	double	sin;
+	double	t;
 	t_mat	mat;
 
 	if (angle == 0 || angle == NAN || v_len(axis) == 0)
@@ -53,12 +53,12 @@ t_mat		rotmat_axis_angle(t_vec axis, float angle)
 	return (mat);
 }
 
-t_mat	rotx_mat_init(float degrees)
+t_mat	rotx_mat_init(double degrees)
 {
 	t_mat	rotationmat;
-	float	rad;
-	float	cos;
-	float	sin;
+	double	rad;
+	double	cos;
+	double	sin;
 
 	rad = deg2rad(degrees);
 	cos = cosf(rad);
@@ -71,12 +71,12 @@ t_mat	rotx_mat_init(float degrees)
 	return (rotationmat);
 }
 
-t_mat	roty_mat_init(float degrees)
+t_mat	roty_mat_init(double degrees)
 {
 	t_mat	rotationmat;
-	float	rad;
-	float	cos;
-	float	sin;
+	double	rad;
+	double	cos;
+	double	sin;
 
 	rad = deg2rad(degrees);
 	cos = cosf(rad);
@@ -89,12 +89,12 @@ t_mat	roty_mat_init(float degrees)
 	return (rotationmat);
 }
 
-t_mat	rotz_mat_init(float degrees)
+t_mat	rotz_mat_init(double degrees)
 {
 	t_mat	rotationmat;
-	float	rad;
-	float	cos;
-	float	sin;
+	double	rad;
+	double	cos;
+	double	sin;
 
 	rad = deg2rad(degrees);
 	cos = cosf(rad);

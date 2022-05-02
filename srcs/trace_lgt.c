@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:20:47 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/21 18:13:48 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/02 13:23:25 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int		is_in_shadow(t_env *env, t_ray *ray, t_vec lgt_dir)
 {
 	t_obj		*tmp;
 	t_ray		shadow_ray;
-	float		t;
+	double		t;
 
 	t = v_len(lgt_dir);
 	set_ray(&shadow_ray, ray->hit, v_norm(lgt_dir), t);
@@ -33,11 +33,11 @@ static int		is_in_shadow(t_env *env, t_ray *ray, t_vec lgt_dir)
 	return (0);
 }
 
-static float	get_specular(t_ray *ray, t_lgt *lgt, t_vec lgt_dir, float pov)
+static double	get_specular(t_ray *ray, t_lgt *lgt, t_vec lgt_dir, double pov)
 {
 	t_vec	rev_dir;
 	t_vec	reflect;
-	float	coef;
+	double	coef;
 
 	coef = 1;
 	rev_dir = v_scale(-1, ray->dir);
@@ -50,9 +50,9 @@ static float	get_specular(t_ray *ray, t_lgt *lgt, t_vec lgt_dir, float pov)
 static void		compute_lgt(t_env *env, t_lgt *lgt, t_ray *ray, t_vec *color)
 {
 	t_vec		lgt_dir;
-	float		pov;
-	float		lum;
-	float		spec_lum;
+	double		pov;
+	double		lum;
+	double		spec_lum;
 
 	lgt_dir = v_norm(v_sub(lgt->pos, ray->hit));
 	pov = v_dot(ray->normal, lgt_dir);

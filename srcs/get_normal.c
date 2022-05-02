@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 16:11:33 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/21 18:10:53 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/02 13:23:25 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_vec		get_sph_normal(t_sph *sph, t_ray *ray)
 
 t_vec	get_cyl_normal(t_cyl *cyl, t_ray *ray)
 {
-	float	t;
+	double	t;
 	t_vec	normal;
 
 	normal = v_init(0, 0, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 18:17:14 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/20 13:53:07 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/02 14:22:33 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,6 @@ void		print_cyl(t_cyl *cyl)
 			cyl->color.y, cyl->color.z, cyl->h, cyl->r);
 }
 
-// void		print_sqr(t_sqr *sqr)
-// {
-// 	printf("sqr :%.2f.x/%.2f.y/%.2f.z // %.2f.vx/%.2f.vy/%.2f.vz // %.0f.R/%.0f.G/%.0f.B // %.2f.h\n", sqr->pos.x, sqr->pos.y,
-// 			sqr->pos.z, sqr->dir.x, sqr->dir.y, sqr->dir.z, sqr->color.x,
-// 			sqr->color.y, sqr->color.z, sqr->side);
-// }
-
 void		print_tri(t_tri *tri)
 {
 	printf("tri :%.2f.x1/%.2f.y1/%.2f.z1 // %.2f.x2/%.2f.y2/%.2f.z2 // %.2f.x3/%.2f.y3/%.2f.z3 // %.0f.R/%.0f.G/%.0f.B\n", tri->p1.x,
@@ -114,8 +107,6 @@ void		print_obj(t_obj *obj)
 		tmp = obj;
 		while (tmp)
 		{
-			// if (tmp->id == SQUARE)
-			// 	print_sqr(tmp->data);
 			if (tmp->id == SPHERE)
 				print_sph(tmp->data);
 			else if (tmp->id == CYLINDER)

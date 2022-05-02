@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:04:48 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/20 13:46:16 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/02 14:22:28 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_err	g_errors[] =
 	{ COORD_FMT, "Invalid scene: Coordinates badly formatted.\n" },
 	{ CYL_FMT, "Invalid scene: Cylinder badly formatted.\n" },
 	{ FD_ERR, "Invalid file descriptor: Open failed.\n" },
-	{ FLOAT_FMT, "Invalid scene: Floating-point number badly formatted.\n" },
+	{ double_FMT, "Invalid scene: doubleing-point number badly formatted.\n" },
 	{ ID_ERR, "Invalid scene: Unknown identifier.\n" },
 	{ LIGHT_FMT, "Invalid scene: Light badly formatted.\n" },
 	{ NO_AMB, "No ambient light declared. Rendering stopped.\n" },
@@ -38,7 +38,6 @@ static t_err	g_errors[] =
 	{ RES_LOW, "Resolution too low: minimum is 300x300. Rendering stopped.\n" },
 	{ SCENE_FMT, "Invalid scene: Scene badly formatted.\n" },
 	{ SPHERE_FMT, "Invalid scene: Sphere badly formatted.\n" },
-	// { SQUARE_FMT, "Invalid scene: Square badly formatted.\n" }
 };
 
 /*

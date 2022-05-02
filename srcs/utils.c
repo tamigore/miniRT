@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 19:07:28 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:57:33 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/02 13:23:25 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_vec	rescale_vec(t_vec vec, int min, int max)
 	return (vec);
 }
 
-int		check_val(float val, float min, float max)
+int		check_val(double val, double min, double max)
 {
 	if (val > max)
 		return (0);

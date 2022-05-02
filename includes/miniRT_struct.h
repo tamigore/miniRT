@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:20:38 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/21 18:14:11 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/02 14:22:25 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct		s_amb
 {
 	int				check;
 	t_vec			color;
-	float			ratio;
+	double			ratio;
 }					t_amb;
 
 /*
@@ -108,7 +108,7 @@ typedef struct		s_cam
 typedef struct		s_lgt
 {
 	t_vec			pos;
-	float			ratio;
+	double			ratio;
 	t_vec			color;
 	struct s_lgt	*next;
 }					t_lgt;
@@ -142,8 +142,8 @@ typedef struct		s_cyl
 {
 	t_vec			pos;
 	t_vec			dir;
-	float			h;
-	float			r;
+	double			h;
+	double			r;
 	t_vec			color;
 }					t_cyl;
 
@@ -175,7 +175,7 @@ typedef struct		s_tri
 typedef struct		s_sph
 {
 	t_vec			pos;
-	float			r;
+	double			r;
 	t_vec			color;
 }					t_sph;
 
@@ -186,7 +186,6 @@ typedef struct		s_sph
 typedef enum		s_objid
 {
 	SPHERE,
-	// SQUARE,
 	TRIANGLE,
 	CYLINDER,
 	PLANE
@@ -228,7 +227,7 @@ typedef struct		s_ray
 {
 	t_vec			pos;
 	t_vec			dir;
-	float			t;
+	double			t;
 	t_vec			color;
 	t_vec			hit;
 	t_vec			normal;
@@ -282,7 +281,7 @@ typedef enum	e_errid
 	COORD_FMT,
 	CYL_FMT,
 	FD_ERR,
-	FLOAT_FMT,
+	double_FMT,
 	ID_ERR,
 	LIGHT_FMT,
 	NO_AMB,

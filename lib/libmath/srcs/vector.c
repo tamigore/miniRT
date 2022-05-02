@@ -6,13 +6,13 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 12:14:26 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/14 17:12:54 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/02 13:23:25 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-t_vec	v_init(float x, float y, float z, float w)
+t_vec	v_init(double x, double y, double z, double w)
 {
 	t_vec	vec;
 
@@ -56,7 +56,7 @@ t_vec	v_cross(t_vec a, t_vec b)
 	return (vec);
 }
 
-t_vec	v_scale(float x, t_vec a)
+t_vec	v_scale(double x, t_vec a)
 {
 	t_vec	vec;
 
