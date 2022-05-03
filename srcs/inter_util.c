@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:40:08 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/02 13:23:25 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/03 16:48:04 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,5 @@ int			check_edge(t_vec to, t_vec from, t_vec hit, t_vec normal)
 
 	edge = v_sub(to, from);
 	vec = v_sub(hit, from);
-	return (v_dot(normal, v_cross(edge, vec)) >= 0.0);
+	return (v_dot(normal, v_cross(edge, vec)) >= EPSILON);
 }

@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:36:40 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/03 15:04:27 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/03 16:46:18 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int		comp_all(char *txt)
 	int			i;
 
 	i = 0;
-	while (i < 9)
+	while (i < 10)
 	{
 		if (!ft_strncmp(g_parsers[i].id, txt, g_parsers[i].id_len))
 			return (1);
@@ -119,10 +119,7 @@ void			pars_sceen(char *av, t_env *env)
 		else if (comp_all(env->sceen))
 			fill_env_sceen(env);
 		else
-		{
-			printf("wtf\n");
 			exit_error(env, SCENE_FMT);
-		}
 	}
 	if (env->nb_cam == 0)
 		exit_error(env, NO_CAM);
@@ -130,6 +127,6 @@ void			pars_sceen(char *av, t_env *env)
 		exit_error(env, NO_LIGHT);
 	else if (env->nb_obj == 0)
 		exit_error(env, NO_OBJ);
-	env->sceen = head;
+	env->sceen = NULL;
 	free(head);
 }

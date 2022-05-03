@@ -6,11 +6,13 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 11:29:06 by user42            #+#    #+#             */
-/*   Updated: 2022/05/03 15:51:50 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/03 19:02:11 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+#define OBJ_MOVE 1
 
 int			close_program(t_env *env)
 {
@@ -89,21 +91,43 @@ void	rotate_obj(t_obj *obj, double deg)
 void		obj_move(int keycode, t_env *env)
 {
 	if (keycode == 65432)
-		{move_obj(env->hit_obj, 'x', 10);printf("6\n");}
+	{
+		move_obj(env->hit_obj, 'x', OBJ_MOVE);
+		printf("6\n");
+	}
 	if (keycode == 65430)
-		{move_obj(env->hit_obj, 'x', -10);printf("4\n");}
+	{
+		move_obj(env->hit_obj, 'x', -OBJ_MOVE);
+		printf("4\n");
+	}
 	if (keycode == 65431)
-		{move_obj(env->hit_obj, 'y', 10);printf("8\n");}
+	{
+		move_obj(env->hit_obj, 'y', OBJ_MOVE);
+		printf("8\n");
+	}
 	if (keycode == 65437)
-		{move_obj(env->hit_obj, 'y', -10);printf("5\n");}
+	{
+		move_obj(env->hit_obj, 'y', -OBJ_MOVE);
+		printf("5\n");
+	}
 	if (keycode == 65453)
-		{move_obj(env->hit_obj, 'z', -10);printf("-\n");}
+	{
+		move_obj(env->hit_obj, 'z', -OBJ_MOVE);
+		printf("-\n");
+	}
 	if (keycode == 65451)
-		{move_obj(env->hit_obj, 'z', 10);printf("+\n");}
+	{
+		move_obj(env->hit_obj, 'z', OBJ_MOVE);
+		printf("+\n");
+	}
 	if (keycode == 65434)
-		rotate_obj(env->hit_obj, -10);
+	{
+		rotate_obj(env->hit_obj, -OBJ_MOVE);
+	}
 	if (keycode == 65429)
-		rotate_obj(env->hit_obj, 10);
+	{
+		rotate_obj(env->hit_obj, OBJ_MOVE);
+	}
 }
 
 int			key_handler(int keycode, t_env *env)
@@ -133,7 +157,11 @@ int    mouse_hook(int button, int x, int y, t_env *env)
     ray = canvas2view(env, env->cam, x, y);
 	env->hit_obj = hit_objs(env->obj, &ray);
     if (env->hit_obj != NULL)
+	{
+		ray.hit = v_add(ray.pos, v_scale(ray.t - EPSILON, ray.dir));
 		print_obj(env->hit_obj);
+		printf("ray.hit : %f.x | %f.y | %f.z\n", ray.hit.x, ray.hit.y, ray.hit.z);
+	}
 	return (1);
 }
 

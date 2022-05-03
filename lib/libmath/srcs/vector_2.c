@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 12:14:45 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/03 14:57:06 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/03 19:24:06 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,11 @@ double	v_len(t_vec v)
 
 t_vec	v_norm(t_vec vec)
 {
-	vec.x = vec.x / v_len(vec);
-	vec.y = vec.y / v_len(vec);
-	vec.z = vec.z / v_len(vec);
+	double len = v_len(vec);
+
+	vec.x = vec.x / len;
+	vec.y = vec.y / len;
+	vec.z = vec.z / len;
 	vec.w = 0;
 	return (vec);
 }

@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:32:20 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/02 18:23:05 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/03 18:29:39 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ void	get_obj_normal(t_obj *obj, t_ray *ray)
 		ray->normal = get_cyl_normal((t_cyl *)(obj->data), ray);
 	else if (obj->id == TRIANGLE)
 		ray->normal = get_tri_normal((t_tri *)(obj->data));
-	if (v_dot(ray->dir, ray->normal) > 0)
-		v_scale(-1, ray->normal);
 }
 
 t_vec	*get_obj_pos(t_obj *obj)
