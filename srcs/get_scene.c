@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:26:22 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/02 13:23:25 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/03 15:11:42 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void		get_camera(t_env *env)
 {
 	t_cam	*cam;
 
+	printf("%s\n",env->sceen);	
 	if (*(env->sceen) == 'c' || *(env->sceen) == 'C')
 		(env->sceen)++;
 	cam = init_camera(env);

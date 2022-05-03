@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 18:30:44 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/02 19:17:34 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/03 15:02:18 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,26 +85,22 @@ t_vec		get_orthogonal(t_vec vec)
 	t_vec	v1;
 	t_vec	v2;
 	t_vec	v3;
-	t_vec	v4;
-	t_vec	v5;
-	t_vec	v6;
+	t_vec	ret;
 
 	v1 = v_cross(v_init(1, 0, 0, 0), vec);
 	v2 = v_cross(v_init(0, 1, 0, 0), vec);
 	v3 = v_cross(v_init(0, 0, 1, 0), vec);
-	v4 = v_cross(v_init(-1, 0, 0, 0), vec);
-	v5 = v_cross(v_init(0, -1, 0, 0), vec);
-	v6 = v_cross(v_init(0, 0, -1, 0), vec);
-	if (v_dot(v1, vec) == 0 && v_dot(v1, vec) != 1)
-		return (v1);
-	else if (v_dot(v3, vec) == 0 && v_dot(v3, vec) != 1)
-		return (v3);
-	else if (v_dot(v4, vec) == 0 && v_dot(v4, vec) != 1)
-		return (v4);
-	else if (v_dot(v5, vec) == 0 && v_dot(v5, vec) != 1)
-		return (v5);
-	else if (v_dot(v6, vec) == 0 && v_dot(v6, vec) != 1)
-		return (v6);
-	else
-		return (v2);
+	ret = v2;
+	if (v_dot(v1, vec) <= 0.1 && v_dot(v1, vec) >= -0.1)
+		ret = v1;
+	else if (v_dot(v3, vec) <= 0.1 && v_dot(v3, vec) >= -0.1)
+		ret = v3;
+	if (v_comp(v_cross(ret, vec),v_init(0, 0, 0, 0)) || v_comp(v_cross(ret, vec), v_init(NAN, NAN, NAN, 0)))
+	{
+		if (v_comp(ret, v2))
+			ret = v1;
+		else
+			ret = v2;
+	}
+	return (ret);
 }

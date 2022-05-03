@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:41:56 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/02 13:27:11 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/03 14:36:27 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ t_ray			canvas2view(t_env *env, t_cam *cam, int x, int y)
 	new_dir = v_add(ray.pos, ray.dir);
 	new_dir = mat_mult_vec(cam->cam2world, new_dir);
 	new_dir = v_add(new_dir, cam->pos);
+	// if (x == 1 && y == 1)
+	// 	printf("new pos = %f.x; %f.y; %f.z || new dir = %f.x; %f.y; %f.z\n", new_pos.x, new_pos.y, new_pos.z, new_dir.x, new_dir.y, new_dir.z);
 	ray.pos = new_pos;
 	ray.dir = v_norm(v_sub(new_pos, new_dir));
+	// if (x == 1 && y == 1)
+	// 	print_ray(&ray);
 	return (ray);
 }

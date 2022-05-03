@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:30:03 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/02 19:06:45 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/03 14:31:01 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ t_vec	lights(t_obj *obj, t_ray *ray, t_env *env)
 		}
 		tmp = tmp->next;
 	}
-	if (!env->obj)
-		printf("error no obj !!!\n");
 	return (color);
 }
 
@@ -56,11 +54,10 @@ void			shade(t_env *env, t_ray *ray)
 {
 	t_obj			*hit_obj;
 
-	ray->dir = v_norm(ray->dir);
+	// ray->dir = v_norm(ray->dir);
 	hit_obj = hit_objs(env->obj, ray);
 	if (hit_obj)
 	{
-		// ray->color = get_obj_color(hit_obj);
 		ray->hit = v_add(ray->pos, v_scale(ray->t, ray->dir));
 		get_obj_normal(hit_obj, ray);
 		ray->color = lights(hit_obj, ray, env);

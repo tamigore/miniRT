@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 12:14:45 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/02 13:23:25 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/03 14:57:06 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		v_comp(t_vec a, t_vec b)
 
 double	v_len(t_vec v)
 {
-	return (sqrt((v.x * v.x) + (v.y * v.y) + (v.z * v.z)));
+	return (sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2)));
 }
 
 t_vec	v_norm(t_vec vec)

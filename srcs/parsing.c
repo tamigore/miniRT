@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:36:40 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/02 14:22:08 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/03 15:04:27 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void		fill_env_sceen(t_env *env)
 	int			j;
 
 	j = 0;
-	while (j < 11)
+	while (j < 10)
 	{
 		if (!ft_strncmp(g_parsers[j].id, env->sceen, g_parsers[j].id_len))
 		{
