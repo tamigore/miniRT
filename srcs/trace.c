@@ -59,7 +59,7 @@ t_vec	lights(t_obj *obj, t_ray *ray, t_env *env)
 		{
 				if (v_dot(tmp_ray.dir, ray->normal) >= 0)
 				{
-					intens = fabs((LUMEN * tmp->ratio * v_dot(tmp_ray.dir, ray->normal)) / pow(v_len(v_scale(tmp_ray.t, tmp_ray.dir)), 2));
+					intens = fabs((LUMEN * tmp->ratio * v_dot(tmp_ray.dir, ray->normal)) / v_len(v_scale(tmp_ray.t, tmp_ray.dir)));
 					intens = (intens > 1 ? 1 : intens);
 					tmp_col = rgbzed(intens, get_obj_color(obj), tmp->color);
 					color = rescale_vec(v_add(tmp_col, color), 0, MAX_RGB);
