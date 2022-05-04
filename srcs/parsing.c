@@ -119,7 +119,10 @@ void			pars_sceen(char *av, t_env *env)
 		else if (comp_all(env->sceen))
 			fill_env_sceen(env);
 		else
+		{
+			printf("%s\n", env->sceen);
 			exit_error(env, SCENE_FMT);
+		}	
 	}
 	if (env->nb_cam == 0)
 		exit_error(env, NO_CAM);

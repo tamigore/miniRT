@@ -14,7 +14,7 @@
 
 t_vec		get_sph_normal(t_sph *sph, t_ray *ray)
 {
-	return (v_norm(v_sub(v_norm(ray->hit), sph->pos)));
+	return (v_norm(v_sub(ray->hit, sph->pos)));
 }
 
 t_vec	get_cyl_normal(t_cyl *cyl, t_ray *ray)

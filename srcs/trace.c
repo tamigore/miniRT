@@ -57,14 +57,23 @@ t_vec	lights(t_obj *obj, t_ray *ray, t_env *env)
 		tmp_ray.dir = v_norm(v_sub(tmp->pos, ray->hit));
 		if (!hit_objs(env->obj, &tmp_ray))
 		{
-			if (v_dot(tmp_ray.dir, ray->normal) >= 0)
-			{
-				intens = fabs((LUMEN * tmp->ratio * v_dot(tmp_ray.dir, ray->normal)) / pow(v_len(v_scale(tmp_ray.t, tmp_ray.dir)), 2));
-				intens = (intens > 1 ? 1 : intens);
-				tmp_col = rgbzed(intens, get_obj_color(obj), tmp->color);
-				color = rescale_vec(v_add(tmp_col, color), 0, MAX_RGB);
-			}
+				if (v_dot(tmp_ray.dir, ray->normal) >= 0)
+				{
+					intens = fabs((LUMEN * tmp->ratio * v_dot(tmp_ray.dir, ray->normal)) / pow(v_len(v_scale(tmp_ray.t, tmp_ray.dir)), 2));
+					intens = (intens > 1 ? 1 : intens);
+					tmp_col = rgbzed(intens, get_obj_color(obj), tmp->color);
+					color = rescale_vec(v_add(tmp_col, color), 0, MAX_RGB);
+					// if (color.z > 100 && (color.x < 120 || color.y < 120))
+					// 	color = v_init(0, 255, 120,0);
+				}
+			// else 
+			// 	color = v_init(180,0,255,0);
+
 		}
+		// else
+		// {
+		// 	color = v_init(0,0,0,0);
+		// }
 		tmp = tmp->next;
 	}
 	return (color);
