@@ -34,9 +34,9 @@ void				trace_ray(t_env *env)
 			x++;
 		}
 		y++;
-		printf("render : %d sur %d\n", y * env->res.x + x, env->res.y * env->res.x);
+		printf("\rrender : %d sur 100%%", 100 * (y * env->res.x + x) / (env->res.y * env->res.x));
 	}
-	print_ray(&ray);
+	printf("\rrender : 100 sur 100%%\n");
 }
 
 /*

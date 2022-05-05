@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:22:50 by tamigore          #+#    #+#             */
-/*   Updated: 2022/04/13 15:16:11 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/05 19:09:59 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_cam		*init_camera(t_env *env)
 	cam->rota= identity_mat_init();
 	cam->trans = identity_mat_init();
 	cam->next = NULL;
+	cam->img.ptr = NULL;
 	return (cam);
 }
 

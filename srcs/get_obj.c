@@ -6,11 +6,28 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 18:28:44 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/02 14:21:42 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/05 19:24:08 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+void	append_obj(t_obj **objs, t_obj *new_obj)
+{
+	t_obj	*tmp;
+
+	if (!objs || !new_obj)
+		return ;
+	tmp = *objs;
+	if (*objs)
+	{
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new_obj;
+	}
+	else
+		*objs = new_obj;
+}
 
 void		get_sphere(t_env *env)
 {

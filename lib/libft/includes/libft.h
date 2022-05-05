@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamigore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 18:31:48 by tamigore          #+#    #+#             */
-/*   Updated: 2019/11/22 16:53:55 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/05 18:15:50 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,13 @@ int				ft_toupper(int c);
 int				ft_tolower(int c);
 char			*ft_itoa(int n);
 void			ft_sorttab(char **tab);
-int				ft_nbrlen(long long	nbr);
+int				ft_nbrlen(long long nbr);
 
 /*
 **	OPTION
 */
 
-typedef	struct	s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
@@ -123,16 +123,17 @@ void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*));
 
-typedef	struct	s_lst
+typedef struct s_lst
 {
 	void			*content;
 	int				fd;
 	struct s_lst	*next;
 }				t_lst;
 
+char			*ft_strnjoin(char *s1, char *s2, int r);
 void			ft_swap(char *s1, char *s2);
 void			ft_sorttab(char **tab);
-int				get_next_line(const int fd, char **line);
+int				get_next_line(int fd, char **line);
 int				ft_search(char *str, char c);
 char			*ft_rmstr(char *str, int i, int j);
 char			*ft_rmchar(char *str, char c);

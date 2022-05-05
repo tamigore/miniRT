@@ -27,7 +27,7 @@ double	v_cos(t_vec a, t_vec b)
 	return (v_dot(a, b) / v_len(a) * v_len(b));
 }
 
-void		swap(double *x, double *y)
+void	swap(double *x, double *y)
 {
 	double	tmp;
 

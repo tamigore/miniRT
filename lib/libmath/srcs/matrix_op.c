@@ -12,7 +12,7 @@
 
 #include "libmath.h"
 
-t_mat		mat_mult_mat(t_mat a, t_mat b)
+t_mat	mat_mult_mat(t_mat a, t_mat b)
 {
 	t_mat	c;
 	int		x;
@@ -35,7 +35,7 @@ t_mat		mat_mult_mat(t_mat a, t_mat b)
 	return (c);
 }
 
-t_vec			mat_mult_vec(t_mat a, t_vec b)
+t_vec	mat_mult_vec(t_mat a, t_vec b)
 {
 	t_vec		c;
 

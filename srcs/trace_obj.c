@@ -6,13 +6,13 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:51:20 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/02 13:23:25 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/05 19:22:30 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int			trace_sph(t_sph *sph, t_ray *ray)
+int	trace_sph(t_sph *sph, t_ray *ray)
 {
 	int		hit;
 	double	t;
@@ -30,7 +30,7 @@ int			trace_sph(t_sph *sph, t_ray *ray)
 	return (hit);
 }
 
-int			trace_pla(t_pla *pla, t_ray *ray)
+int	trace_pla(t_pla *pla, t_ray *ray)
 {
 	int		hit;
 	double	t;
@@ -48,7 +48,7 @@ int			trace_pla(t_pla *pla, t_ray *ray)
 	return (hit);
 }
 
-int			trace_cyl(t_cyl *cyl, t_ray *ray)
+int	trace_cyl(t_cyl *cyl, t_ray *ray)
 {
 	int		hit;
 	double	t;
@@ -66,7 +66,7 @@ int			trace_cyl(t_cyl *cyl, t_ray *ray)
 	return (hit);
 }
 
-int			trace_tri(t_tri *tri, t_ray *ray)
+int	trace_tri(t_tri *tri, t_ray *ray)
 {
 	int		hit;
 	double	t;

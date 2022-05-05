@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:10:05 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/02 14:24:14 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/05 19:10:27 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,29 @@ static void	free_obj(t_obj *obj)
 	}
 }
 
-void		free_env(t_env *env)
+void	free_env(t_env *env)
 {
+	printf("free start\n");
 	if (!env)
 		return ;
+	printf("win\n");
 	if (env->mlx && env->win)
 		mlx_destroy_window(env->mlx, env->win);
+	printf("cam\n");
 	if (env->cam)
 		free_cam(env->cam, env->mlx);
+	printf("lights\n");
 	if (env->lgt)
 		free_lgt(env->lgt);
+	printf("objs\n");
 	if (env->obj)
 		free_obj(env->obj);
+	printf("mlx\n");
 	if (env->mlx)
 		free(env->mlx);
+	printf("sceen\n");
+	if (env->sceen)
+		free(env->sceen);
+	printf("env...\n");
 	free(env);
 }

@@ -12,7 +12,7 @@
 
 #include "libmath.h"
 
-double		ft_pow(double x, int i)
+double	ft_pow(double x, int i)
 {
 	double	nb;
 
@@ -26,7 +26,7 @@ double		ft_pow(double x, int i)
 	return (nb);
 }
 
-int			sign(double x)
+int	sign(double x)
 {
 	if (x >= 0)
 		return (1);

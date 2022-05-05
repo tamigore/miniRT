@@ -6,26 +6,25 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 18:30:44 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/03 15:02:18 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/05 18:26:43 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void		set_mat_cam(t_cam *cam, t_vec rotation)
+void	set_mat_cam(t_cam *cam, t_vec rotation)
 {
-	(void)rotation;
 	t_mat	mat;
 
 	mat = world2obj_mat(cam->dir, cam->up, cam->right);
-	// mat = mat_mult_mat(mat, rotmat_axis_angle(v_init(1, 0, 0, 0), rotation.x));
-	// mat = mat_mult_mat(mat, rotmat_axis_angle(v_init(0, 1, 0, 0), rotation.y));
-	// mat = mat_mult_mat(mat, rotmat_axis_angle(v_init(0, 0, 1, 0), rotation.z));
+	mat = mat_mult_mat(mat, rotmat_axis_angle(v_init(1, 0, 0, 0), rotation.x));
+	mat = mat_mult_mat(mat, rotmat_axis_angle(v_init(0, 1, 0, 0), rotation.y));
+	mat = mat_mult_mat(mat, rotmat_axis_angle(v_init(0, 0, 1, 0), rotation.z));
 	cam->world2cam = mat;
 	cam->cam2world = obj2world_mat(cam->world2cam);
 }
 
-void		set_mat_obj(t_obj *obj, t_vec rotation)
+void	set_mat_obj(t_obj *obj, t_vec rotation)
 {
 	t_mat	mat;
 
@@ -37,7 +36,7 @@ void		set_mat_obj(t_obj *obj, t_vec rotation)
 	obj->obj2world = obj2world_mat(obj->world2obj);
 }
 
-t_mat		world2obj_mat(t_vec dir, t_vec up, t_vec right)
+t_mat	world2obj_mat(t_vec dir, t_vec up, t_vec right)
 {
 	t_mat	mat;
 	t_vec	zaxis;
@@ -60,7 +59,7 @@ t_mat		world2obj_mat(t_vec dir, t_vec up, t_vec right)
 	return (mat);
 }
 
-t_mat		obj2world_mat(t_mat world2cam)
+t_mat	obj2world_mat(t_mat world2cam)
 {
 	t_mat	mat;
 
@@ -80,7 +79,7 @@ t_mat		obj2world_mat(t_mat world2cam)
 	return (mat);
 }
 
-t_vec		get_orthogonal(t_vec vec)
+t_vec	get_orthogonal(t_vec vec)
 {
 	t_vec	v1;
 	t_vec	v2;
@@ -95,7 +94,8 @@ t_vec		get_orthogonal(t_vec vec)
 		ret = v1;
 	else if (v_dot(v3, vec) <= 0.1 && v_dot(v3, vec) >= -0.1)
 		ret = v3;
-	if (v_comp(v_cross(ret, vec),v_init(0, 0, 0, 0)) || v_comp(v_cross(ret, vec), v_init(NAN, NAN, NAN, 0)))
+	if (v_comp(v_cross(ret, vec), v_init(0, 0, 0, 0))
+		|| v_comp(v_cross(ret, vec), v_init(NAN, NAN, NAN, 0)))
 	{
 		if (v_comp(ret, v2))
 			ret = v1;

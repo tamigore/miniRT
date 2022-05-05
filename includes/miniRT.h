@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:30:18 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/03 16:44:19 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/05 19:22:09 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,6 @@ t_vec	    lights(t_obj *obj, t_ray *ray, t_env *env);
 t_vec		rgbzed(double intens, t_vec obj_color, t_vec lgt_color);
 t_vec		v_add_rgb(t_vec a, t_vec b);
 t_vec		v_scale_rgb(double x, t_vec a);
-
-/*
-** trace_lgt.c
-*/
-
-t_vec		trace_ray_to_light(t_env *env, t_ray *ray);
 
 /*
 ** trace_obj.c

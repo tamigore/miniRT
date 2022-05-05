@@ -25,7 +25,7 @@ static void	ft_free(int x, char *s1, char *s2)
 	}
 }
 
-char		*ft_free_join(char *s1, char *s2, int x)
+char	*ft_free_join(char *s1, char *s2, int x)
 {
 	char	*p;
 	int		i;
@@ -35,15 +35,13 @@ char		*ft_free_join(char *s1, char *s2, int x)
 	j = 0;
 	if (!s1 || !s2)
 		return (NULL);
-	if (!(p = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1)))
+	p = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!p)
 		return (NULL);
-	if (s1)
+	while (s1 && s1[i])
 	{
-		while (s1[i])
-		{
-			p[i] = s1[i];
-			i++;
-		}
+		p[i] = s1[i];
+		i++;
 	}
 	if (s2)
 		while (s2[j])

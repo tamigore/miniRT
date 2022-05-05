@@ -6,13 +6,13 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:32:20 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/03 18:29:39 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/05 19:24:23 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_obj		*init_object(t_env *env)
+t_obj	*init_object(t_env *env)
 {
 	t_obj	*obj;
 
@@ -22,23 +22,6 @@ t_obj		*init_object(t_env *env)
 	obj->data = NULL;
 	obj->next = NULL;
 	return (obj);
-}
-
-void		append_obj(t_obj **objs, t_obj *new_obj)
-{
-	t_obj	*tmp;
-
-	if (!objs || !new_obj)
-		return ;
-	tmp = *objs;
-	if (*objs)
-	{
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new_obj;
-	}
-	else
-		*objs = new_obj;
 }
 
 t_vec	get_obj_color(t_obj *obj)
@@ -68,7 +51,7 @@ void	get_obj_normal(t_obj *obj, t_ray *ray)
 
 t_vec	*get_obj_pos(t_obj *obj)
 {
-	t_vec *pos;
+	t_vec	*pos;
 
 	pos = NULL;
 	if (obj->id == SPHERE)
@@ -82,7 +65,7 @@ t_vec	*get_obj_pos(t_obj *obj)
 
 t_vec	*get_obj_dir(t_obj *obj)
 {		
-	t_vec *dir;
+	t_vec	*dir;
 
 	dir = NULL;
 	if (obj->id == PLANE)

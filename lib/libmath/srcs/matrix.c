@@ -12,7 +12,7 @@
 
 #include "libmath.h"
 
-t_mat		identity_mat_init(void)
+t_mat	identity_mat_init(void)
 {
 	t_mat	id;
 
@@ -35,7 +35,7 @@ t_mat		identity_mat_init(void)
 	return (id);
 }
 
-t_mat		scale_mat_init(double scale)
+t_mat	scale_mat_init(double scale)
 {
 	t_mat	scalemat;
 
@@ -46,7 +46,7 @@ t_mat		scale_mat_init(double scale)
 	return (scalemat);
 }
 
-t_mat		translation_mat_init(t_vec tranvec)
+t_mat	translation_mat_init(t_vec tranvec)
 {
 	t_mat	translationmat;
 

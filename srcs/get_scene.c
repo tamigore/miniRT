@@ -6,16 +6,16 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:26:22 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/03 19:04:34 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/05 18:52:14 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void		get_resolution(t_env *env)
+void	get_resolution(t_env *env)
 {
-	int		x;
-	int		y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;
@@ -35,7 +35,7 @@ void		get_resolution(t_env *env)
 		exit_error(env, RES_LOW);
 }
 
-void		get_ambient(t_env *env)
+void	get_ambient(t_env *env)
 {
 	if (*(env->sceen) == 'A')
 		(env->sceen)++;
@@ -52,7 +52,7 @@ void		get_ambient(t_env *env)
 		exit_error(env, LIGHT_FMT);
 }
 
-void		get_camera(t_env *env)
+void	get_camera(t_env *env)
 {
 	t_cam	*cam;
 
@@ -74,12 +74,12 @@ void		get_camera(t_env *env)
 	cam->dir = v_norm(cam->dir);
 	cam->up = v_norm(get_orthogonal(cam->dir));
 	cam->right = v_norm(v_cross(cam->dir, cam->up));
-	set_mat_cam(cam, v_init(0,0,0,0));
+	set_mat_cam(cam, v_init(0, 0, 0, 0));
 	env->nb_cam++;
 	append_cam(&(env->cam), cam);
 }
 
-void		get_light(t_env *env)
+void	get_light(t_env *env)
 {
 	t_lgt	*lgt;
 

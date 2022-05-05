@@ -12,7 +12,7 @@
 
 #include "libmath.h"
 
-t_mat		mat_axis_angle_get(t_vec axis, double cos, double sin, double t)
+t_mat	mat_angle(t_vec axis, double cos, double sin, double t)
 {
 	t_mat		mat;
 	double		tmp1;
@@ -37,7 +37,7 @@ t_mat		mat_axis_angle_get(t_vec axis, double cos, double sin, double t)
 	return (mat);
 }
 
-t_mat		rotmat_axis_angle(t_vec axis, double angle)
+t_mat	rotmat_axis_angle(t_vec axis, double angle)
 {
 	double	cos;
 	double	sin;
@@ -49,7 +49,7 @@ t_mat		rotmat_axis_angle(t_vec axis, double angle)
 	cos = cosf(angle);
 	sin = sinf(angle);
 	t = 1.0 - cos;
-	mat = mat_axis_angle_get(axis, cos, sin, t);
+	mat = mat_angle(axis, cos, sin, t);
 	return (mat);
 }
 

@@ -41,7 +41,7 @@ t_vec	v_sub(t_vec a, t_vec b)
 	vec.x = a.x - b.x;
 	vec.y = a.y - b.y;
 	vec.z = a.z - b.z;
-	vec.w = a.w - b.w; 
+	vec.w = a.w - b.w;
 	return (vec);
 }
 

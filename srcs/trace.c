@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:30:03 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/03 20:03:25 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/05 18:24:15 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,37 @@ t_vec    rgbzed(double intens, t_vec obj_color, t_vec lgt_color)
     return (v_scale(intens, (v_init(x, y, z, 0))));
 }
 
+// t_vec			reflect_vec(t_vec vec, t_vec axis)
+// {
+// 	t_mat	rotmatrix;
+
+// 	rotmatrix = rotmat_axis_angle(axis, deg2rad(180));
+// 	return (v_norm(mat_mult_vec(rotmatrix, vec)));
+// }
+
+// t_vec	get_specular(t_ray *ray, t_lgt *light, t_vec to_light)
+// {
+// 	t_vec		rgb;
+// 	t_vec		reflect;
+// 	t_vec		to_view;
+// 	float		mult_value;
+// 	float		dotproduct;
+
+// 	dotproduct = v_dot(v_norm(v_sub(ray->hit_pos, light->pos)), ray->normal);
+// 	if (abs(dotproduct) > 1)
+// 		printf("failure dot\n");
+// 	if (dotproduct <= 0)
+// 		return (rgb_init(0));
+// 	reflect = reflect_vec(v_norm(v_sub(ray->hit, light->pos)), ray->normal);
+// 	to_view = v_norm(v_sub(ray->hit_pos, cam->pos));
+// 	mult_value = vec_dotproduct(reflect, to_view)) > 0 ? vec_dotproduct(reflect, to_view)) : 0;
+// 	mult_value = powf(mult_value, 2);
+// 	mult_value *= light->ratio;
+// 	rgb = rgb_mul(light->color, mult_value);
+// 	rgb_updatevalue(&rgb);
+// 	return (rgb);
+// }
+
 t_vec	lights(t_obj *obj, t_ray *ray, t_env *env)
 {
 	t_vec color;
@@ -57,23 +88,15 @@ t_vec	lights(t_obj *obj, t_ray *ray, t_env *env)
 		tmp_ray.dir = v_norm(v_sub(tmp->pos, ray->hit));
 		if (!hit_objs(env->obj, &tmp_ray))
 		{
-				if (v_dot(tmp_ray.dir, ray->normal) >= 0)
+				if (v_dot(tmp_ray.dir, ray->normal) >= 0 && v_dot(ray->dir, ray->normal) <= 0)
 				{
-					intens = fabs((LUMEN * tmp->ratio * v_dot(tmp_ray.dir, ray->normal)) / v_len(v_scale(tmp_ray.t, tmp_ray.dir)));
+					intens = (LUMEN * tmp->ratio * v_dot(tmp_ray.dir, ray->normal)) / (v_len(v_scale(tmp_ray.t, tmp_ray.dir)) * v_len(v_scale(tmp_ray.t, tmp_ray.dir)));
 					intens = (intens > 1 ? 1 : intens);
 					tmp_col = rgbzed(intens, get_obj_color(obj), tmp->color);
 					color = rescale_vec(v_add(tmp_col, color), 0, MAX_RGB);
-					// if (color.z > 100 && (color.x < 120 || color.y < 120))
-					// 	color = v_init(0, 255, 120,0);
 				}
-			// else 
-			// 	color = v_init(180,0,255,0);
 
 		}
-		// else
-		// {
-		// 	color = v_init(0,0,0,0);
-		// }
 		tmp = tmp->next;
 	}
 	return (color);

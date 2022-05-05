@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_puttab.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamigore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 14:27:47 by tamigore          #+#    #+#             */
-/*   Updated: 2018/11/19 14:37:54 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/05 18:16:29 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_puttab(char **tab)
 {
-	int x;
+	int	x;
 
 	x = 0;
 	while (tab[x])

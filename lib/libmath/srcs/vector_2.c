@@ -14,7 +14,7 @@
 
 t_vec	v_prod(t_vec a, t_vec b)
 {
-	t_vec vec;
+	t_vec	vec;
 
 	vec.x = a.x * b.x;
 	vec.y = a.y * b.y;
@@ -23,7 +23,7 @@ t_vec	v_prod(t_vec a, t_vec b)
 	return (vec);
 }
 
-int		v_comp(t_vec a, t_vec b)
+int	v_comp(t_vec a, t_vec b)
 {
 	if (a.x == b.x && a.y == b.y && a.z == b.z)
 		return (1);
@@ -38,8 +38,9 @@ double	v_len(t_vec v)
 
 t_vec	v_norm(t_vec vec)
 {
-	double len = v_len(vec);
+	double	len;
 
+	len = v_len(vec);
 	vec.x = vec.x / len;
 	vec.y = vec.y / len;
 	vec.z = vec.z / len;

@@ -27,16 +27,16 @@ char	*ft_free_rmchar(char *str, char c)
 			j++;
 		i++;
 	}
-	if (!(new = ft_strnew(i)))
+	new = ft_strnew(i);
+	if (!new)
 		return (NULL);
 	i = 0;
 	j = 0;
 	while (str[i])
 	{
-		if (str[i] == c)
-			i++;
-		else
-			new[j++] = str[i++];
+		new[j++] = str[i++];
+		if (str[i - 1] == c)
+			j--;
 	}
 	free(str);
 	return (new);
