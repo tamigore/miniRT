@@ -29,7 +29,7 @@ void	append_obj(t_obj **objs, t_obj *new_obj)
 		*objs = new_obj;
 }
 
-void		get_sphere(t_env *env)
+void	get_sphere(t_env *env)
 {
 	t_obj	*obj;
 
@@ -63,7 +63,7 @@ void		get_sphere(t_env *env)
 	append_obj(&(env->obj), obj);
 }
 
-void		get_plane(t_env *env)
+void	get_plane(t_env *env)
 {
 	t_obj	*obj;
 
@@ -99,7 +99,7 @@ void		get_plane(t_env *env)
 	append_obj(&(env->obj), obj);
 }
 
-void		get_cylinder(t_env *env)
+void	get_cylinder(t_env *env)
 {
 	t_obj	*obj;
 
@@ -139,7 +139,7 @@ void		get_cylinder(t_env *env)
 	append_obj(&(env->obj), obj);
 }
 
-void		get_triangle(t_env *env)
+void	get_triangle(t_env *env)
 {
 	t_obj	*obj;
 

@@ -86,6 +86,10 @@ void		get_obj_normal(t_obj *obj, t_ray *ray);
 t_vec	    *get_obj_pos(t_obj *obj);
 t_vec	    *get_obj_dir(t_obj *obj);
 
+/*
+** obj_move.c
+*/
+void	obj_move(int keycode, t_env *env);
 
 /*
 ** conv_nb.c

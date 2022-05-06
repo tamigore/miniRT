@@ -52,12 +52,13 @@ static int	camera_move(int keycode, t_env *env)
 ** 		return (0);
 ** 	}
 */
-int			key_handler(int keycode, t_env *env)
+int	key_handler(int keycode, t_env *env)
 {
 	printf("key code = %d\n", keycode);
 	if (keycode == ESC_KEY)
 		exit_sucess(env);
-	if ((keycode >= 65361 && keycode <= 65438) || (keycode >= 32 && keycode <= 150))
+	if ((keycode >= 65361 && keycode <= 65438) || (keycode >= 32
+			&& keycode <= 150))
 		if (camera_move(keycode, env) == 0)
 			return (0);
 	if (keycode >= 65429 && keycode <= 65453)
@@ -68,26 +69,27 @@ int			key_handler(int keycode, t_env *env)
 	return (0);
 }
 
-int    mouse_hook(int button, int x, int y, t_env *env)
+int	mouse_hook(int button, int x, int y, t_env *env)
 {
-    (void)button;
-    t_ray ray;
-    t_obj *tmp;
+	t_ray	ray;
+	t_obj	*tmp;
 
-    tmp = env->obj;
-    printf("click x : %d , y : %d\n", x, y);
-    ray = canvas2view(env, env->cam, x, y);
+	(void)button;
+	tmp = env->obj;
+	printf("click x : %d , y : %d\n", x, y);
+	ray = canvas2view(env, env->cam, x, y);
 	env->hit_obj = hit_objs(env->obj, &ray);
-    if (env->hit_obj != NULL)
+	if (env->hit_obj != NULL)
 	{
 		ray.hit = v_add(ray.pos, v_scale(ray.t - EPSILON, ray.dir));
 		print_obj(env->hit_obj);
-		printf("ray.hit : %f.x | %f.y | %f.z\n", ray.hit.x, ray.hit.y, ray.hit.z);
+		printf("ray.hit : %f.x | %f.y | %f.z\n", ray.hit.x, ray.hit.y,
+			ray.hit.z);
 	}
 	return (1);
 }
 
-void		graphic_loop(t_env *env)
+void	graphic_loop(t_env *env)
 {
 	env->win = mlx_new_window(env->mlx, env->res.x, env->res.y, "miniRT");
 	mlx_put_image_to_window(env->mlx, env->win, env->cam->img.ptr, 0, 0);

@@ -18,25 +18,25 @@
 **	shade : Get the object lights specular + direct.
 */
 
-t_vec    rgbzed(double intens, t_vec obj_color, t_vec lgt_color)
+t_vec	rgbzed(double intens, t_vec obj_color, t_vec lgt_color)
 {
-    double x;
-    double y;
-    double z;
+	double	x;
+	double	y;
+	double	z;
 
-    if (obj_color.x < lgt_color.x)
-        x = obj_color.x;
-    else 
-        x = lgt_color.x;
-    if (obj_color.y < lgt_color.y)
-        y = obj_color.y;
-    else 
-        y = lgt_color.y;
-    if (obj_color.z < lgt_color.z)
-        z = obj_color.z;
-    else 
-        z = lgt_color.z;
-    return (v_scale(intens, (v_init(x, y, z, 0))));
+	if (obj_color.x < lgt_color.x)
+		x = obj_color.x;
+	else
+		x = lgt_color.x;
+	if (obj_color.y < lgt_color.y)
+		y = obj_color.y;
+	else
+		y = lgt_color.y;
+	if (obj_color.z < lgt_color.z)
+		z = obj_color.z;
+	else
+		z = lgt_color.z;
+	return (v_scale(intens, (v_init(x, y, z, 0))));
 }
 
 // t_vec			reflect_vec(t_vec vec, t_vec axis)
@@ -72,11 +72,11 @@ t_vec    rgbzed(double intens, t_vec obj_color, t_vec lgt_color)
 
 t_vec	lights(t_obj *obj, t_ray *ray, t_env *env)
 {
-	t_vec color;
-	t_vec tmp_col;
-	t_lgt *tmp;
-	t_ray tmp_ray;
-	double intens;
+	t_vec	color;
+	t_vec	tmp_col;
+	t_lgt	*tmp;
+	t_ray	tmp_ray;
+	double	intens;
 
 	tmp = env->lgt;
 	color = rgbzed(env->amb.ratio, get_obj_color(obj), env->amb.color);
@@ -88,13 +88,15 @@ t_vec	lights(t_obj *obj, t_ray *ray, t_env *env)
 		tmp_ray.dir = v_norm(v_sub(tmp->pos, ray->hit));
 		if (!hit_objs(env->obj, &tmp_ray))
 		{
-				if (v_dot(tmp_ray.dir, ray->normal) >= 0 && v_dot(ray->dir, ray->normal) <= 0)
-				{
-					intens = (LUMEN * tmp->ratio * v_dot(tmp_ray.dir, ray->normal)) / (v_len(v_scale(tmp_ray.t, tmp_ray.dir)) * v_len(v_scale(tmp_ray.t, tmp_ray.dir)));
-					intens = (intens > 1 ? 1 : intens);
-					tmp_col = rgbzed(intens, get_obj_color(obj), tmp->color);
-					color = rescale_vec(v_add(tmp_col, color), 0, MAX_RGB);
-				}
+			if (v_dot(tmp_ray.dir, ray->normal) >= 0 && v_dot(ray->dir,
+					ray->normal) <= 0)
+			{
+				intens = (LUMEN * tmp->ratio * v_dot(tmp_ray.dir, ray->normal))
+				/ (v_len(v_scale(tmp_ray.t, tmp_ray.dir)) * v_len(v_scale(tmp_ray.t, tmp_ray.dir)));
+				intens = (intens > 1 ? 1 : intens);
+				tmp_col = rgbzed(intens, get_obj_color(obj), tmp->color);
+				color = rescale_vec(v_add(tmp_col, color), 0, MAX_RGB);
+			}
 
 		}
 		tmp = tmp->next;
@@ -102,7 +104,7 @@ t_vec	lights(t_obj *obj, t_ray *ray, t_env *env)
 	return (color);
 }
 
-void			shade(t_env *env, t_ray *ray)
+void	shade(t_env *env, t_ray *ray)
 {
 	t_obj			*hit_obj;
 
@@ -121,7 +123,7 @@ void			shade(t_env *env, t_ray *ray)
 **		according to the mlx librairy.
 */
 
-void			put_pixel_to_image(t_img img, t_vec color, int x, int y)
+void	put_pixel_to_image(t_img img, t_vec color, int x, int y)
 {
 	int		i;
 
