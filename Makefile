@@ -6,7 +6,7 @@
 #    By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/19 16:16:11 by tamigore          #+#    #+#              #
-#    Updated: 2022/05/05 19:21:57 by tamigore         ###   ########.fr        #
+#    Updated: 2022/05/06 16:18:40 by tamigore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,8 @@ SOURCES =	conv_nb.c		\
 			utils.c			\
 			world_coord.c	\
 			cam_move.c		\
+			obj_move.c		\
+			get_plus.c		\
 			cylinder_inter.c
 
 SRCS = $(addprefix $(DIR_S),$(SOURCES))

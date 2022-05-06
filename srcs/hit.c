@@ -6,13 +6,13 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:06:50 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/02 15:29:23 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:12:47 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_obj		*hit_objs(t_obj *obj, t_ray *ray)
+t_obj	*hit_objs(t_obj *obj, t_ray *ray)
 {
 	t_obj	*tmp;
 	t_obj	*hit;
@@ -38,7 +38,7 @@ t_obj		*hit_objs(t_obj *obj, t_ray *ray)
 	return (hit);
 }
 
-int			hit_obj(t_obj *obj, t_ray *ray, double *t)
+int	hit_obj(t_obj *obj, t_ray *ray, double *t)
 {
 	int		hit;
 

@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:41:56 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/05 19:20:33 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:11:18 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ t_ray	canvas2view(t_env *env, t_cam *cam, int x, int y)
 	init_ray(&ray);
 	ray.pos.w = 1;
 	ray.dir = v_norm(vector_direct(env, x, y));
-	new_pos = mat_mult_vec(cam->cam2world, ray.pos);
+	new_pos = mat_mult_vec(cam->c2w, ray.pos);
 	new_pos = v_add(new_pos, cam->pos);
 	new_dir = v_add(ray.pos, ray.dir);
-	new_dir = mat_mult_vec(cam->cam2world, new_dir);
+	new_dir = mat_mult_vec(cam->c2w, new_dir);
 	new_dir = v_add(new_dir, cam->pos);
 	ray.pos = new_pos;
 	ray.dir = v_norm(v_sub(new_pos, new_dir));

@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 19:07:28 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/05 18:29:44 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:28:17 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ int	check_val(double val, double min, double max)
 	return (1);
 }
 
-int	check_vec(t_vec vec)
+int	check_vec(t_vec vec, double min, double max)
 {
 	if ((vec.x == 0 && vec.y == 0 && vec.z == 0)
-		|| (!check_val(vec.x, -1, 1) || !check_val(vec.y, -1, 1)
-			|| !check_val(vec.z, -1, 1)))
+		|| (!check_val(vec.x, min, max) || !check_val(vec.y, min, max)
+			|| !check_val(vec.z, min, max)))
 		return (0);
 	return (1);
 }

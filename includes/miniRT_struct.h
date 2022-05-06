@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:20:38 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/03 16:45:28 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:11:50 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct		s_img
 ** pos = coordinates of the light point for {x, y, z} axis
 ** dir = 3D-normalized orientation vector in range [-1,1] for {x, y, z} axis
 ** fov = horizontal field of viewif (root1 > EPSILON && inside_cyl(cyl, ray, root1)) in degrees in range [0,180]
-** cam2world = camera space to world space 3D matrix
+** c2w = camera space to world space 3D matrix
 ** next: pointer to next camera
 */
 
@@ -88,8 +88,8 @@ typedef struct		s_cam
 	int				fov;
 	t_vec			right;
 	t_vec			up;
-	t_mat			cam2world;
-	t_mat			world2cam;
+	t_mat			c2w;
+	t_mat			w2c;
 	t_mat			rota;
 	t_mat			trans;
 	struct s_img	img;
@@ -281,7 +281,7 @@ typedef enum	e_errid
 	COORD_FMT,
 	CYL_FMT,
 	FD_ERR,
-	double_FMT,
+	DOUBLE_FMT,
 	ID_ERR,
 	LIGHT_FMT,
 	NO_AMB,

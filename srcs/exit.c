@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:04:48 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/05 19:10:19 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:08:32 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_err	g_errors[] =
 	{ COORD_FMT, "Invalid scene: Coordinates badly formatted.\n" },
 	{ CYL_FMT, "Invalid scene: Cylinder badly formatted.\n" },
 	{ FD_ERR, "Invalid file descriptor: Open failed.\n" },
-	{ double_FMT, "Invalid scene: doubleing-point number badly formatted.\n" },
+	{ DOUBLE_FMT, "Invalid scene: doubleing-point number badly formatted.\n" },
 	{ ID_ERR, "Invalid scene: Unknown identifier.\n" },
 	{ LIGHT_FMT, "Invalid scene: Light badly formatted.\n" },
 	{ NO_AMB, "No ambient light declared. Rendering stopped.\n" },

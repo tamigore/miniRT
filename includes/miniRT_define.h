@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:41:50 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/03 20:02:51 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:11:49 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define TITLE "miniRT"
 # define PIXEL_LEN 4
 # define EPSILON 0.0001
+# define OBJ_MOVE 1
 
 /*
 ** color

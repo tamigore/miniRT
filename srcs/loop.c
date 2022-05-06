@@ -6,13 +6,11 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 11:29:06 by user42            #+#    #+#             */
-/*   Updated: 2022/05/05 19:30:00 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:11:18 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-#define OBJ_MOVE 1
 
 int	close_program(t_env *env)
 {
@@ -45,7 +43,7 @@ static int	camera_move(int keycode, t_env *env)
 ** 		{
 ** 			for (int j = 0; j < 4; j++)
 ** 			{
-** 				printf("|%.6f|", env->cam->cam2world.mat[i][j]);
+** 				printf("|%.6f|", env->cam->c2w.mat[i][j]);
 ** 			}
 ** 			printf("\n");
 ** 		}

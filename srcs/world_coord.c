@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 18:30:44 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/05 18:26:43 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:11:42 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	set_mat_cam(t_cam *cam, t_vec rotation)
 	mat = mat_mult_mat(mat, rotmat_axis_angle(v_init(1, 0, 0, 0), rotation.x));
 	mat = mat_mult_mat(mat, rotmat_axis_angle(v_init(0, 1, 0, 0), rotation.y));
 	mat = mat_mult_mat(mat, rotmat_axis_angle(v_init(0, 0, 1, 0), rotation.z));
-	cam->world2cam = mat;
-	cam->cam2world = obj2world_mat(cam->world2cam);
+	cam->w2c = mat;
+	cam->c2w = obj2world_mat(cam->w2c);
 }
 
 void	set_mat_obj(t_obj *obj, t_vec rotation)
@@ -59,23 +59,23 @@ t_mat	world2obj_mat(t_vec dir, t_vec up, t_vec right)
 	return (mat);
 }
 
-t_mat	obj2world_mat(t_mat world2cam)
+t_mat	obj2world_mat(t_mat w2c)
 {
 	t_mat	mat;
 
-	mat = world2cam;
-	mat.mat[0][1] = world2cam.mat[1][0];
-	mat.mat[0][2] = world2cam.mat[2][0];
-	mat.mat[0][3] = world2cam.mat[3][0];
-	mat.mat[1][0] = world2cam.mat[0][1];
-	mat.mat[1][2] = world2cam.mat[2][1];
-	mat.mat[1][3] = world2cam.mat[3][1];
-	mat.mat[2][0] = world2cam.mat[0][2];
-	mat.mat[2][1] = world2cam.mat[1][2];
-	mat.mat[2][3] = world2cam.mat[3][2];
-	mat.mat[3][0] = world2cam.mat[0][3];
-	mat.mat[3][1] = world2cam.mat[1][3];
-	mat.mat[3][2] = world2cam.mat[2][3];
+	mat = w2c;
+	mat.mat[0][1] = w2c.mat[1][0];
+	mat.mat[0][2] = w2c.mat[2][0];
+	mat.mat[0][3] = w2c.mat[3][0];
+	mat.mat[1][0] = w2c.mat[0][1];
+	mat.mat[1][2] = w2c.mat[2][1];
+	mat.mat[1][3] = w2c.mat[3][1];
+	mat.mat[2][0] = w2c.mat[0][2];
+	mat.mat[2][1] = w2c.mat[1][2];
+	mat.mat[2][3] = w2c.mat[3][2];
+	mat.mat[3][0] = w2c.mat[0][3];
+	mat.mat[3][1] = w2c.mat[1][3];
+	mat.mat[3][2] = w2c.mat[2][3];
 	return (mat);
 }
 

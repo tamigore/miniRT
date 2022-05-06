@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:22:50 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/05 19:09:59 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:11:42 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ t_cam		*init_camera(t_env *env)
 	if (!cam)
 		exit_error(env, ERRNO_TO_STR);
 	cam->fov = 0;
-	cam->cam2world = identity_mat_init();
-	cam->world2cam = identity_mat_init();
+	cam->c2w = identity_mat_init();
+	cam->w2c = identity_mat_init();
 	cam->rota= identity_mat_init();
 	cam->trans = identity_mat_init();
 	cam->next = NULL;

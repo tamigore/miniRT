@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:26:22 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/05 18:52:14 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:45:11 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ void	get_camera(t_env *env)
 	cam->dir.z = str_to_double(env);
 	cam->dir = v_norm(cam->dir);
 	cam->fov = str_to_unsigned(env);
-	if (!check_val(cam->fov, 0, 180) || !check_vec(cam->dir)
-		|| fabs(cam->pos.x) == INFINITY || fabs(cam->pos.y) == INFINITY
-		|| fabs(cam->pos.z) == INFINITY)
+	if (!check_val(cam->fov, 0, 180) || !check_vec(cam->dir, -1, 1)
+		|| !check_val(cam->pos.x, -INFINITY, INFINITY)
+		|| !check_val(cam->pos.y, -INFINITY, INFINITY)
+		|| !check_val(cam->pos.z, -INFINITY, INFINITY))
 		exit_error(env, CAM_FMT);
 	cam->dir = v_norm(cam->dir);
 	cam->up = v_norm(get_orthogonal(cam->dir));
@@ -93,10 +94,10 @@ void	get_light(t_env *env)
 	lgt->color.x = str_to_unsigned(env);
 	lgt->color.y = str_to_unsigned(env);
 	lgt->color.z = str_to_unsigned(env);
-	if (!check_val(lgt->ratio, 0, 1) || !check_val(lgt->color.z, 0, 255)
-		|| !check_val(lgt->color.y, 0, 255) || !check_val(lgt->color.x, 0, 255)
-		|| fabs(lgt->pos.x) == INFINITY || fabs(lgt->pos.y) == INFINITY
-		|| fabs(lgt->pos.z) == INFINITY)
+	if (!check_val(lgt->ratio, 0, 1) || !check_vec(lgt->color, 0, 255)
+		|| !check_val(lgt->pos.x, -INFINITY, INFINITY)
+		|| !check_val(lgt->pos.y, -INFINITY, INFINITY)
+		|| !check_val(lgt->pos.z, -INFINITY, INFINITY))
 		exit_error(env, LIGHT_FMT);
 	env->nb_lgt++;
 	append_lgt(&(env->lgt), lgt);

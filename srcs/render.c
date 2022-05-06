@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:11:21 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/02 19:18:34 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:12:01 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 /*
 **	trace_ray : Does all the raytracing.
+** 
+**	printf(100 * (y * env->res.x + x) / (env->res.y * env->res.x));
 */
 
-void				trace_ray(t_env *env)
+void	trace_ray(t_env *env)
 {
 	unsigned int	x;
 	unsigned int	y;
@@ -34,16 +36,14 @@ void				trace_ray(t_env *env)
 			x++;
 		}
 		y++;
-		printf("\rrender : %d sur 100%%", 100 * (y * env->res.x + x) / (env->res.y * env->res.x));
 	}
-	printf("\rrender : 100 sur 100%%\n");
 }
 
 /*
 **	init_img : init mlx image.
 */
 
-t_img		init_img(t_env *env)
+t_img	init_img(t_env *env)
 {
 	t_img	img;
 
@@ -54,7 +54,7 @@ t_img		init_img(t_env *env)
 	img.endian = 0;
 	img.ptr = mlx_new_image(env->mlx, img.size_x, img.size_y);
 	img.pixels = mlx_get_data_addr(img.ptr, &(img.bpp),
-				&(img.size_line), &(img.endian));
+			&(img.size_line), &(img.endian));
 	return (img);
 }
 
