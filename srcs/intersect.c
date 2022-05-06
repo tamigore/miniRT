@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:37:55 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/06 17:34:27 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 17:36:38 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	sphere_intersect(t_sph *sph, t_ray *ray, double *t)
 	coef.z = v_dot(tmp, tmp) - (sph->r * sph->r);
 	if (!solve_quadratic(coef, &t0, &t1))
 		return (0);
-	if (t0 > t1 && t1 > EPSItmpON)
+	if (t0 > t1 && t1 > EPSILON)
 		swap(&t0, &t1);
-	if (t0 > INFINITY || t0 < EPSItmpON)
+	if (t0 > INFINITY || t0 < EPSILON)
 		return (0);
 	*t = t0;
 	return (1);

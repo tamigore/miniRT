@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 18:31:48 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/02 13:23:25 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 19:02:28 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 ** v3 = {a, b, c};
 */
 
-typedef struct	s_v3
+typedef struct s_v3
 {
 	double		x;
 	double		y;
@@ -45,7 +45,7 @@ typedef struct	s_v3
 ** to use operation with 4x4 matrix
 */
 
-typedef struct	s_vec
+typedef struct s_vec
 {
 	double		x;
 	double		y;
@@ -63,7 +63,7 @@ typedef struct	s_vec
 ** d 0 0 0 0
 */
 
-typedef struct	t_mat
+typedef struct t_mat
 {
 	double		mat[4][4];
 }				t_mat;
@@ -101,32 +101,32 @@ void			swap(double *x, double *y);
 ** MATRIX.C matrix init and fill
 */
 
-t_mat	identity_mat_init(void);
-t_mat	scale_mat_init(double scale);
-t_mat	translation_mat_init(t_vec tranvec);
+t_mat			identity_mat_init(void);
+t_mat			scale_mat_init(double scale);
+t_mat			translation_mat_init(t_vec tranvec);
 
 /*
 ** MATRIX_OP.C operation matrix
 */
 
-t_mat	mat_mult_mat(t_mat a, t_mat b);
-t_vec	mat_mult_vec(t_mat a, t_vec b);
+t_mat			mat_mult_mat(t_mat a, t_mat b);
+t_vec			mat_mult_vec(t_mat a, t_vec b);
 
 /*
 ** MATRIX_TR.C matrix transformation and rotation
 */
 
-t_mat	mat_angle(t_vec axis, double cos, double sin, double t);
-t_mat	rotmat_axis_angle(t_vec axis, double angle);
-t_mat	rotx_mat_init(double degrees);
-t_mat	roty_mat_init(double degrees);
-t_mat	rotz_mat_init(double degrees);
+t_mat			mat_angle(t_vec axis, double cos, double sin, double t);
+t_mat			rotmat_axis_angle(t_vec axis, double angle);
+t_mat			rotx_mat_init(double degrees);
+t_mat			roty_mat_init(double degrees);
+t_mat			rotz_mat_init(double degrees);
 
 /*
 ** MATH.C
 */
 
-double		ft_pow(double x, int i);
-int			sign(double x);
+double			ft_pow(double x, int i);
+int				sign(double x);
 
 #endif

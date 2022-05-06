@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 16:11:33 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/05 19:21:06 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 18:26:48 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_vec	get_cyl_normal(t_cyl *cyl, t_ray *ray)
 	t_vec	normal;
 
 	normal = v_init(0, 0, 0, 0);
-	t = interCylinder(ray, cyl, &normal);
+	t = inter_cylinder(ray, cyl, &normal);
 	if (t > 0)
 		return (normal);
 	return (v_init(0, 0, 0, 0));

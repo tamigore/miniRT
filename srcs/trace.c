@@ -6,13 +6,11 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:30:03 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/06 16:35:42 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 18:55:04 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-#define LUMEN 100
 
 /*
 **	shade : Get the object lights specular + direct.

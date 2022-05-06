@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 18:31:48 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/02 13:23:25 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 19:02:28 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ t_vec			mat_mult_vec(t_mat a, t_vec b);
 ** MATRIX_TR.C matrix transformation and rotation
 */
 
-t_mat			mat_angle_get(t_vec axis, double cos, double sin, double t);
+t_mat			mat_angle(t_vec axis, double cos, double sin, double t);
 t_mat			rotmat_axis_angle(t_vec axis, double angle);
 t_mat			rotx_mat_init(double degrees);
 t_mat			roty_mat_init(double degrees);

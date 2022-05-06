@@ -6,12 +6,12 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:20:38 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/06 16:58:33 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 19:32:30 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _MINIRT_STRUCT_H_
-# define _MINIRT_STRUCT_H_
+#ifndef MINIRT_STRUCT_H
+# define MINIRT_STRUCT_H
 
 # include "libmath.h"
 
@@ -23,7 +23,7 @@
 ** color = R,G,B colors in range [0.0,1.0]
 */
 
-typedef struct		s_amb
+typedef struct s_amb
 {
 	int				check;
 	t_vec			color;
@@ -38,7 +38,7 @@ typedef struct		s_amb
 ** size_y: height of the image
 */
 
-typedef struct		s_res
+typedef struct s_res
 {
 	int				check;
 	int				x;
@@ -59,7 +59,7 @@ typedef struct		s_res
 ** next = pointer to next image
 */
 
-typedef struct		s_img
+typedef struct s_img
 {
 	int				size_x;
 	int				size_y;
@@ -70,18 +70,18 @@ typedef struct		s_img
 	int				endian;
 }					t_img;
 
-
 /*
 ** t_cam = struct for camera
 **
 ** pos = coordinates of the light point for {x, y, z} axis
 ** dir = 3D-normalized orientation vector in range [-1,1] for {x, y, z} axis
-** fov = horizontal field of viewif (root1 > EPSILON && inside_cyl(cyl, ray, root1)) in degrees in range [0,180]
+** fov = horizontal field of viewif (root1 > EPSILON && inside_cyl(cyl, ray,
+** root1)) in degrees in range [0,180]
 ** c2w = camera space to world space 3D matrix
 ** next: pointer to next camera
 */
 
-typedef struct		s_cam
+typedef struct s_cam
 {
 	t_vec			pos;
 	t_vec			dir;
@@ -105,7 +105,7 @@ typedef struct		s_cam
 ** next: Pointer to next light
 */
 
-typedef struct		s_lgt
+typedef struct s_lgt
 {
 	t_vec			pos;
 	double			ratio;
@@ -121,7 +121,7 @@ typedef struct		s_lgt
 ** color = color of the plane in 3 vector R->G->B in range [0.0,1.0]
 */
 
-typedef struct		s_pla
+typedef struct s_pla
 {
 	t_vec			pos;
 	t_vec			dir;
@@ -138,7 +138,7 @@ typedef struct		s_pla
 ** color = color of the cylinder in 3 vector R->G->B in range [0.0,1.0]
 */
 
-typedef struct		s_cyl
+typedef struct s_cyl
 {
 	t_vec			pos;
 	t_vec			dir;
@@ -156,7 +156,7 @@ typedef struct		s_cyl
 ** color = color of the triangle in 3 vector R->G->B in range [0.0,1.0]
 */
 
-typedef struct		s_tri
+typedef struct s_tri
 {
 	t_vec			p1;
 	t_vec			p2;
@@ -172,7 +172,7 @@ typedef struct		s_tri
 ** color = color of the sphere in 3 vector R->G->B in range [0.0,1.0]
 */
 
-typedef struct		s_sph
+typedef struct s_sph
 {
 	t_vec			pos;
 	double			r;
@@ -183,7 +183,7 @@ typedef struct		s_sph
 ** t_objid = enum for all object
 */
 
-typedef enum		s_objid
+typedef enum s_objid
 {
 	SPHERE,
 	TRIANGLE,
@@ -199,7 +199,7 @@ typedef enum		s_objid
 ** next = ptr for the next obj in the list
 */
 
-typedef struct		s_obj
+typedef struct s_obj
 {
 	t_objid			id;
 	void			*data;
@@ -223,7 +223,7 @@ typedef struct		s_obj
 ** normal at hit point
 */
 
-typedef struct		s_ray
+typedef struct s_ray
 {
 	t_vec			pos;
 	t_vec			dir;
@@ -251,7 +251,7 @@ typedef struct		s_ray
 ** img = rendered images
 */
 
-typedef struct		s_env
+typedef struct s_env
 {
 	char			*sceen;
 	void			*mlx;

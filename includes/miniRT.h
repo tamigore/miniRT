@@ -5,26 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/24 13:30:18 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/06 16:57:34 by tamigore         ###   ########.fr       */
+/*   Created: 2022/05/06 19:01:45 by tamigore          #+#    #+#             */
+/*   Updated: 2022/05/06 19:02:14 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _MINIRT_H_
-# define _MINIRT_H_
+#ifndef MINIRT_H
+# define MINIRT_H
 
-#include "mlx.h"
-#include "libft.h"
-#include "libmath.h"
-#include "miniRT_struct.h"
-#include "miniRT_define.h"
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
-#include <stdio.h>
-#include <stdarg.h>
+# include "mlx.h"
+# include "libft.h"
+# include "libmath.h"
+# include "miniRT_struct.h"
+# include "miniRT_define.h"
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <math.h>
+# include <stdio.h>
+# include <stdarg.h>
 
 /*
 ** loop.c
@@ -38,11 +38,11 @@ void		graphic_loop(t_env *env);
 ** cam_move.c
 */
 
-void	move_left_right(t_env *env, int keycode);
-void	move_forward_backward(t_env *env, int keycode);
-void	move_up_down(t_env *env, int keycode);
-void	rotate_1(t_env *env, int keycode);
-void	rotate_2(t_env *env, int keycode);
+void		move_left_right(t_env *env, int keycode);
+void		move_forward_backward(t_env *env, int keycode);
+void		move_up_down(t_env *env, int keycode);
+void		rotate_1(t_env *env, int keycode);
+void		rotate_2(t_env *env, int keycode);
 
 /*
 ** parsing.c
@@ -89,7 +89,7 @@ t_vec		*get_obj_dir(t_obj *obj);
 /*
 ** obj_move.c
 */
-void	    obj_move(int keycode, t_env *env);
+void		obj_move(int keycode, t_env *env);
 
 /*
 ** conv_nb.c
@@ -138,11 +138,16 @@ int			hit_obj(t_obj *obj, t_ray *ray, double *t);
 ** intersect.c
 */
 
-double		interCylinder(t_ray *ray, t_cyl *cyl, t_vec *normal);
 int			sphere_intersect(t_sph *sph, t_ray *ray, double *t);
-int			cylinder_intersect(t_cyl *cyl, t_ray *ray, double *t);
 int			plane_intersect(t_pla *pla, t_ray *ray, double *t);
 int			triangle_intersect(t_tri *tri, t_ray *ray, double *t);
+
+/*
+** intersect.c
+*/
+
+int			cylinder_intersect(t_cyl *cyl, t_ray *ray, double *t);
+double		inter_cylinder(t_ray *ray, t_cyl *cyl, t_vec *normal);
 
 /*
 ** inter_util.c
@@ -198,10 +203,10 @@ void		get_triangle(t_env *env);
 ** get_plus.c
 */
 
-void	get_spher_plus(t_env *env, t_obj *obj);
-void	get_plane_plus(t_env *env, t_obj *obj);
-void	get_cyliner_plus(t_env *env, t_obj *obj);
-void	get_triangle_plus(t_env *env, t_obj *obj);
+void		get_spher_plus(t_env *env, t_obj *obj);
+void		get_plane_plus(t_env *env, t_obj *obj);
+void		get_cyliner_plus(t_env *env, t_obj *obj);
+void		get_triangle_plus(t_env *env, t_obj *obj);
 
 /*
 ** get_normal.c
@@ -210,7 +215,6 @@ void	get_triangle_plus(t_env *env, t_obj *obj);
 t_vec		get_sph_normal(t_sph *sph, t_ray *ray);
 t_vec		get_cyl_normal(t_cyl *cyl, t_ray *ray);
 t_vec		get_tri_normal(t_tri *tri);
-
 
 /*
 ** free.c

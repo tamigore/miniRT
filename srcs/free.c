@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:10:05 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/06 16:20:56 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 19:18:49 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,10 @@ void	free_env(t_env *env)
 		free_obj(env->obj);
 	printf("mlx\n");
 	if (env->mlx)
+	{
+		mlx_destroy(env->mlx);
 		free(env->mlx);
+	}
 	printf("env...\n");
 	free(env);
 }

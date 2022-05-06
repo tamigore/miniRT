@@ -6,7 +6,7 @@
 #    By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/19 16:16:11 by tamigore          #+#    #+#              #
-#    Updated: 2022/05/06 16:18:40 by tamigore         ###   ########.fr        #
+#    Updated: 2022/05/06 18:24:09 by tamigore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SOURCES =	conv_nb.c		\
 			obj.c			\
 			parsing.c		\
 			print.c			\
+			print_obj.c		\
 			ray.c			\
 			render.c		\
 			trace.c			\
