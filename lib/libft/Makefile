@@ -6,7 +6,7 @@
 #    By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/08 15:04:29 by tamigore          #+#    #+#              #
-#    Updated: 2022/04/12 17:23:50 by tamigore         ###   ########.fr        #
+#    Updated: 2022/05/06 17:28:09 by tamigore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ SRC/I = ft_isalnum.c	\
 		ft_isalpha.c	\
 		ft_isascii.c	\
 		ft_isdigit.c	\
-		ft_isprint.c
+		ft_isprint.c	\
+		ft_isspace.c
 
 SRC/P = ft_putchar.c	\
 		ft_putstr.c		\

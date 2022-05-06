@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/11 16:04:48 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/06 17:01:17 by tamigore         ###   ########.fr       */
+/*   Created: 2022/05/06 17:25:36 by tamigore          #+#    #+#             */
+/*   Updated: 2022/05/06 17:27:26 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-void	exit_sucess(t_env *env)
+int ft_isspace(char c)
 {
-	free_env(env);
-	ft_putstr("EXIT\n");
-	exit(END);
-}
-
-void	exit_error(t_env *env, char *str)
-{
-	free_env(env);
-	ft_putstr_fd("Error: ", STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
-	exit(EXIT_FAILURE);
+    if (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\v'
+        || c == '\f')
+        return (1);
+    return (0);
 }

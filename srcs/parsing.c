@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:36:40 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/06 16:39:30 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 17:30:26 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 */
 static void	fill_env_sceen(t_env *env)
 {
-	printf("%s\n", env->sceen);
 	if (!ft_strncmp(SPH_ID, env->sceen, ID_OBJ_LEN))
 		get_sphere(env);
 	else if (!ft_strncmp(PLA_ID, env->sceen, ID_OBJ_LEN))
@@ -104,7 +103,7 @@ void	pars_sceen(char *av, t_env *env)
 	head = env->sceen;
 	while (*(env->sceen))
 	{
-		if (*(env->sceen) == '\n')
+		if (*(env->sceen) == '\n' || ft_isspace(*(env->sceen)))
 			(env->sceen)++;
 		else if (comp_all(env->sceen))
 			fill_env_sceen(env);

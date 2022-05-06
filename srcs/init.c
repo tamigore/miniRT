@@ -6,13 +6,13 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:22:50 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/06 16:11:42 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 17:31:37 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_env		*init_env(void)
+t_env	*init_env(void)
 {
 	t_env	*env;
 
@@ -31,7 +31,7 @@ t_env		*init_env(void)
 	return (env);
 }
 
-t_cam		*init_camera(t_env *env)
+t_cam	*init_camera(t_env *env)
 {
 	t_cam	*cam;
 
@@ -41,14 +41,14 @@ t_cam		*init_camera(t_env *env)
 	cam->fov = 0;
 	cam->c2w = identity_mat_init();
 	cam->w2c = identity_mat_init();
-	cam->rota= identity_mat_init();
+	cam->rota = identity_mat_init();
 	cam->trans = identity_mat_init();
 	cam->next = NULL;
 	cam->img.ptr = NULL;
 	return (cam);
 }
 
-void		append_cam(t_cam **cams, t_cam *new_cam)
+void	append_cam(t_cam **cams, t_cam *new_cam)
 {
 	t_cam	*tmp;
 
@@ -65,7 +65,7 @@ void		append_cam(t_cam **cams, t_cam *new_cam)
 		*cams = new_cam;
 }
 
-t_lgt		*init_light(t_env *env)
+t_lgt	*init_light(t_env *env)
 {
 	t_lgt	*lgt;
 
@@ -77,7 +77,7 @@ t_lgt		*init_light(t_env *env)
 	return (lgt);
 }
 
-void		append_lgt(t_lgt **lgts, t_lgt *new_lgt)
+void	append_lgt(t_lgt **lgts, t_lgt *new_lgt)
 {
 	t_lgt	*tmp;
 

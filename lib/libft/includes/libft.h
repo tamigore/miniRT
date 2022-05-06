@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 18:31:48 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/05 18:15:50 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 17:27:50 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,5 +140,6 @@ char			*ft_rmchar(char *str, char c);
 char			*ft_free_rmstr(char *str, int i, int j);
 char			*ft_free_rmchar(char *str, char c);
 char			*ft_free_join(char *s1, char *s2, int x);
+int 			ft_isspace(char c);
 
 #endif
