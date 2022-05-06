@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:20:38 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/06 16:11:50 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:58:33 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,65 +266,5 @@ typedef struct		s_env
 	struct s_obj	*obj;
 	struct s_obj	*hit_obj;
 }					t_env;
-
-/*
-** t_errid = ID of the error
-*/
-
-typedef enum	e_errid
-{
-	ERRNO_TO_STR = -1,
-	AMB_DUP,
-	AMB_FMT,
-	CAM_FMT,
-	COLOR_FMT,
-	COORD_FMT,
-	CYL_FMT,
-	FD_ERR,
-	DOUBLE_FMT,
-	ID_ERR,
-	LIGHT_FMT,
-	NO_AMB,
-	NO_CAM,
-	NO_LIGHT,
-	NO_OBJ,
-	NUM_FMT,
-	PLANE_FMT,
-	RES_DUP,
-	RES_LOW,
-	SCENE_FMT,
-	SPHERE_FMT
-}				t_errid;
-
-/*
-** t_err = error struct to exit
-**
-** id = ID of the error
-** txt = error message
-*/
-
-typedef struct	s_err
-{
-	t_errid		id;
-	char		*msg;
-}				t_err;
-
-/*
-** t_pars_func = give the good function to the parser
-*/
-
-typedef	void	(*t_pars_func)(t_env *env);
-
-/*
-**
-** t_pars = give the good function to the parser thanks to the id
-*/
-
-typedef struct	s_pars
-{
-	char		*id;
-	int			id_len;
-	t_pars_func	func;
-}				t_pars;
 
 #endif

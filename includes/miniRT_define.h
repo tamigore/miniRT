@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:41:50 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/06 16:11:49 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:58:07 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,32 @@
 # define CYL_ID "cy"
 # define SPH_ID "sp"
 # define PLA_ID "pl"
+
+/*
+**	errors
+*/
+
+# define AMB_DUP "Invalid scene: Ambient light must be declared once.\n"
+# define MB_FMT "Invalid scene: Ambient light badly formatted.\n"
+# define CAM_FMT "Invalid scene: Camera badly formatted.\n"
+# define COLOR_FMT "Invalid scene: Color badly formatted.\n"
+# define COORD_FMT "Invalid scene: Coordinates badly formatted.\n"
+# define CYL_FMT "Invalid scene: Cylinder badly formatted.\n"
+# define FD_ERR "Invalid file descriptor: Open failed.\n"
+# define DOUBLE_FMT "Invalid scene: doubleing-point number badly formatted.\n"
+# define ID_ERR "Invalid scene: Unknown identifier.\n"
+# define LIGHT_FMT "Invalid scene: Light badly formatted.\n"
+# define NO_AMB "No ambient light declared. Rendering stopped.\n"
+# define NO_CAM "No camera declared. Rendering stopped.\n"
+# define NO_LIGHT "No light declared. Rendering stopped.\n"
+# define NO_OBJ "No object declared. Rendering stopped.\n"
+# define NUM_FMT "Invalid scene: Number badly formatted.\n"
+# define PLANE_FMT "Invalid scene: Plane badly formatted.\n"
+# define RES_DUP "Invalid scene: Resolution must be declared once.\n"
+# define RES_LOW "Resolution too low: minimum is 300x300. Rendering stopped.\n"
+# define SCENE_FMT "Invalid scene: Scene badly formatted.\n"
+# define SPHERE_FMT "Invalid scene: Sphere badly formatted.\n"
+# define ERRNO_TO_STR "Malloc error.\n"
 
 /*
 **	mlx

@@ -6,7 +6,7 @@
 /*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:30:18 by tamigore          #+#    #+#             */
-/*   Updated: 2022/05/06 16:44:45 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:57:34 by tamigore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,7 @@ void		free_env(t_env *env);
 ** exit.c
 */
 
-void		exit_error(t_env *env, t_errid id);
+void		exit_error(t_env *env, char *str);
 void		exit_sucess(t_env *env);
 
 /*
